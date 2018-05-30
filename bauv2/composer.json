@@ -1,0 +1,19 @@
+{
+    "name": "joao.franca", 
+    "Description": "Boletim de Atendimento de Urgência - Secretaria Municipal de Saúde - SMS Natal",
+    "license": "MIT",
+    "type": "project",
+    "autor": {"name": "João Carias de França"
+        ,"email": "joaocariasdefranca@gmail.com"},
+    "autoload":{
+        "psr-4":{
+            "App\\": "app/"            
+            , "Layout\\": "layout/"            
+            , "Core\\": "core/"
+            , "Lib\\": "lib/"
+        }
+    },
+    "require":{
+        "php": ">=5.4"
+}
+}
