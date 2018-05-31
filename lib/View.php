@@ -223,7 +223,7 @@ class View {
                                     <!-- Languages dropdown    -->
                                     '.$this->getLangueges().'
                                     <!-- Logout    -->
-                                    <li class="nav-item"><a href="/logout" class="nav-link logout">Sair<i class="fa fa-sign-out"></i></a></li>
+                                    <li class="nav-item"><a href="logout.php" class="nav-link logout">Sair<i class="fa fa-sign-out"></i></a></li>
                                   </ul>
                                 </div>
                               </div>
