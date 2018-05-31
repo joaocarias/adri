@@ -300,7 +300,7 @@ class View {
                             
                               <!-- Sidebar Navidation Menus--><span class="heading">Avaliador</span>
                               <ul class="list-unstyled">
-                                    '.$this->itemMenu("dashboard.php", "icon-home", "Avaliar").'                                                                        
+                                    '.$this->itemMenu("avaliar.php", "icon-home", "Avaliar").'                                                                        
                               </ul>
 
                               <!-- Sidebar Navidation Menus--><span class="heading">Administração</span>

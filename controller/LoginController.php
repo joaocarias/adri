@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-include_once '../model/Servidor.php';
-include_once '../model/LogAcesso.php';
+include_once '../app/model/Servidor.php';
+include_once '../app/model/LogAcesso.php';
 
 $btnLogin = filter_input(INPUT_POST, 'btnLogin', FILTER_SANITIZE_STRING);
 $loginUsername = filter_input(INPUT_POST, 'loginUsername', FILTER_SANITIZE_STRING);
@@ -19,15 +19,15 @@ if($btnLogin){
         
         $logAcesso = new LogAcesso();
         $retorno = $logAcesso->insertObj($dados->getId_servidor(), $loginUsername,  'PERMITIDO');
-        header('Location: ../../page/dashboard.php?r='.$retorno['id']);
+        header('Location: ../page/dashboard.php?r='.$retorno['id']);
         var_dump($retorno);
     }else{
         $_SESSION['logado'] = '0';
         $logAcesso = new LogAcesso();
         $retorno = $logAcesso->insertObj(null, $loginUsername,'NEGADO');
         var_dump($retorno);
-        header('Location: ../../page/login.php?msg=senha_invalida&r='.$retorno['id']);
+        header('Location: ../page/login.php?msg=senha_invalida&r='.$retorno['id']);
     }
 }else{
-    header('Location: login.php?msg=nao_logado');
+    header('Location: ../page/login.php?msg=nao_logado');
 }

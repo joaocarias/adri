@@ -1,6 +1,6 @@
 <?php
 
-include_once '../../lib/ModelDimenisionamento.php';
+include_once '../lib/ModelDimenisionamento.php';
 
 /**
  * Description of Servidor

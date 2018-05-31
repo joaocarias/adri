@@ -31,7 +31,7 @@ class LoginView {
                         <!-- Font Awesome CSS-->
                         <link rel="stylesheet" href="../layout/vendor/font-awesome/css/font-awesome.min.css">
                         <!-- Fontastic Custom icon font-->
-                        <link rel="stylesheet" href="layout/css/fontastic.css">
+                        <link rel="stylesheet" href="../layout/css/fontastic.css">
                         <!-- Google fonts - Poppins -->
                         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
                         <!-- theme stylesheet-->
@@ -48,7 +48,7 @@ class LoginView {
     }
     
     private function getContent(){
-        $action_form = "../app/controller/LoginController.php";
+        $action_form = "../controller/LoginController.php";
         
         return ' <div class="page login-page">
                           <div class="container d-flex align-items-center">

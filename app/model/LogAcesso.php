@@ -1,6 +1,6 @@
 <?php
 
-include_once '../../lib/ModelBasico.php';
+include_once '../lib/ModelBasico.php';
 
 /**
  * Description of LogAcesso
