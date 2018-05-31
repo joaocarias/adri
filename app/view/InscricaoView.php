@@ -1,5 +1,9 @@
 <?php
 
+include_once '../app/model/Unidade.php';
+include_once '../app/model/Servidor.php';
+include_once '../app/model/Cargo.php';
+include_once '../app/model/Funcao.php';
 include_once '../lib/Sistema.php';
 include_once '../lib/View.php';
 
@@ -581,15 +585,29 @@ class InscricaoView extends View {
     
     private function getFormServidor(){
         
+        $myObjUni = new Unidade();
+        $arrayUnidade = $myObjUni->getArrayBasic();
+        
+        $myObjCar = new Cargo();
+        $arrayCargo = $myObjCar->getArrayBasic();
+        
+        $myObjFun = new Funcao();
+        $arrayFuncao = $myObjFun->getArrayBasic();
+        
+        $objServidor = new Servidor();
+        $objPerfil = $objServidor->getObjPorLogin($_SESSION['cpf_servidor']);
+        
         $arrayButton = array(
                             array("id" => 1, "value" => "A Pedido"),
                             array("id" => 2, "value" => "Devolução"));
     
         return $this->beginForm("col-md-12", "POST", "#").'
-                    '.$this->getInput("text", "nome", "Nome", "Nome Servidor", "col-sm-8", true, "Teste", false).'
+                    '.$this->getInput("text", "nome", "Nome", "Nome Servidor", "col-sm-8", true, $objPerfil->getNome_servidor(), true).'
+                    '.$this->getInput("text", "cpf", "CPF", "CPF Servidor", "col-sm-8", true, $objPerfil->getCpf_servidor(), true).'
+                    '.$this->getInput("text", "cep_servidor", "CEP", "CEP", "col-sm-4", true, "", false, "99999-999").'
                     '.$this->getInput("text", "endereco", "Endereço", "Endereço Servidor", "col-sm-8", true).'
-                    '.$this->getInput("tel", "telefone", "Telefone", "Telefone Servidor", "col-sm-8", true).'
-                    '.$this->getInput("email", "email", "Email", "Email Servidor", "col-sm-8", true).'
+                    '.$this->getInput("tel", "telefone", "Telefone", "Telefone Servidor", "col-sm-8", true, $objPerfil->getEmail()).'
+                    '.$this->getInput("email", "email", "Email", "Email Servidor", "col-sm-8", true, $objPerfil->getTelefone()).'
                     '.$this->getSelect($arrayCargo, "cargo", "Cargo Atual", "col-sm-8", true).'
                     '.$this->getSelect($arrayFuncao, "funcao", "Função Atual", "col-sm-8", true).'
                     '.$this->getSelect($arrayUnidade, "unidade_atual", "Unidade Atual", "col-sm-8", true).'
@@ -642,6 +660,7 @@ class InscricaoView extends View {
                               '.$this->beginCard("col-md-12", "Inscrição Remanejamento").'
                               '.$this->getFormServidor().'
                               '.$this->endCard().'
+                              '. $this->getScritpCorreiosEndereco().'
                               <!-- Page Footer-->
                               '.$this->getFooter().'
                       </body>
