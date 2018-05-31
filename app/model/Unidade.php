@@ -1,6 +1,6 @@
 <?php
 
-include_once '../../lib/ModelDimenisionamento.php';
+include_once '../lib/ModelDimenisionamento.php';
 
 /**
  * Description of Unidade
@@ -14,7 +14,7 @@ class Unidade extends ModelDimenisionamento{
     private $sigla_unidade;
     
     public function selectObj($id){
-        $sql = " SELECT * FROM tb_unidade WHERE ativo = '1' AND id_unidade = '{$id}' ORDER BY nome_unidade ASC ";
+        $sql = " SELECT * FROM unidade WHERE status_unidade = '1' AND id_unidade = '{$id}' ORDER BY nome_unidade ASC ";
                 
         $dados = $this->select($sql);        
         $obj = new Unidade();
@@ -44,7 +44,7 @@ class Unidade extends ModelDimenisionamento{
     }
     
     public function getListObjActive(){
-        $sql = " SELECT * FROM tb_unidade WHERE ativo = '1' ORDER BY nome_unidade ASC ";
+        $sql = " SELECT * FROM unidade WHERE status_unidade = '1' ORDER BY nome_unidade ASC ";
         
         $dados = array();
         $dados = $this->select($sql);
@@ -58,7 +58,7 @@ class Unidade extends ModelDimenisionamento{
             $obj->setId_distrito($row->id_distrito);
             $obj->setId_unidade($row->id_unidade);
             $obj->setNome_unidade($row->nome_unidade);
-            $obj->setSigla_unidade($ow->sigla_unidade);
+            $obj->setSigla_unidade($row->sigla_unidade);
             
             array_push($array, $obj);
         }        

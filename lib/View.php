@@ -306,7 +306,7 @@ class View {
                               <!-- Sidebar Navidation Menus--><span class="heading">Administração</span>
                               <ul class="list-unstyled">   
                                  '.$this->itemMenuDown("dashboard.php", "icon-interface-windows", "Avaliadores",$arrayAvaliadores).'                                          
-                                 '.$this->itemMenuDown("dashboard.php", "icon-interface-windows", "Unidades",$arrayUnidades).'                                          
+                                 '.$this->itemMenuDown("unidade.php", "icon-interface-windows", "Unidades",$arrayUnidades).'                                          
                               </ul>
                                                               
                             </nav>';
