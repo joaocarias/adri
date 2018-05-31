@@ -406,7 +406,58 @@ class View {
                           </div>
                         </div>';
         
-    }     
+    } 
+    
+    public function getRadioButton($array, $name, $label, $tamanho, $id_checked = null) {
+        $options = "";
+        
+        foreach ($array as $row){
+            if($row['id'] == $id_checked){
+                $radio_selected_ = 'checked';
+            }else{
+                $radio_selected_ = "";
+            }
+            
+            $options = $options . '<input type="radio" name="'.$name.'" value="'.$row['id'].'"> '.$row['value'].'&nbsp;&nbsp;&nbsp;&nbsp;';
+        }
+        
+        return '<div class="form-group row">
+                    <label class="col-sm-3 form-control-label">'.$label.'</label>
+                    <div class="'.$tamanho.'">
+                        '.$options.'
+                    </div>
+                </div>';
+    }
+    
+    public function getTextarea($name, $label, $placeholder, $tamanho, $required, $value = null, $bloaquear = null) {
+        if($required){
+            $obrigatorio = "required=required";
+            $descricao = "* Campo Obrigatório";
+        } else {
+            $obrigatorio = "";
+            $descricao = "";
+        }
+        
+        if(($bloaquear) && (!is_null($bloaquear))){
+            $disabled = 'disabled=""';
+        }else{
+            $disabled = '';
+        }
+        
+        if(is_null($value)){
+            $value = "";
+        }else{
+            $value = "value='{$value}'";
+        }
+        
+        return '<div class="form-group row">
+                    <label class="col-sm-3 form-control-label">'.$label.'</label>
+                    <div class="'.$tamanho.'">
+                        <textarea id="'.$name.'" name="'.$name.'" placeholder="'.$placeholder.'" class="form-control input-sm form-control-success" '.$obrigatorio.' '.$disabled.'>'.$value.'</textarea> 
+                        <small class="form-text">'.$descricao.'</small>
+                    </div>
+                </div>';
+    }
      
     public function getSelect($array, $nome, $label, $tamanho, $required, $id_select = null){
         $selecione = '';
