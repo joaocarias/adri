@@ -35,7 +35,7 @@ class Unidade extends ModelDimenisionamento{
         
         $i = 0;
         foreach ($list as $item){
-            $array[$i]['id'] = $item->getId_unidade;
+            $array[$i]['id'] = $item->getId_unidade();
             $array[$i]['value'] = $item->getNome_unidade();
             $i++;
         }
