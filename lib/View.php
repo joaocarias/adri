@@ -190,7 +190,7 @@ class View {
     }
     
     public function getNavBar(){
-        $explode = explode(" ", $this->sistema->getName());
+        $explode = explode(" ", $this->sistema->getReduced_name());
         
         return ' <!-- Main Navbar-->
                           <header class="header">
@@ -207,7 +207,7 @@ class View {
                                   <!-- Navbar Header-->
                                   <div class="navbar-header">
                                     <!-- Navbar Brand --><a href="/home" class="navbar-brand">
-                                      <div class="brand-text brand-big"><span>'.$explode[0].' </span><strong>'.$explode[2].'</strong></div>
+                                      <div class="brand-text brand-big"><span>'.$explode[0].' </span><strong>'.$explode[1].'</strong></div>
                                       <div class="brand-text brand-small"><strong>'.$this->sistema->getSigla().'</strong></div></a>
                                     <!-- Toggle Button-->
                                     <a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>

@@ -7,6 +7,7 @@
  */
 class Sistema {
     private $name = "Sistema de Remoção Interna";
+    private $reduced_name = "Remoção Interna";
     private $sigla = "RI";
     private $versao = "1.0";
     private $description = "Sistema de Remoção Interna da Secretaria Municipal de Saúde de Natal";
@@ -78,4 +79,12 @@ class Sistema {
     function setUnity($unity) {
         $this->unity = $unity;
     }    
+    
+    function getReduced_name() {
+        return $this->reduced_name;
+    }
+
+    function setReduced_name($reduced_name) {
+        $this->reduced_name = $reduced_name;
+    }
 }
