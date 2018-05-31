@@ -12,7 +12,7 @@ include_once '../lib/View.php';
  * @author joao
  */
 class UnidadeView extends View{
-      function __construct($title_page = null, $sistema = null) {
+    function __construct($title_page = null, $sistema = null) {
         parent::__construct($title_page, $sistema);        
     }
     

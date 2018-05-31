@@ -286,7 +286,7 @@ class View {
 
     public function getMenu(){
                
-        $arrayAvaliadores = array("Cadastro" => "novo", "Listar" => "lista" );
+        $arrayAvaliadores = array("Cadastro" => "cadastro=true", "Listar" => "lista=true" );
         $arrayUnidades = array("Listar" => "lista=true" );
         
         return '<nav class="side-navbar">
@@ -305,7 +305,7 @@ class View {
 
                               <!-- Sidebar Navidation Menus--><span class="heading">Administração</span>
                               <ul class="list-unstyled">   
-                                 '.$this->itemMenuDown("dashboard.php", "icon-interface-windows", "Avaliadores",$arrayAvaliadores).'                                          
+                                 '.$this->itemMenuDown("avaliadores.php", "icon-interface-windows", "Avaliadores",$arrayAvaliadores).'                                          
                                  '.$this->itemMenuDown("unidade.php", "icon-interface-windows", "Unidades",$arrayUnidades).'                                          
                               </ul>
                                                               
@@ -402,7 +402,7 @@ class View {
                           <label class="col-sm-3 form-control-label">'.$label.'</label>
                           <div class="'.$tamanho.'">
                             <input  id="'.$name.'" name="'.$name.'" type="'.$type.'" '.$value.' '
-                                . ' placeholder="'.$placeholder.'" class="form-control input-sm form-control-success" '.$obrigatorio.' '.$disabled.'
+                                . ' placeholder="'.$placeholder.'" class="form-control form-control-sm form-control-success" '.$obrigatorio.' '.$disabled.'
                                     '.$mask_.' '.$maxlength_.' '.$outro.'  >
                                 <small class="form-text">'.$descricao.'</small>
                           </div>
