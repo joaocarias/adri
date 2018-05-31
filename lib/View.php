@@ -285,12 +285,8 @@ class View {
     }
 
     public function getMenu(){
-        
-        $arrayUsuario = array("Cadastro" => "novo", "Listar" => "lista", "Resetar Senha" => "lista" );
-        $arrayPaciente = array("Cadastro" => "novo", "Listar" => "lista", "Buscar" => "buscar" );
-        $arrayConfiguracoes = array("Impressão do BAU" => "impressaobau", "Tipo de Atendimento" => "tipoatendimento" );
-        $arrayProfissoes = array("Cadastro" => "novo", "Listar" => "lista" );
-        $arrayAtendimento = array("Cadastro" => "novo", "Listar" => "lista" );
+               
+        $arrayAvaliadores = array("Cadastro" => "novo", "Listar" => "lista" );
         
         return '<nav class="side-navbar">
                               <!-- Sidebar Header-->
@@ -300,22 +296,17 @@ class View {
                                     '.$this->itemMenu("dashboard.php", "icon-home", "Início").'                                    
                                     '.$this->itemMenu("inscricao.php", "icon-check", "Inscrição").'   
                               </ul>
-                              
+                            
+                              <!-- Sidebar Navidation Menus--><span class="heading">Avaliador</span>
+                              <ul class="list-unstyled">
+                                    '.$this->itemMenu("dashboard.php", "icon-home", "Avaliar").'                                                                        
+                              </ul>
+
                               <!-- Sidebar Navidation Menus--><span class="heading">Administrativo</span>
                               <ul class="list-unstyled">   
-                                 '.$this->itemMenuDown("/user", "icon-interface-windows", "Usuário",$arrayUsuario).'     
-                                 '.$this->itemMenuDown("/profissoes", "icon-presentation", "Profissão",$arrayProfissoes).'   
-                                 
-                                 '.$this->itemMenu("/home", "icon-list", "Permissão").'
-                                 '.$this->itemMenuDown("/config", "icon-bill", "Configurações",$arrayConfiguracoes).'                                                                      
-                                                                                                   
-                                     
+                                 '.$this->itemMenuDown("dashboard.php", "icon-interface-windows", "Avaliadores",$arrayAvaliadores).'                                          
                               </ul>
-                              
-                                <span class="heading">Extras</span>                              
-                              <ul class="list-unstyled">
-                                '.$this->itemMenu("/sobre", "icon-website", "Sobre" ).'                                
-                              </ul>
+                                                              
                             </nav>';
     }
     
