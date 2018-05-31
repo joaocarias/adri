@@ -273,7 +273,7 @@ class View {
         
         $itens = "";        
         foreach ($arrayActions as $i => $v ){
-            $itens .= '<li><a href="'.$controller.'/'.$v.'">'.$i.'</a></li>';
+            $itens .= '<li><a href="'.$controller.'?'.$v.'">'.$i.'</a></li>';
         }
                
         return ' <li '.$select.'><a href="#down'.$text.'" aria-expanded="false" data-toggle="collapse"> <i class="'.$icon.'"></i>'.$text.' </a>
@@ -287,6 +287,7 @@ class View {
     public function getMenu(){
                
         $arrayAvaliadores = array("Cadastro" => "novo", "Listar" => "lista" );
+        $arrayUnidades = array("Listar" => "lista=true" );
         
         return '<nav class="side-navbar">
                               <!-- Sidebar Header-->
@@ -302,9 +303,10 @@ class View {
                                     '.$this->itemMenu("dashboard.php", "icon-home", "Avaliar").'                                                                        
                               </ul>
 
-                              <!-- Sidebar Navidation Menus--><span class="heading">Administrativo</span>
+                              <!-- Sidebar Navidation Menus--><span class="heading">Administração</span>
                               <ul class="list-unstyled">   
                                  '.$this->itemMenuDown("dashboard.php", "icon-interface-windows", "Avaliadores",$arrayAvaliadores).'                                          
+                                 '.$this->itemMenuDown("dashboard.php", "icon-interface-windows", "Unidades",$arrayUnidades).'                                          
                               </ul>
                                                               
                             </nav>';
