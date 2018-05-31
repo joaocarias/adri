@@ -1,6 +1,7 @@
 <?php
 
 include_once '../app/model/Unidade.php';
+include_once '../app/model/Distrito.php';
 include_once '../lib/Sistema.php';
 include_once '../lib/View.php';
 
@@ -106,12 +107,15 @@ class UnidadeView extends View{
 //            $button_delete = '<button type="button" data-toggle="modal" data-target="#'.$idModalExcluir.$item->getId_profissao().'" class="btn btn-danger btn-sm">Excluir </button>';
 //                         
 //            $buttons = $button_edit." ".$button_delete ;
-//            
+
+            $distrito = new Distrito();
+            $distrito = $distrito->selectObj($item->getId_distrito());
+            
             $linhas .= '<tr>
                               <th scope="row">'.$item->getId_unidade().'</th>
                               <td>'.$item->getNome_unidade().'</td>
                               <td>'.$item->getSigla_unidade().'</td>
-                              <td>'.$item->getId_distrito().'</td>                              
+                              <td>'.$distrito->getNome_distrito().'</td>                              
                               <td></td>                              
                               <td></td>                              
                             </tr>
