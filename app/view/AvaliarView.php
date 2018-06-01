@@ -1,6 +1,7 @@
 <?php
 
-include_once '';
+include_once '../lib/Sistema.php';
+include_once '../lib/View.php';
 
 class AvaliarView extends View{
     function __construct($title_page = null, $sistema = null) {

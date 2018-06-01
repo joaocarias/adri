@@ -206,7 +206,7 @@ class View {
                                 <div class="navbar-holder d-flex align-items-center justify-content-between">
                                   <!-- Navbar Header-->
                                   <div class="navbar-header">
-                                    <!-- Navbar Brand --><a href="/home" class="navbar-brand">
+                                    <!-- Navbar Brand --><a href="../" class="navbar-brand">
                                       <div class="brand-text brand-big"><span>'.$explode[0].' </span><strong>'.$explode[1].'</strong></div>
                                       <div class="brand-text brand-small"><strong>'.$this->sistema->getSigla().'</strong></div></a>
                                     <!-- Toggle Button-->
