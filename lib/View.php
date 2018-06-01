@@ -375,7 +375,7 @@ class View {
         }
         
         if(($bloaquear) && (!is_null($bloaquear))){
-            $disabled = 'disabled=""';
+            $disabled = 'readonly';
         }else{
             $disabled = '';
         }
