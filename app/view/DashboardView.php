@@ -562,9 +562,12 @@ class DashboardView extends View {
     }
 
     private function getContent(){
-        return '<!-- Dashboard Counts Section-->
+        return '<section>'.$this->msg().'</section>';
+        
+        
+        $sections = '<!-- Dashboard Counts Section-->
                               '.$this->getCountsSection().'
-                              <!-- Dashboard Header Section    -->
+                              <!-- Dashboard Header Section-->
                               '.$this->getHeaderSection().'
                               <!-- Projects Section-->
                               '.$this->getProjectsSection().'
@@ -572,8 +575,24 @@ class DashboardView extends View {
                               '.$this->getClientSection().'
                               <!-- Feeds Section-->
                               '.$this->getFeedsSection().'
-                              <!-- Updates Section                                                -->
+                              <!-- Updates Section-->
                               '.$this->getUpdatesSection();
+    }
+    
+    private function msg() {
+        if(isset($_GET['msg'])){
+            if($_GET['msg'] == 'cadastrado'){
+                return '<div class="alert alert-success" role="alert">
+                        Solicitação de Remanejamento Cadastrada!
+                      </div>';
+            }
+            elseif($_GET['msg'] == 'erro_cadastro'){
+                return '<div class="alert alert-danger" role="alert">
+                        Erro na solicitação de Remanejamento, tente novamente!
+                      </div>';
+            }
+        
+        }
     }
 
     public function get(){
@@ -591,7 +610,7 @@ class DashboardView extends View {
                             <div class="content-inner">
                               <!-- Page Header-->
                               '.$this->getPagHeader().'
-                              
+                              '.$this->getContent().'
                               <!-- Page Footer-->
                               '.$this->getFooter().'
                       </body>

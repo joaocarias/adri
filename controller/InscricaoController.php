@@ -2,6 +2,7 @@
 session_start();
 
 include_once '../app/model/Inscricao.php';
+include_once '../lib/Auxiliar.php';
 
 print_r($_POST);
 //die();
@@ -70,7 +71,7 @@ else{
 }
 
 if(isset($_POST['data_chegada']) && !empty($_POST['data_chegada'])){
-    $data_chegada = $_POST['data_chegada'];
+    $data_chegada = Auxiliar::converterDataParaUSA($_POST['data_chegada']);
 }
 else{
     $data_chegada = NULL;
@@ -112,14 +113,14 @@ else{
 }
 
 if(isset($_POST['data_chegada_foi1']) && !empty($_POST['data_chegada_foi1'])){
-    $data_chegada_foi1 = $_POST['data_chegada_foi1'];
+    $data_chegada_foi1 = Auxiliar::converterDataParaUSA($_POST['data_chegada_foi1']);
 }
 else{
     $data_chegada_foi1 = NULL;
 }
 
 if(isset($_POST['data_saida_foi1']) && !empty($_POST['data_saida_foi1'])){
-    $data_saida_foi1 = $_POST['data_saida_foi1'];
+    $data_saida_foi1 = Auxiliar::converterDataParaUSA($_POST['data_saida_foi1']);
 }
 else{
     $data_saida_foi1 = NULL;
@@ -140,14 +141,14 @@ else{
 }
 
 if(isset($_POST['data_chegada_foi2']) && !empty($_POST['data_chegada_foi2'])){
-    $data_chegada_foi2 = $_POST['data_chegada_foi2'];
+    $data_chegada_foi2 = Auxiliar::converterDataParaUSA($_POST['data_chegada_foi2']);
 }
 else{
     $data_chegada_foi2 = NULL;
 }
 
 if(isset($_POST['data_saida_foi2']) && !empty($_POST['data_saida_foi2'])){
-    $data_saida_foi2 = $_POST['data_saida_foi2'];
+    $data_saida_foi2 = Auxiliar::converterDataParaUSA($_POST['data_saida_foi2']);
 }
 else{
     $data_saida_foi2 = NULL;
@@ -168,14 +169,14 @@ else{
 }
 
 if(isset($_POST['data_chegada_foi3']) && !empty($_POST['data_chegada_foi3'])){
-    $data_chegada_foi3 = $_POST['data_chegada_foi3'];
+    $data_chegada_foi3 = Auxiliar::converterDataParaUSA($_POST['data_chegada_foi3']);
 }
 else{
     $data_chegada_foi3 = NULL;
 }
 
 if(isset($_POST['data_saida_foi3']) && !empty($_POST['data_saida_foi3'])){
-    $data_saida_foi3 = $_POST['data_saida_foi3'];
+    $data_saida_foi3 = Auxiliar::converterDataParaUSA($_POST['data_saida_foi3']);
 }
 else{
     $data_saida_foi3 = NULL;
@@ -191,8 +192,8 @@ else{
 $inscricao = new Inscricao();
 $inscricao->inserir($nome_servidor, $cpf_servidor, $cep_servidor, $endereco, $telefone, $email, $cargo, $funcao, $unidade_atual, $data_chegada, $motivo_sair, $unidade_vai1, $unidade_vai2, $unidade_vai3, $unidade_foi1, $data_chegada_foi1, $data_saida_foi1, $motivo_foi1, $unidade_foi2, $data_chegada_foi2, $data_saida_foi2, $motivo_foi2, $unidade_foi3, $data_chegada_foi3, $data_saida_foi3, $motivo_foi3);
    
-if(true){
-    
+if($inscricao['id'] > 0){
+    header('Location: ../page/dashboard.php?msg=cadastrado');
 }else{
-    header('Location: ../page/login.php?msg=nao_logado');
+    header('Location: ../page/dashboard.php?msg=erro_cadastro');
 }
