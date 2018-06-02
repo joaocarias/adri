@@ -70,6 +70,7 @@ class LoginView {
                                 <div class="col-lg-6 bg-white">
                                   <div class="form d-flex align-items-center">
                                     <div class="content">
+                                    '.$this->erroLogin().'
                                       <form method="post" class="form-validate" action="'.$action_form.'">
                                         <div class="form-group">
                                           <input id="login-username" type="text" name="loginUsername" required data-msg="Por favor informe seu CPF" class="input-material" 
@@ -110,6 +111,16 @@ class LoginView {
                         <script src="../layout/vendor/jquery/jquery.mask.min.js"></script>
                         <!-- Main File-->
                         <script src="../layout/js/front.js"></script>';
+    }
+    
+    public function erroLogin() {
+        if(isset($_GET['msg'])){
+            if($_GET['msg'] == 'senha_invalida'){
+                return '<div class="alert alert-danger" role="alert">
+                        CPF/Senha Inválidos!
+                      </div>';
+            }
+        }
     }
 
    public function get(){

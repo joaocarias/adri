@@ -570,17 +570,7 @@ class InscricaoView extends View {
 
     private function getContent(){
         return '<!-- Dashboard Counts Section-->
-                              '.$this->getCountsSection().'
-                              <!-- Dashboard Header Section    -->
-                              '.$this->getHeaderSection().'
-                              <!-- Projects Section-->
-                              '.$this->getProjectsSection().'
-                              <!-- Client Section-->
-                              '.$this->getClientSection().'
-                              <!-- Feeds Section-->
-                              '.$this->getFeedsSection().'
-                              <!-- Updates Section                                                -->
-                              '.$this->getUpdatesSection();
+                             <section> '.$this->getFormServidor().'</section>';
     }
     
     private function getFormServidor(){
@@ -599,9 +589,11 @@ class InscricaoView extends View {
         
         $arrayButton = array(
                             array("id" => 1, "value" => "A Pedido"),
-                            array("id" => 2, "value" => "Devolução"));
+                            array("id" => 2, "value" => "Devolução")
+                        );
     
-        return $this->beginForm("col-md-12", "POST", "../controller/InscricaoController.php").'
+        return $this->beginCard("col-md-12", "Solicitação Remanejamento Servidor").'
+                '.$this->beginForm("col-md-12", "POST", "../controller/InscricaoController.php").'
                     '.$this->getInput("text", "nome_servidor", "Nome", "Nome Servidor", "col-sm-8", true, $objPerfil->getNome_servidor(), true).'
                     '.$this->getInput("text", "cpf_servidor", "CPF", "CPF Servidor", "col-sm-8", true, $objPerfil->getCpf_servidor(), true).'
                     '.$this->getInput("text", "cep_servidor", "CEP", "CEP", "col-sm-4", true, "", false, "99999-999").'
@@ -633,13 +625,10 @@ class InscricaoView extends View {
                     '.$this->getInput("text", "data_saida_foi3", "Data Saida", "Data Saida da Unidade", "col-sm-4", false, "", false, "99/99/9999").'
                     '.$this->getRadioButton($arrayButton, "motivo_foi3", "Motivo de Saída", "col-sm-8").'
                         
-                    '.$this->getInputButtonSubmit("cadastro", "Cadastrar", "btn-info").'
+                    '.$this->getInputButtonSubmit("btn_cadastro", "Cadastrar", "btn-primary").'
                     
-                    
-                    
-                    
-                    
-               '.$this->endForm();
+               '.$this->endForm().'
+                '.$this->endCard() ;
     }
 
     public function get(){
@@ -657,9 +646,10 @@ class InscricaoView extends View {
                             <div class="content-inner">
                               <!-- Page Header-->
                               '.$this->getPagHeader().'
-                              '.$this->beginCard("col-md-12", "Inscrição Remanejamento").'
-                              '.$this->getFormServidor().'
-                              '.$this->endCard().'
+                                  <div class="container-fluid">
+                              
+                                '.$this->getContent().'
+                                  </div>
                               '. $this->getScritpCorreiosEndereco().'
                               <!-- Page Footer-->
                               '.$this->getFooter().'
