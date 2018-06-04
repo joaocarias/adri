@@ -6,8 +6,8 @@
  * @author joao.franca
  */
 class Sistema {
-    private $name = "Sistema de Remoção Interna";
-    private $reduced_name = "Remoção Interna";
+    private $name = "Sistema de Remanejamento Interno";
+    private $reduced_name = "Remanejamento Interno";
     private $sigla = "RI";
     private $versao = "1.0";
     private $description = "Sistema de Remoção Interna da Secretaria Municipal de Saúde de Natal";

@@ -9,7 +9,7 @@ class ConexaoBasica {
     private static $local = "127.0.0.1";
     private static $bdname = "bd_srisms";
     private static $user = "root";
-    private static $pass = "minhasenha";
+    private static $pass = "cep59014030";
     
     private static $instance_ = null;
     
