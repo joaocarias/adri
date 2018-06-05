@@ -2,6 +2,7 @@
 
 include_once 'Sistema.php';
 include_once '../app/model/Avaliador.php';
+include_once '../app/model/Administrador.php';
 
 /**
  * Description of View
@@ -293,15 +294,27 @@ class View {
         $arrayUnidades = array("Listar" => "lista=true" );
         
         $avaliador = new Avaliador();
+        $admin = new Administrador();
         $conteudoAvaliar = "";
+        $conteudoAdmin = "";
         $conteudoInscricao = "";
         
-        if($avaliador->is_avaliador($_SESSION['id_servidor'])){            
-            
-            $conteudoAvaliar = ' <!-- Sidebar Navidation Menus--><span class="heading">Avaliador</span>
+        if($avaliador->is_avaliador($_SESSION['id_servidor']) || $admin->is_administrador($_SESSION['id_servidor'])){            
+            if($avaliador->is_avaliador($_SESSION['id_servidor'])){                      
+                $conteudoAvaliar = ' <!-- Sidebar Navidation Menus--><span class="heading">Avaliador</span>
                               <ul class="list-unstyled">
                                     '.$this->itemMenu("avaliar.php", "icon-home", "Avaliar").'                                                                        
                               </ul>';
+            }
+            
+            if($admin->is_administrador($_SESSION['id_servidor'])){
+                $conteudoAdmin = '<!-- Sidebar Navidation Menus--><span class="heading">Admin</span>
+                              <ul class="list-unstyled">   
+                                 '.$this->itemMenuDown("administradores.php", "icon-interface-windows", "Admin",$arrayAdministradores).'                                          
+                                 '.$this->itemMenuDown("avaliadores.php", "icon-interface-windows", "Avaliadores",$arrayAvaliadores).'                                          
+                                 '.$this->itemMenuDown("unidade.php", "icon-interface-windows", "Unidades",$arrayUnidades).'                                          
+                              </ul>';
+            }            
         }else{
             $conteudoInscricao = $this->itemMenu("inscricao.php", "icon-check", "Inscrição");
         }
@@ -315,13 +328,7 @@ class View {
                                     '.$conteudoInscricao.'
                               </ul>                            
                                     '.$conteudoAvaliar.'
-                              <!-- Sidebar Navidation Menus--><span class="heading">Admin</span>
-                              <ul class="list-unstyled">   
-                                 '.$this->itemMenuDown("administradores.php", "icon-interface-windows", "Admin",$arrayAdministradores).'                                          
-                                 '.$this->itemMenuDown("avaliadores.php", "icon-interface-windows", "Avaliadores",$arrayAvaliadores).'                                          
-                                 '.$this->itemMenuDown("unidade.php", "icon-interface-windows", "Unidades",$arrayUnidades).'                                          
-                              </ul>
-                                                              
+                                    '.$conteudoAdmin.'
                             </nav>';
     }
     

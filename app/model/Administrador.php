@@ -65,6 +65,21 @@ class Administrador extends ModelBasico {
         return $array;
     }
     
+    public function is_administrador($id_servidor){
+        $sql = " SELECT count(id_administrador) as cont FROM tb_administrador WHERE id_servidor = '{$id_servidor}' AND id_status = '1' ";
+        
+        $dados = $this->select($sql);        
+        $cont = 0;    
+        
+        foreach ($dados as $row){                        
+            $cont = $row->cont;            
+        }       
+        
+        if($cont > 0) return true;
+        else return false;
+    }
+    
+    
     public function deleteObj($id){
         $sql =  " UPDATE tb_administrador SET id_status = '0', modificado_por = '{$_SESSION['id_servidor']}', data_da_modificacao = NOW() WHERE id_administrador = '{$id}'; ";
         $retorno = $this->inativar($sql);
