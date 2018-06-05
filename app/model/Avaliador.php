@@ -79,6 +79,12 @@ class Avaliador extends ModelBasico {
         
         return $array;
     }
+    
+    public function deleteObj($id){
+        $sql =  " UPDATE tb_avaliador SET id_status = '0', modificador_por = '{$_SESSION['id_servidor']}', data_da_modificacao = NOW() WHERE id_avaliador = '{$id}'; ";
+        $retorno = $this->inativar($sql);
+        return $retorno;
+    }
         
     function getId_avaliador() {
         return $this->id_avaliador;

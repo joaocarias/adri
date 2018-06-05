@@ -267,7 +267,7 @@ class AvaliadoresView extends View{
                         ';
 
             $buttonsModal = array('<button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>'
-                         ,'<a href="../controller/AvaliadoresController/remover='.$item->getId_avaliador().'"><button type="button" class="btn btn-danger">Remover Avaliador</button></a>');
+                         ,'<a href="../controller/AvaliadoresController.php?remover='.$item->getId_avaliador().'"><button type="button" class="btn btn-danger">Remover Avaliador</button></a>');
             $content_ .= $this->getModal($idModalExcluir.$item->getId_avaliador(), "Remover Avaliador", "Tem Certeza que deseja Remover Avaliador?", $buttonsModal);     
         }
         

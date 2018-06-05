@@ -8,6 +8,7 @@ if(!(isset($_SESSION['logado'])) OR  $_SESSION['logado'] != '1'){
 }else{
     
     $btn_salvar_unidade_administrador = filter_input(INPUT_POST, 'btn_salvar_unidade_administrador', FILTER_SANITIZE_STRING);
+    $remover = filter_input(INPUT_GET, 'remover', FILTER_SANITIZE_STRING);
     
     if($btn_salvar_unidade_administrador){
         $tx_id_unidade = filter_input(INPUT_POST, 'tx_id_unidade', FILTER_SANITIZE_STRING);
@@ -26,8 +27,15 @@ if(!(isset($_SESSION['logado'])) OR  $_SESSION['logado'] != '1'){
                 $_SESSION['retorno'] =  $retorno;
           
         header('Location: ../page/avaliadores.php?lista=true');                
+    }else if($remover){
+        $avaliador = new Avaliador();
+        $retorno = $avaliador->deleteObj($remover);
+       // var_dump($retorno);
+        header('Location: ../page/avaliadores.php?lista=true');       
+       //   var_dump($_GET);
     }else{
-        header('Location: ../page/dashboard.php');
+        header('Location: ../page/avaliadores.php?lista=true');   
+     //  var_dump($_GET);
     }
 }
 
