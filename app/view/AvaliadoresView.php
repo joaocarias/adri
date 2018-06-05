@@ -165,7 +165,7 @@ class AvaliadoresView extends View{
                     <div class="col-lg-12">
                   <div class="card">                    
                     <div class="card-header d-flex align-items-center">
-                      <h3 class="h4">Lista</h3>
+                      <h3 class="h4">Servidor</h3>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">                       
