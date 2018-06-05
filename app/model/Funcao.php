@@ -15,7 +15,7 @@ class Funcao extends ModelDimenisionamento{
         $sql = " SELECT * FROM funcao WHERE id_funcao = '{$id}' ORDER BY nome_funcao ASC ";
                 
         $dados = $this->select($sql);        
-        $obj = new Cargo();
+        $obj = new Funcao();
         
         foreach ($dados as $row){                        
             $obj->setId_funcao($row->id_funcao);

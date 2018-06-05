@@ -13,6 +13,7 @@ if($btnLogin){
     $dados = $servidor->getObjPorLogin($loginUsername);
 
     if (md5(sha1(sha1($loginPassword . 'pontobio'))) == $dados->getSenha_servidor()){
+        $_SESSION['id_servidor'] = $dados->getId_servidor();
         $_SESSION['nome_servidor'] = $dados->getNome_servidor();       
         $_SESSION['cpf_servidor'] = $dados->getCpf_servidor();
         $_SESSION['logado'] = '1';
