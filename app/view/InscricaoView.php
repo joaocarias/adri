@@ -4,6 +4,7 @@ include_once '../app/model/Unidade.php';
 include_once '../app/model/Servidor.php';
 include_once '../app/model/Cargo.php';
 include_once '../app/model/Funcao.php';
+include_once '../app/model/Inscricao.php';
 include_once '../lib/Sistema.php';
 include_once '../lib/View.php';
 
@@ -569,8 +570,12 @@ class InscricaoView extends View {
     }
 
     private function getContent(){
+                
+//        $objInscricao = new Inscricao();
+//        $inscrito = $objInscricao->
+        
         return '<!-- Dashboard Counts Section-->
-                             <section> '.$this->getFormServidor().'</section>';
+                <section> '.$this->getFormServidor().'</section>';
     }
     
     private function getFormServidor(){
@@ -591,9 +596,10 @@ class InscricaoView extends View {
                             array("id" => 1, "value" => "A Pedido"),
                             array("id" => 2, "value" => "Devolução")
                         );
-    
+            
         return $this->beginCard("col-md-12", "Solicitação Remanejamento Servidor").'
                 '.$this->beginForm("col-md-12", "POST", "../controller/InscricaoController.php").'
+                    '.$this->getInput("hidden", "id_servidor", "", "", "col-sm-8", false, $_SESSION['id_servidor'], true).'
                     '.$this->getInput("text", "nome_servidor", "Nome", "Nome Servidor", "col-sm-8", true, $objPerfil->getNome_servidor(), true).'
                     '.$this->getInput("text", "cpf_servidor", "CPF", "CPF Servidor", "col-sm-8", true, $objPerfil->getCpf_servidor(), true).'
                     '.$this->getInput("text", "cep_servidor", "CEP", "CEP", "col-sm-4", true, "", false, "99999-999").'
@@ -625,7 +631,8 @@ class InscricaoView extends View {
                     '.$this->getInput("text", "data_chegada_foi3", "Data Chegada", "Data Chegada na Unidade", "col-sm-4", false, "", false, "99/99/9999").'
                     '.$this->getInput("text", "data_saida_foi3", "Data Saida", "Data Saida da Unidade", "col-sm-4", false, "", false, "99/99/9999").'
                     '.$this->getRadioButton($arrayButton, "motivo_foi3", "Motivo de Saída", "col-sm-8").'
-                        
+                    <hr>    
+                    '.$this->getCheckConfirm().'
                     '.$this->getInputButtonSubmit("btn_cadastro", "Cadastrar", "btn-primary").'
                     
                '.$this->endForm().'

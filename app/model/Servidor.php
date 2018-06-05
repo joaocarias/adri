@@ -43,7 +43,7 @@ class Servidor extends ModelDimenisionamento{
     }
     
     public function selectObjCPF($cpf){        
-        $sql = " SELECT * FROM servidor WHERE cpf_servidor = '{$login}' AND ativo = '1' ";
+        $sql = " SELECT * FROM servidor WHERE cpf_servidor = '{$cpf}' AND ativo = '1' ";
         
         $dados = $this->select($sql);        
         $obj = new Servidor();

@@ -432,6 +432,35 @@ class View {
                 </div>';
     }
     
+    public function getCheckButton($array, $name, $label, $tamanho, $id_checked = null) {
+        $options = "";
+        
+        foreach ($array as $row){
+            if($row['id'] == $id_checked){
+                $radio_selected_ = 'checked';
+            }else{
+                $radio_selected_ = "";
+            }
+            
+            $options = $options . '<input type="checkbox" name="'.$name.'" value="'.$row['id'].'"> '.$row['value'].'&nbsp;&nbsp;&nbsp;&nbsp;';
+        }
+        
+        return '<div class="form-group row">
+                    <label class="col-sm-3 form-control-label">'.$label.'</label>
+                    <div class="'.$tamanho.'">
+                        '.$options.'
+                    </div>
+                </div>';
+    }
+    
+    public function getCheckConfirm() {
+                
+        return '<div class="form-group row">
+                    <div class="col-sm-3"></div>
+                    <input type="checkbox" name="confirm" required>&nbsp;&nbsp; Confirmo que todos os dados estão corretos.
+                </div>';
+    }
+    
     public function getTextarea($name, $label, $placeholder, $tamanho, $required, $value = null, $bloaquear = null) {
         if($required){
             $obrigatorio = "required=required";
