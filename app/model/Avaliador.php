@@ -39,6 +39,47 @@ class Avaliador extends ModelBasico {
         return $this->insert($sql);
     }
     
+    public function is_avaliador($id_servidor){
+        $sql = " SELECT count(id_avaliador) as cont FROM tb_avaliador WHERE id_servidor = '{$id_servidor}' AND id_status = '1' ";
+        
+        $dados = $this->select($sql);        
+        $cont = 0;    
+        
+        foreach ($dados as $row){                        
+            $cont = $row->cont;            
+        }       
+        
+        if($cont > 0) return true;
+        else return false;
+    }
+    
+    public function getListObjActive(){
+        $sql = " SELECT * FROM tb_avaliador WHERE id_status = '1' ORDER BY id_servidor ASC ";
+        
+        $dados = array();
+        $dados = $this->select($sql);
+        
+        $array = array();
+        
+        foreach ($dados as $row){
+            
+            $obj = new Avaliador();
+            
+            $obj->setCriador_por($row->criado_por);
+            $obj->setData_da_modificacao($row->data_da_modificacao);
+            $obj->setData_do_cadastro($row->data_do_cadastro);
+            $obj->setId_avaliador($row->id_avaliador);
+            $obj->setId_servidor($row->id_servidor);
+            $obj->setId_status($row->id_status);
+            $obj->setId_unidade($row->id_unidade);
+            $obj->setModificador_por($row->modificador_por);
+            
+            array_push($array, $obj);
+        }        
+        
+        return $array;
+    }
+        
     function getId_avaliador() {
         return $this->id_avaliador;
     }

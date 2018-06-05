@@ -64,6 +64,28 @@ class Servidor extends ModelDimenisionamento{
         return $obj;
     }
     
+    public function selectObj($id){        
+        $sql = " SELECT * FROM servidor WHERE id_servidor = '{$id}' AND ativo = '1' ";
+        
+        $dados = $this->select($sql);        
+        $obj = new Servidor();
+        
+        foreach ($dados as $row){                        
+            $obj->setAtivo($row->ativo);
+            $obj->setCpf_servidor($row->cpf_servidor);
+            $obj->setDt_admissao_servidor($row->dt_admissao_servidor);
+            $obj->setDt_nascimento_servidor($row->dt_nascimento_servidor);
+            $obj->setEmail($row->email);
+            $obj->setId_servidor($row->id_servidor);
+            $obj->setNome_servidor($row->nome_servidor);
+            $obj->setPis($row->PIS);
+            $obj->setSenha_servidor($row->senha_servidor);
+            $obj->setSexo_servidor($row->sexo_servidor);
+            $obj->setTelefone($row->telefone);            
+        }                
+        return $obj;
+    }
+    
     public function getDadosServidorMovimentacaoPorCpf($cpf){
         $sql = "SELECT 
                         s.id_servidor as id_servidor, s.nome_servidor as nome_servidor, s.cpf_servidor as cpf_servidor, f.nome_funcao as nome_funcao, m.* FROM `servidor` as s 

@@ -31,6 +31,12 @@ class AvaliadoresView extends View{
             $retorno = '<section>' .  $this->getFormBusca() 
                             .$conteudo
                        . '</section>';
+        }else if($action == "lista"){
+            $retorno = '<section>' .  $this->getLista()                             
+                       . '</section>';
+        }else{
+            $retorno = '<section>' .  $this->getLista()                             
+                       . '</section>';
         }
         
         return $retorno;
@@ -228,69 +234,72 @@ class AvaliadoresView extends View{
 //                ';
 //    }
 //
-//    private function getLista(){
-//               
-//        $content_ = '';        
-//        $idModalExcluir = 'myModalExcluir';        
-//        
-//        $myObj = new Unidade();
-//        $lista = $myObj->getListObjActive();
-//        
-//        $linhas = "";
-//        foreach ($lista as $item){
-//            
+    private function getLista(){
+               
+        $content_ = '';        
+        $idModalExcluir = 'myModalExcluir';        
+        
+        $myObj = new Avaliador();
+        $lista = $myObj->getListObjActive();
+        
+        $unidade = new Unidade();
+        $distrito = new Distrito();
+        $servidor = new Servidor();
+        
+        $linhas = "";
+        foreach ($lista as $item){
+            
+            $servidor = $servidor->selectObj($item->getId_servidor());
+            $unidade = $unidade->selectObj($item->getId_unidade());
+            $distrito = $distrito->selectObj($unidade->getId_distrito());
+
 ////            $button_edit = "<a id='btn_edit' name='btn-edit' href='/profissoes/editprofissao/{$item->getId_profissao()}' class='btn btn-primary btn-sm'>Editar</a>";
-////            $button_delete = '<button type="button" data-toggle="modal" data-target="#'.$idModalExcluir.$item->getId_profissao().'" class="btn btn-danger btn-sm">Excluir </button>';
-////                         
-////            $buttons = $button_edit." ".$button_delete ;
-//
-//            $distrito = new Distrito();
-//            $distrito = $distrito->selectObj($item->getId_distrito());
-//            
-//            $linhas .= '<tr>
-//                              <th scope="row">'.$item->getId_unidade().'</th>
-//                              <td>'.$item->getNome_unidade().'</td>
-//                              <td>'.$item->getSigla_unidade().'</td>
-//                              <td>'.$distrito->getNome_distrito().'</td>                              
-//                              <td></td>                              
-//                              <td></td>                              
-//                            </tr>
-//                        ';
-////            
-////            $buttonsModal = array('<button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>'
-////                         ,'<a href="/profissoes/deleteprofissao/'.$item->getId_profissao().'"><button type="button" class="btn btn-danger">Excluir Cadastro</button></a>');
-////            $content_ .= $this->getModal($idModalExcluir.$item->getId_profissao(), "Excluir Profissão", "Tem Certeza que deseja Excluir o Cadastro?", $buttonsModal);     
-//        }
-//        
-//        $content_ .= '
-//                    <div class="col-lg-12">
-//                  <div class="card">                    
-//                    <div class="card-header d-flex align-items-center">
-//                      <h3 class="h4">Lista</h3>
-//                    </div>
-//                    <div class="card-body">
-//                      <div class="table-responsive">                       
-//                        <table class="table table-striped table-hover">
-//                          <thead>
-//                            <tr>
-//                              <th>#</th>
-//                              <th>UNIDADE</th>                              
-//                              <th>SIGLA</th>                              
-//                              <th>DISTRITO</th>
-//                              <th>AVALIADORES</th>
-//                              <th></th>
-//                            </tr>
-//                          </thead>
-//                          <tbody>
-//                               '.$linhas.'            
-//                          </tbody>
-//                        </table>
-//                      </div>
-//                    </div>
-//                  </div>
-//                </div>
-//              ';
-//                                  
-//        return $content_;        
-//    }
+            $button_delete = '<button type="button" data-toggle="modal" data-target="#'.$idModalExcluir.$item->getId_avaliador().'" class="btn btn-danger btn-sm">Remover Avaliador </button>';
+
+            $linhas .= '<tr>
+                              <th scope="row">'.$item->getId_avaliador().'</th>
+                              <td>'.$servidor->getNome_servidor().'</td>
+                              <td>'.$servidor->getCpf_servidor().'</td>
+                              <td>'.$unidade->getNome_unidade().'</td>                              
+                              <td>'.$distrito->getNome_distrito().'</td>                              
+                              <td>'.$button_delete.'</td>                                                                                       
+                            </tr>
+                        ';
+
+            $buttonsModal = array('<button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>'
+                         ,'<a href="../controller/AvaliadoresController/remover='.$item->getId_avaliador().'"><button type="button" class="btn btn-danger">Remover Avaliador</button></a>');
+            $content_ .= $this->getModal($idModalExcluir.$item->getId_avaliador(), "Remover Avaliador", "Tem Certeza que deseja Remover Avaliador?", $buttonsModal);     
+        }
+        
+        $content_ .= '
+                    <div class="col-lg-12">
+                  <div class="card">                    
+                    <div class="card-header d-flex align-items-center">
+                      <h3 class="h4">Lista</h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">                       
+                        <table class="table table-striped table-hover">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>AVALIADOR</th>                              
+                              <th>CPF</th>                              
+                              <th>UNIDADE</th>                              
+                              <th>DISTRITO</th>                              
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                               '.$linhas.'            
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ';
+                                  
+        return $content_;        
+    }
 }

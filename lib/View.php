@@ -1,6 +1,7 @@
 <?php
 
 include_once 'Sistema.php';
+include_once '../app/model/Avaliador.php';
 
 /**
  * Description of View
@@ -291,20 +292,29 @@ class View {
         $arrayAvaliadores = array("Cadastro" => "cadastro=true", "Listar" => "lista=true" );
         $arrayUnidades = array("Listar" => "lista=true" );
         
+        $avaliador = new Avaliador();
+        $conteudoAvaliar = "";
+        $conteudoInscricao = "";
+        
+        if($avaliador->is_avaliador($_SESSION['id_servidor'])){            
+            
+            $conteudoAvaliar = ' <!-- Sidebar Navidation Menus--><span class="heading">Avaliador</span>
+                              <ul class="list-unstyled">
+                                    '.$this->itemMenu("avaliar.php", "icon-home", "Avaliar").'                                                                        
+                              </ul>';
+        }else{
+            $conteudoInscricao = $this->itemMenu("inscricao.php", "icon-check", "Inscrição");
+        }
+        
         return '<nav class="side-navbar">
                               <!-- Sidebar Header-->
                               '.$this->getSidbarMenu().'
                               <!-- Sidebar Navidation Menus--><span class="heading">Dashboard</span>
                               <ul class="list-unstyled">
                                     '.$this->itemMenu("dashboard.php", "icon-home", "Início").'                                    
-                                    '.$this->itemMenu("inscricao.php", "icon-check", "Inscrição").'   
-                              </ul>
-                            
-                              <!-- Sidebar Navidation Menus--><span class="heading">Avaliador</span>
-                              <ul class="list-unstyled">
-                                    '.$this->itemMenu("avaliar.php", "icon-home", "Avaliar").'                                                                        
-                              </ul>
-
+                                    '.$conteudoInscricao.'
+                              </ul>                            
+                                    '.$conteudoAvaliar.'
                               <!-- Sidebar Navidation Menus--><span class="heading">Admin</span>
                               <ul class="list-unstyled">   
                                  '.$this->itemMenuDown("administradores.php", "icon-interface-windows", "Admin",$arrayAdministradores).'                                          
