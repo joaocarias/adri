@@ -13,3 +13,15 @@ create table tb_log_acesso(
 )engine=InnoDB;
 
 select * from tb_log_acesso;
+
+create table tb_avaliador(
+    id_avaliador int(11) auto_increment not null,
+    id_servidor int(11) not null,
+    id_unidade int(11) not null,
+    criado_por int(11) not null,    
+    data_do_cadastro timestamp default current_timestamp,
+    modificador_por int(11),
+    data_da_modificacao datetime,
+    id_status smallint default 1,
+    primary key(id_avaliador)
+)engine=InnoDB;

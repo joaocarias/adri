@@ -98,7 +98,7 @@ class AvaliadoresView extends View{
     
     private function getFormUnidade(Servidor $item){
         $tituloForm = "Selecionar Unidade";
-        $actionForm = "avaliadores.php";
+        $actionForm = "../controller/AvaliadoresController.php";
         
         $hi_cadastro = $this->getHidden("cadastro", "true");
         $hi_id_servidor = $this->getHidden("hi_id_servidor", $item->getId_servidor());
@@ -116,7 +116,7 @@ class AvaliadoresView extends View{
                             '.$hi_id_servidor.'
 
                                 <div class="line"></div>
-                            '.$this->getInputButtonSubmit("btn_buscar_servidor", "Buscar Servidor", "btn-primary").' 
+                            '.$this->getInputButtonSubmit("btn_salvar_unidade_administrador", "Confirmar Avaliador de Undiade", "btn-primary").' 
                        
                     '.$this->endForm().'
                 '.$this->endCard().'                    

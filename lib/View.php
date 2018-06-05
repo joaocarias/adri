@@ -287,6 +287,7 @@ class View {
 
     public function getMenu(){
                
+        $arrayAdministradores = array("Cadastro" => "cadastro=true", "Listar" => "lista=true" );
         $arrayAvaliadores = array("Cadastro" => "cadastro=true", "Listar" => "lista=true" );
         $arrayUnidades = array("Listar" => "lista=true" );
         
@@ -304,8 +305,9 @@ class View {
                                     '.$this->itemMenu("avaliar.php", "icon-home", "Avaliar").'                                                                        
                               </ul>
 
-                              <!-- Sidebar Navidation Menus--><span class="heading">Administração</span>
+                              <!-- Sidebar Navidation Menus--><span class="heading">Admin</span>
                               <ul class="list-unstyled">   
+                                 '.$this->itemMenuDown("administradores.php", "icon-interface-windows", "Admin",$arrayAdministradores).'                                          
                                  '.$this->itemMenuDown("avaliadores.php", "icon-interface-windows", "Avaliadores",$arrayAvaliadores).'                                          
                                  '.$this->itemMenuDown("unidade.php", "icon-interface-windows", "Unidades",$arrayUnidades).'                                          
                               </ul>
