@@ -25,3 +25,14 @@ create table tb_avaliador(
     id_status smallint default 1,
     primary key(id_avaliador)
 )engine=InnoDB;
+
+create table tb_administrador(
+    id_administrador int(11) auto_increment not null,
+    id_servidor int(11) not null,    
+    criado_por int(11) not null,    
+    data_do_cadastro timestamp default current_timestamp,
+    modificado_por int(11),
+    data_da_modificacao datetime,
+    id_status smallint default 1,
+    primary key(id_administrador)
+)engine=InnoDB;

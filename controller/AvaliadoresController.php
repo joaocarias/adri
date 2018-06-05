@@ -30,12 +30,10 @@ if(!(isset($_SESSION['logado'])) OR  $_SESSION['logado'] != '1'){
     }else if($remover){
         $avaliador = new Avaliador();
         $retorno = $avaliador->deleteObj($remover);
-       // var_dump($retorno);
-        header('Location: ../page/avaliadores.php?lista=true');       
-       //   var_dump($_GET);
+      
+        header('Location: ../page/avaliadores.php?lista=true');  
     }else{
-        header('Location: ../page/avaliadores.php?lista=true');   
-     //  var_dump($_GET);
+        header('Location: ../page/avaliadores.php?lista=true');        
     }
 }
 
