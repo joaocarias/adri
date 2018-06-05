@@ -8,7 +8,7 @@ if(!(isset($_SESSION['logado'])) OR  $_SESSION['logado'] != '1'){
 }else{
     var_dump($_GET);
     $inserir = filter_input(INPUT_GET, 'inserir', FILTER_SANITIZE_STRING);
-//    $remover = filter_input(INPUT_GET, 'remover', FILTER_SANITIZE_STRING);
+    $remover = filter_input(INPUT_GET, 'remover', FILTER_SANITIZE_STRING);
     
     if($inserir){
         $params = array(
@@ -22,12 +22,12 @@ if(!(isset($_SESSION['logado'])) OR  $_SESSION['logado'] != '1'){
                 $_SESSION['retorno'] =  $retorno;
           
         header('Location: ../page/administradores.php?lista=true');                
-//    }else if($remover){
-//        $avaliador = new Avaliador();
-//        $retorno = $avaliador->deleteObj($remover);
-//      
-//        header('Location: ../page/avaliadores.php?lista=true');  
+    }else if($remover){
+        $admin = new Administrador();
+        $retorno = $admin->deleteObj($remover);
+      
+        header('Location: ../page/administradores.php?lista=true');                
     }else{
-        header('Location: ../page/avaliadores.php?lista=true');        
+        header('Location: ../page/administradores.php?lista=true');                
    }
 }

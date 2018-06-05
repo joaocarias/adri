@@ -5,6 +5,7 @@ include_once '../lib/View.php';
 include_once '../app/model/Servidor.php';
 include_once '../app/model/Unidade.php';
 include_once '../app/model/Distrito.php';
+include_once '../app/model/Administrador.php';
 
 /**
  * Description of AvaliadoresView
@@ -163,7 +164,7 @@ class AdministradoresView extends View{
         $content_ = '';        
         $idModalExcluir = 'myModalExcluir';        
         
-        $myObj = new Avaliador();
+        $myObj = new Administrador();
         $lista = $myObj->getListObjActive();
         
         $unidade = new Unidade();
@@ -174,25 +175,19 @@ class AdministradoresView extends View{
         foreach ($lista as $item){
             
             $servidor = $servidor->selectObj($item->getId_servidor());
-            $unidade = $unidade->selectObj($item->getId_unidade());
-            $distrito = $distrito->selectObj($unidade->getId_distrito());
-
-////            $button_edit = "<a id='btn_edit' name='btn-edit' href='/profissoes/editprofissao/{$item->getId_profissao()}' class='btn btn-primary btn-sm'>Editar</a>";
-            $button_delete = '<button type="button" data-toggle="modal" data-target="#'.$idModalExcluir.$item->getId_avaliador().'" class="btn btn-danger btn-sm">Remover Avaliador </button>';
+            $button_delete = '<button type="button" data-toggle="modal" data-target="#'.$idModalExcluir.$item->getId_administrador().'" class="btn btn-danger btn-sm">Remover </button>';
 
             $linhas .= '<tr>
-                              <th scope="row">'.$item->getId_avaliador().'</th>
+                              <th scope="row">'.$item->getId_administrador().'</th>
                               <td>'.$servidor->getNome_servidor().'</td>
-                              <td>'.$servidor->getCpf_servidor().'</td>
-                              <td>'.$unidade->getNome_unidade().'</td>                              
-                              <td>'.$distrito->getNome_distrito().'</td>                              
+                              <td>'.$servidor->getCpf_servidor().'</td>                                                         
                               <td>'.$button_delete.'</td>                                                                                       
                             </tr>
                         ';
 
             $buttonsModal = array('<button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>'
-                         ,'<a href="../controller/AvaliadoresController.php?remover='.$item->getId_avaliador().'"><button type="button" class="btn btn-danger">Remover Avaliador</button></a>');
-            $content_ .= $this->getModal($idModalExcluir.$item->getId_avaliador(), "Remover Avaliador", "Tem Certeza que deseja Remover Avaliador?", $buttonsModal);     
+                         ,'<a href="../controller/AdministradoresController.php?remover='.$item->getId_administrador().'"><button type="button" class="btn btn-danger">Remover Administrador</button></a>');
+            $content_ .= $this->getModal($idModalExcluir.$item->getId_administrador(), "Remover Administrador", "Tem Certeza que deseja Remover Administrador?", $buttonsModal);     
         }
         
         $content_ .= '
@@ -207,10 +202,9 @@ class AdministradoresView extends View{
                           <thead>
                             <tr>
                               <th>#</th>
-                              <th>AVALIADOR</th>                              
+                              <th>ADMINISTRADOR</th>                              
                               <th>CPF</th>                              
-                              <th>UNIDADE</th>                              
-                              <th>DISTRITO</th>                              
+                                                       
                               <th></th>
                             </tr>
                           </thead>

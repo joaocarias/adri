@@ -39,6 +39,38 @@ class Administrador extends ModelBasico {
         return $this->insert($sql);
     }
     
+     public function getListObjActive(){
+        $sql = " SELECT * FROM tb_administrador WHERE id_status = '1' ORDER BY id_servidor ASC ";
+        
+        $dados = array();
+        $dados = $this->select($sql);
+        
+        $array = array();
+        
+        foreach ($dados as $row){
+            
+            $obj = new Administrador();
+            
+            $obj->setCriado_por($row->criado_por);
+            $obj->setData_da_modificacao($row->data_da_modificacao);
+            $obj->setData_do_cadastro($row->data_do_cadastro);
+            $obj->setId_administrador($row->id_administrador);
+            $obj->setId_servidor($row->id_servidor);
+            $obj->setId_status($row->id_status);            
+            $obj->setModificado_por($row->modificado_por);
+            
+            array_push($array, $obj);
+        }        
+        
+        return $array;
+    }
+    
+    public function deleteObj($id){
+        $sql =  " UPDATE tb_administrador SET id_status = '0', modificado_por = '{$_SESSION['id_servidor']}', data_da_modificacao = NOW() WHERE id_administrador = '{$id}'; ";
+        $retorno = $this->inativar($sql);
+        return $retorno;
+    }
+    
     function getId_administrador() {
         return $this->id_administrador;
     }
