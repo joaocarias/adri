@@ -16,8 +16,18 @@ class AvaliadoresView extends View{
     
     private function getContent($action = null, $params = null){
         if($action == "cadastro"){
-           $retorno = '<section>' .  $this->getFormBusca() 
-                            . $this->getTabelaBasicaServidor(1)
+            $conteudo = "";
+            if(!is_null($params)){
+                
+                $myObj = new Servidor();
+                $item = $myObj->getObjPorLogin($params);
+                
+                $conteudo .= $this->getTabelaBasicaServidor($item) ;
+                $conteudo .= $this->getFormUnidade($item);
+            }
+            
+            $retorno = '<section>' .  $this->getFormBusca() 
+                            .$conteudo
                        . '</section>';
         }
         
@@ -64,7 +74,7 @@ class AvaliadoresView extends View{
     
     private function getFormBusca(){
         $tituloForm = "Buscar Servidor";
-        $actionForm = "/avaliadores";
+        $actionForm = "avaliadores.php";
         
         $hi_cadastro = $this->getHidden("cadastro", "true");
                  
@@ -82,14 +92,39 @@ class AvaliadoresView extends View{
                     '.$this->endForm().'
                 '.$this->endCard().'                    
                 ';
-    }        
+    }       
     
-    public function getTabelaBasicaServidor($cpf){
+    private function getFormUnidade(Servidor $item){
+        $tituloForm = "Selecionar Unidade";
+        $actionForm = "avaliadores.php";
+        
+        $hi_cadastro = $this->getHidden("cadastro", "true");
+        $hi_id_servidor = $this->getHidden("hi_id_servidor", $item->getId_servidor());
+                 
+        $arrayUnidades = array();
+        
+        return ' 
+                '.$this->beginCard("col-lg-12", $tituloForm).'             
+                    '.$this->beginForm("col-lg-12" , "POST", $actionForm).'                          
+                    
+                            '.$this->getSelect($arrayUnidades, "tx_id_unidade", "Unidade/Setor/Departamento", "col-sm-6", true).'
+                                
+                            '.$hi_cadastro.'
+                            '.$hi_id_servidor.'
+
+                                <div class="line"></div>
+                            '.$this->getInputButtonSubmit("btn_buscar_servidor", "Buscar Servidor", "btn-primary").' 
+                       
+                    '.$this->endForm().'
+                '.$this->endCard().'                    
+                ';
+    }
+    
+    public function getTabelaBasicaServidor(Servidor $item){
         $content_ = '';        
 //        $idModalExcluir = 'myModalExcluir';        
 //        
-        $myObj = new Servidor();
-        $item = $myObj->get;
+       
 //        
         $linhas = "";
 //        foreach ($lista as $item){
@@ -130,10 +165,10 @@ class AvaliadoresView extends View{
                             <tr>
                               <th>#</th>
                               <th>SERVIDOR</th>                              
-                              <th>CPF</th>                              
+                              <th>CPF</th>     
+                              <th>FUNÇÃO</th>
                               <th>LOTAÇÃO</th>
-                              <th>DISTRITO</th>
-                              <th></th>
+                              <th>DISTRITO</th>                              
                             </tr>
                           </thead>
                           <tbody>
