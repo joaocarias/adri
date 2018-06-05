@@ -4,7 +4,7 @@ session_start();
 include_once '../app/model/Inscricao.php';
 include_once '../lib/Auxiliar.php';
 
-print_r($_POST);
+//print_r($_POST);
 //die();
 
 if(isset($_POST['nome_servidor']) && !empty($_POST['nome_servidor'])){
@@ -189,10 +189,17 @@ else{
     $motivo_foi3 = NULL;
 }
 
+if(isset($_POST['experiencia_saude']) && !empty($_POST['experiencia_saude'])){
+    $experiencia = $_POST['experiencia_saude'];
+}
+else{
+    $experiencia = NULL;
+}
+
 $inscricao = new Inscricao();
-$inscricao->inserir($nome_servidor, $cpf_servidor, $cep_servidor, $endereco, $telefone, $email, $cargo, $funcao, $unidade_atual, $data_chegada, $motivo_sair, $unidade_vai1, $unidade_vai2, $unidade_vai3, $unidade_foi1, $data_chegada_foi1, $data_saida_foi1, $motivo_foi1, $unidade_foi2, $data_chegada_foi2, $data_saida_foi2, $motivo_foi2, $unidade_foi3, $data_chegada_foi3, $data_saida_foi3, $motivo_foi3);
+$result = $inscricao->inserir($nome_servidor, $cpf_servidor, $cep_servidor, $endereco, $telefone, $email, $cargo, $funcao, $unidade_atual, $data_chegada, $motivo_sair, $unidade_vai1, $unidade_vai2, $unidade_vai3, $experiencia, $unidade_foi1, $data_chegada_foi1, $data_saida_foi1, $motivo_foi1, $unidade_foi2, $data_chegada_foi2, $data_saida_foi2, $motivo_foi2, $unidade_foi3, $data_chegada_foi3, $data_saida_foi3, $motivo_foi3);
    
-if($inscricao['id'] > 0){
+if($result['id'] > 0){
     header('Location: ../page/dashboard.php?msg=cadastrado');
 }else{
     header('Location: ../page/dashboard.php?msg=erro_cadastro');

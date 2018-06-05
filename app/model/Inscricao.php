@@ -1,13 +1,13 @@
 <?php
 
-include_once '../lib/ModelDimenisionamento.php';
+include_once '../lib/ModelBasico.php';
 
 /**
  * Description of Inscricao
  *
  * @author thalysonluiz
  */
-class Inscricao extends ModelDimenisionamento{
+class Inscricao extends ModelBasico{
     private $id_inscricao;
     private $nome_servidor;
     private $cpf_servidor;
@@ -75,27 +75,27 @@ class Inscricao extends ModelDimenisionamento{
     
     public function inserir($nome_servidor, $cpf_servidor, $cep, $endereco,
                          $telefone, $email, $cargo, $funcao, $unidade_atual, $data_chegada,
-                         $motivo_sair, $unidade_vai1, $unidade_vai2, $unidade_vai3, 
+                         $motivo_sair, $unidade_vai1, $unidade_vai2, $unidade_vai3, $experiencia,
                          $unidade_foi1, $data_chegada_foi1, $data_saida_foi1, $motivo_foi1, 
                          $unidade_foi2, $data_chegada_foi2, $data_saida_foi2, $motivo_foi2, 
                          $unidade_foi3, $data_chegada_foi3, $data_saida_foi3, $motivo_foi3) {
         
         
-        $sql = " INSERT INTO inscricao ( nome_servidor, cpf_servidor, cep, endereco,
-                         telefone, email, cargo, funcao, unidade_atual, data_chegada,
-                         motivo_sair, unidade_vai1, unidade_vai2, unidade_vai3, 
-                         unidade_foi1, data_chegada_foi1, data_saida_foi1, motivo_foi1, 
-                         unidade_foi2, data_chegada_foi2, data_saida_foi2, motivo_foi2, 
-                         unidade_foi3, data_chegada_foi3, data_saida_foi3, motivo_foi3, ) "
-        . "VALUES ('{$nome_servidor}', '{$cpf_servidor}', '{$cep}', '{$endereco}',
-                         '{$telefone}', '{$email}', '{$cargo}', '{$funcao}', '{$unidade_atual}', '{$data_chegada}',
-                         '{$motivo_sair}', '{$unidade_vai1}', '{$unidade_vai2}', '{$unidade_vai3}', 
-                         '{$unidade_foi1}', '{$data_chegada_foi1}', '{$data_saida_foi1}', '{$motivo_foi1}', 
-                         '{$unidade_foi2}', '{$data_chegada_foi2}', '{$data_saida_foi2}', '{$motivo_foi2}', 
-                         '{$unidade_foi3}', '{$data_chegada_foi3}', '{$data_saida_foi3}', '{$motivo_foi3}'); ";
+        $sql = " INSERT INTO `inscricao` (`nome_servidor`, `cpf_servidor`, `cep`, 
+                    `endereco`, `telefone`, `email`, `cargo`, `funcao`, `unidade_atual`, `data_chegada_atual`, 
+                    `motivo_solicitacao`, `unidade_desejo1`, `unidade_desejo2`, `unidade_desejo3`, `experiencia_saude`,
+                    `unidade_anterior1`, `data_chegada_anterior1`, `data_saida_anterior1`, `motivo_saida_anterior1`, 
+                    `unidade_anterior2`, `data_chegada_anterior2`, `data_saida_anterior2`, `motivo_saida_anterior2`, 
+                    `unidade_anterior3`, `data_chegada_anterior3`, `data_saida_anterior3`, `motivo_saida_anterior3`) 
+                    VALUES ( '{$nome_servidor}', '{$cpf_servidor}', '{$cep}', '{$endereco}', 
+                            '{$telefone}', '{$email}', '{$cargo}', '{$funcao}', '{$unidade_atual}', '{$data_chegada}',
+                            '{$motivo_sair}', '{$unidade_vai1}', '{$unidade_vai2}', '{$unidade_vai3}', '{$experiencia}',
+                            '{$unidade_foi1}', '{$data_chegada_foi1}', '{$data_saida_foi1}', '{$motivo_foi1}',
+                            '{$unidade_foi2}', '{$data_chegada_foi2}', '{$data_saida_foi2}', '{$motivo_foi2}', 
+                            '{$unidade_foi3}', '{$data_chegada_foi3}', '{$data_saida_foi3}', '{$motivo_foi3}');";
         
-        echo $sql;
-        die();
+//        echo $sql;
+//        die();
         $arrayRetorno = $this->insert($sql);
         return $arrayRetorno;
     }
