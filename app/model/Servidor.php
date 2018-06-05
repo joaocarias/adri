@@ -63,6 +63,18 @@ class Servidor extends ModelDimenisionamento{
         }                
         return $obj;
     }
+    
+    public function getDadosServidorMovimentacaoPorCpf($cpf){
+        $sql = "SELECT 
+                        s.id_servidor as id_servidor, s.nome_servidor as nome_servidor, s.cpf_servidor as cpf_servidor, f.nome_funcao as nome_funcao, m.* FROM `servidor` as s 
+                            INNER JOIN movimentacao as m ON s.id_servidor = m.id_servidor and m.status_movimentacao = '1'
+                            INNER JOIN funcao as f ON f.id_funcao = m.id_funcao 
+                           
+                            WHERE cpf_servidor = '".$cpf."' and s.ativo = '1' ";
+        
+        $dados = $this->select($sql);        
+        return $dados;
+    }
    
    function getId_servidor() {
        return $this->id_servidor;

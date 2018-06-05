@@ -3,6 +3,8 @@
 include_once '../lib/Sistema.php';
 include_once '../lib/View.php';
 include_once '../app/model/Servidor.php';
+include_once '../app/model/Unidade.php';
+include_once '../app/model/Distrito.php';
 
 /**
  * Description of AvaliadoresView
@@ -101,7 +103,8 @@ class AvaliadoresView extends View{
         $hi_cadastro = $this->getHidden("cadastro", "true");
         $hi_id_servidor = $this->getHidden("hi_id_servidor", $item->getId_servidor());
                  
-        $arrayUnidades = array();
+        $objUnidade = new Unidade();
+        $arrayUnidades = $objUnidade->getArrayBasic();
         
         return ' 
                 '.$this->beginCard("col-lg-12", $tituloForm).'             
@@ -124,10 +127,16 @@ class AvaliadoresView extends View{
         $content_ = '';        
 //        $idModalExcluir = 'myModalExcluir';        
 //        
-       
+        
+        $unidade = new Unidade();
+        $distrito = new Distrito();
+        $lista = $item->getDadosServidorMovimentacaoPorCpf($item->getCpf_servidor());
+        
 //        
         $linhas = "";
-//        foreach ($lista as $item){
+        foreach ($lista as $row){
+            
+            $unidade = $unidade->selectObj($row->id_unidade_destino);
 //            
 ////            $button_edit = "<a id='btn_edit' name='btn-edit' href='/profissoes/editprofissao/{$item->getId_profissao()}' class='btn btn-primary btn-sm'>Editar</a>";
 ////            $button_delete = '<button type="button" data-toggle="modal" data-target="#'.$idModalExcluir.$item->getId_profissao().'" class="btn btn-danger btn-sm">Excluir </button>';
@@ -138,19 +147,19 @@ class AvaliadoresView extends View{
 //            $distrito = $distrito->selectObj($item->getId_distrito());
 //            
             $linhas .= '<tr>
-                              <th scope="row">'.$item->getId_servidor().'</th>
-                              <td>'.$item->getNome_servidor().'</td>
-                              <td>'.$item->getCpf_servidor().'</td>
-                              <td></td>                              
-                              <td></td>                              
-                              <td></td>                              
+                              <th scope="row">'.$row->id_servidor.'</th>
+                              <td>'.$row->nome_servidor.'</td>
+                              <td>'.$row->cpf_servidor.'</td>
+                              <td>'.$row->nome_funcao.'</td>                              
+                              <td>'.$unidade->getNome_unidade().'</td>                              
+                              <td>'.$distrito->selectObj($unidade->getId_distrito())->getNome_distrito().'</td>                              
                             </tr>
                         ';
 ////            
 ////            $buttonsModal = array('<button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>'
 ////                         ,'<a href="/profissoes/deleteprofissao/'.$item->getId_profissao().'"><button type="button" class="btn btn-danger">Excluir Cadastro</button></a>');
 ////            $content_ .= $this->getModal($idModalExcluir.$item->getId_profissao(), "Excluir Profissão", "Tem Certeza que deseja Excluir o Cadastro?", $buttonsModal);     
-//        }
+        }
 //        
         $content_ .= '
                     <div class="col-lg-12">

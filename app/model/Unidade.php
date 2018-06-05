@@ -23,7 +23,7 @@ class Unidade extends ModelDimenisionamento{
             $obj->setId_distrito($row->id_distrito);
             $obj->setId_unidade($row->id_unidade);
             $obj->setNome_unidade($row->nome_unidade);
-            $obj->setSigla_unidade($ow->sigla_unidade);
+            $obj->setSigla_unidade($row->sigla_unidade);
         }                
         return $obj;
     }

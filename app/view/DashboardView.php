@@ -597,7 +597,7 @@ class DashboardView extends View {
 
     public function get(){
         return '<!DOCTYPE html>
-                    <html>
+                    <html lang="pt-br">
                       
                     '.$this->getHeader().'
                       
