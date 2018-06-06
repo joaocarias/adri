@@ -200,7 +200,9 @@ $inscricao = new Inscricao();
 $result = $inscricao->inserir($nome_servidor, $cpf_servidor, $cep_servidor, $endereco, $telefone, $email, $cargo, $funcao, $unidade_atual, $data_chegada, $motivo_sair, $unidade_vai1, $unidade_vai2, $unidade_vai3, $experiencia, $unidade_foi1, $data_chegada_foi1, $data_saida_foi1, $motivo_foi1, $unidade_foi2, $data_chegada_foi2, $data_saida_foi2, $motivo_foi2, $unidade_foi3, $data_chegada_foi3, $data_saida_foi3, $motivo_foi3);
    
 if($result['id'] > 0){
-    header('Location: ../page/dashboard.php?msg=cadastrado');
+    $_SESSION['msg'] = 'cadastrado';
+    header('Location: ../page/dashboard.php');
 }else{
-    header('Location: ../page/dashboard.php?msg=erro_cadastro');
+    $_SESSION['msg'] = 'erro_cadastro';
+    header('Location: ../page/dashboard.php');
 }
