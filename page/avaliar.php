@@ -8,7 +8,7 @@ if(!(isset($_SESSION['logado'])) OR  $_SESSION['logado'] != '1'){
 }else{
     $view = new AvaliarView("Avaliar");
    
-    echo $view->get();
+    echo $view->get("lista");
    
 }
 

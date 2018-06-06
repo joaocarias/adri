@@ -40,15 +40,6 @@ class AvaliadoresView extends View{
         }
         
         return $retorno;
-//        if(is_null($action) OR $action == "lista"){              
-       //     return  '<section>' . $this->getLista() . '</section>';
-//        }else if($action == "novo"){
-//            return  '<section>' . $this->getForm() . '</section>';
-//        }else if($action == "editar"){
-//            return  '<section>' . $this->getAviso() . $this->getForm($action, $params) . '</section>';
-//        }else{
-//            return $this->getLista();
-//        }
     }
             
     public function get($action = null, $params = null){
@@ -131,27 +122,18 @@ class AvaliadoresView extends View{
     
     public function getTabelaBasicaServidor(Servidor $item){
         $content_ = '';        
-//        $idModalExcluir = 'myModalExcluir';        
-//        
         
         $unidade = new Unidade();
         $distrito = new Distrito();
         $lista = $item->getDadosServidorMovimentacaoPorCpf($item->getCpf_servidor());
         
-//        
+       
         $linhas = "";
         foreach ($lista as $row){
             
             $unidade = $unidade->selectObj($row->id_unidade_destino);
-//            
-////            $button_edit = "<a id='btn_edit' name='btn-edit' href='/profissoes/editprofissao/{$item->getId_profissao()}' class='btn btn-primary btn-sm'>Editar</a>";
-////            $button_delete = '<button type="button" data-toggle="modal" data-target="#'.$idModalExcluir.$item->getId_profissao().'" class="btn btn-danger btn-sm">Excluir </button>';
-////                         
-////            $buttons = $button_edit." ".$button_delete ;
-//
-//            $distrito = new Distrito();
-//            $distrito = $distrito->selectObj($item->getId_distrito());
-//            
+
+          
             $linhas .= '<tr>
                               <th scope="row">'.$row->id_servidor.'</th>
                               <td>'.$row->nome_servidor.'</td>
@@ -161,12 +143,9 @@ class AvaliadoresView extends View{
                               <td>'.$distrito->selectObj($unidade->getId_distrito())->getNome_distrito().'</td>                              
                             </tr>
                         ';
-////            
-////            $buttonsModal = array('<button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>'
-////                         ,'<a href="/profissoes/deleteprofissao/'.$item->getId_profissao().'"><button type="button" class="btn btn-danger">Excluir Cadastro</button></a>');
-////            $content_ .= $this->getModal($idModalExcluir.$item->getId_profissao(), "Excluir Profissão", "Tem Certeza que deseja Excluir o Cadastro?", $buttonsModal);     
+   
         }
-//        
+      
         $content_ .= '
                     <div class="col-lg-12">
                   <div class="card">                    
@@ -199,41 +178,6 @@ class AvaliadoresView extends View{
         return $content_;        
     }
         
-//    private function getForm($action = null, $param = null){
-//        $tituloForm = "Profissão";
-//        $actionForm = "/profissoes/addprofissao";
-//        
-//        $vProfissao = null;        
-//       
-//        $hi_id_obj = "";
-//        
-//        if($action == "editar"){
-//            $tituloForm .= " - ".ucfirst($action);
-//            $actionForm = "/profissoes/updateprofissao";
-//            
-//            $obj = new Profissao();
-//            $obj = $obj->selectObj($param[0]);
-//            $vProfissao = $obj->getProfissao();            
-//            $hi_id_obj = $this->getHidden("hi_id_obj", $obj->getId_profissao());
-//
-//        }   
-//                                       
-//        return ' 
-//                '.$this->beginCard("col-lg-12", $tituloForm).'             
-//                    '.$this->beginForm("col-lg-12" , "POST", $actionForm).'                          
-//                      
-//                            '.$this->getInput("text", "tx_profissao", "Profissão", "Nome da Profissão" ,"col-sm-6",true, $vProfissao).'
-//                                
-//                            '.$hi_id_obj.'
-//
-//                                <div class="line"></div>
-//                            '.$this->getInputButtonSubmit("btn_salvar", "Salvar", "btn-primary").' 
-//                       
-//                    '.$this->endForm().'
-//                '.$this->endCard().'                    
-//                ';
-//    }
-//
     private function getLista(){
                
         $content_ = '';        

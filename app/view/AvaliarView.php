@@ -2,6 +2,11 @@
 
 include_once '../lib/Sistema.php';
 include_once '../lib/View.php';
+include_once '../app/model/Inscricao.php';
+include_once '../app/model/Unidade.php';
+include_once '../app/model/Cargo.php';
+include_once '../app/model/Funcao.php';
+include_once '../app/model/Avaliador.php';
 
 class AvaliarView extends View{
     function __construct($title_page = null, $sistema = null) {
@@ -9,20 +14,83 @@ class AvaliarView extends View{
     }
     
     private function getContent($action = null, $params = null){
-        return '<section>' .  $this->getFormParecer(). '</section>';
-//        if(is_null($action) OR $action == "lista"){              
-          //  return  '<section>' . $this->getLista() . '</section>';
-//        }else if($action == "novo"){
-//            return  '<section>' . $this->getForm() . '</section>';
-//        }else if($action == "editar"){
-//            return  '<section>' . $this->getAviso() . $this->getForm($action, $params) . '</section>';
-//        }else{
-//            return $this->getLista();
-//        }
+        if($action == "lista"){
+            return '<section>' .  $this->getLista(). '</section>';
+        }else{
+            return '<section>' .  $this->getFormParecer(). '</section>';
+        }
     }
     
     public function getDadosServidor(){
         
+    }
+    
+    private function getLista(){
+        
+        $id_avaliador = $_SESSION['id_servidor'];
+        
+        $objAvaliador = new Avaliador();
+        
+        if($objAvaliador->is_avaliador($id_avaliador)){
+                                
+            $params = $objAvaliador->getArrayIdUnidadesPorAvaliador($id_avaliador);
+
+            $content_ = '';        
+
+            $objInscricao = new Inscricao();
+            $listaInscritoPorUnidades = $objInscricao->getObjsPorUnidadeAtual($params);
+
+            $objUnidade = new Unidade();
+            $objCargo = new Cargo();
+            $objFuncao = new Funcao();
+
+            $linhas = "";
+            foreach ($listaInscritoPorUnidades as $item){
+
+                $linhas .= '<tr>
+                                  <th scope="row">'.$item->getIdInscricao().'</th>
+                                  <td>'.$item->getNomeServidor().'</td>
+                                  <td>'.$item->getCpfServidor().'</td>
+                                  <td>'.$objUnidade->selectObj($item->getUnidadeAtual())->getNome_unidade().'</td>                              
+                                  <td>'.$objCargo->selectObj($item->getCargo())->getNome_cargo().'</td>                              
+                                  <td>'.$objFuncao->selectObj($item->getFuncao())->getNome_funcao().'</td>        
+                                  <td>avaliar</td>                                                                                       
+                            </tr>
+                            ';
+            }
+
+            $content_ .= '
+                        <div class="col-lg-12">
+                      <div class="card">                    
+                        <div class="card-header d-flex align-items-center">
+                          <h3 class="h4">Lista</h3>
+                        </div>
+                        <div class="card-body">
+                          <div class="table-responsive">                       
+                            <table class="table table-striped table-hover">
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>SERVIDOR</th>                              
+                                  <th>CPF</th>                              
+                                  <th>UNIDADE ATUAL</th>                              
+                                  <th>CARGO</th>                              
+                                  <th>FUNÇÃO</th>          
+                                  <th>AVALIAR</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                   '.$linhas.'            
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ';
+        }
+                                  
+        return $content_;       
     }
             
     public function get($action = null, $params = null){

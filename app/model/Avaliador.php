@@ -53,6 +53,21 @@ class Avaliador extends ModelBasico {
         else return false;
     }
     
+    public function getArrayIdUnidadesPorAvaliador($id_avaliador){
+        $sql = " SELECT id_unidade FROM tb_avaliador WHERE id_servidor = '{$id_avaliador}'  "; 
+        
+        $dados = array();
+        $dados = $this->select($sql);
+        
+        $array = array();
+        
+        foreach ($dados as $row){
+            array_push($array, $row->id_unidade);
+        }
+        
+        return $array;                
+    }
+    
     public function getListObjActive(){
         $sql = " SELECT * FROM tb_avaliador WHERE id_status = '1' ORDER BY id_servidor ASC ";
         

@@ -290,6 +290,7 @@ class View {
     public function getMenu(){
                
         $arrayAdministradores = array("Cadastro" => "cadastro=true", "Listar" => "lista=true" );
+        $arrayInscritos = array("Listar" => "lista=true" );
         $arrayAvaliadores = array("Cadastro" => "cadastro=true", "Listar" => "lista=true" );
         $arrayUnidades = array("Listar" => "lista=true" );
         
@@ -310,6 +311,7 @@ class View {
             if($admin->is_administrador($_SESSION['id_servidor'])){
                 $conteudoAdmin = '<!-- Sidebar Navidation Menus--><span class="heading">Admin</span>
                               <ul class="list-unstyled">   
+                                 '.$this->itemMenuDown("inscritos.php", "icon-interface-windows", "Inscritos",$arrayInscritos).'                                          
                                  '.$this->itemMenuDown("administradores.php", "icon-interface-windows", "Admin",$arrayAdministradores).'                                          
                                  '.$this->itemMenuDown("avaliadores.php", "icon-interface-windows", "Avaliadores",$arrayAvaliadores).'                                          
                                  '.$this->itemMenuDown("unidade.php", "icon-interface-windows", "Unidades",$arrayUnidades).'                                          
