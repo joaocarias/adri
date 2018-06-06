@@ -1,5 +1,6 @@
 <?php
 
+include_once '../app/model/Inscricao.php';
 include_once '../lib/Sistema.php';
 include_once '../lib/View.php';
 
@@ -562,7 +563,8 @@ class DashboardView extends View {
     }
 
     private function getContent(){
-        return '<section>'.$this->msg().'</section>';
+        return ''.$this->msg().''
+                . '<section>'.$this->getHome().'</section>';
         
         
         $sections = '<!-- Dashboard Counts Section-->
@@ -580,19 +582,41 @@ class DashboardView extends View {
     }
     
     private function msg() {
-        if(isset($_GET['msg'])){
-            if($_GET['msg'] == 'cadastrado'){
-                return '<div class="alert alert-success" role="alert">
+        if(isset($_SESSION['msg'])){
+            if($_SESSION['msg'] == 'cadastrado'){
+                unset($_SESSION['msg']);
+                return '<section><div class="alert alert-success" role="alert">
                         Solicitação de Remanejamento Cadastrada!
-                      </div>';
+                      </div></section>';
             }
-            elseif($_GET['msg'] == 'erro_cadastro'){
-                return '<div class="alert alert-danger" role="alert">
+            elseif($_SESSION['msg'] == 'erro_cadastro'){
+                unset($_SESSION['msg']);
+                return '<section><div class="alert alert-danger" role="alert">
                         Erro na solicitação de Remanejamento, tente novamente!
-                      </div>';
+                      </div></section>';
             }
         
         }
+    }
+    
+    private function getHome() {
+        
+//        $objInscricao = new Inscricao();
+//        $inscrito = $objInscricao->getArrayPorCPF($_SESSION['cpf_servidor']);
+//        print_r($inscrito);
+//        if(!empty($inscrito)){
+//            return $this->beginCard("col-md-12", "Introdução")
+//                . 'Seu cadastro já foi realizado, aguarde para saber se sua solicitação foi aprovada!'
+//                . ''
+//                . $this->endCard();
+//        }
+//        else{
+            return $this->beginCard("col-md-12", "Introdução")
+                . 'Bem vindo ao cadastro de solicitação Remanejamento Interno, clique no botão abaixo para realizar seu cadastro.'
+                . ''.$this->getButton("Inscrição", "inscricao.php", "btn-primary")
+                . $this->endCard();
+//        }
+        
     }
 
     public function get(){

@@ -654,13 +654,19 @@ class View {
                     </div>';
         
     }
-    
-    
-    
+       
     public function getInputButtonSubmit($name, $valeu, $class){
         return '<div class="form-group row">       
                           <div class="col-sm-9 offset-sm-3">
                             <input type="submit" value="'.$valeu.'" id="'.$name.'" name="'.$name.'" class="btn '.$class.'">
+                          </div>
+                        </div>';
+    }
+    
+    public function getButton($label, $href, $class){
+        return '<div class="row">       
+                          <div class="col-sm-9 offset-sm-3">
+                            <a class="btn '.$class.'" href="'.$href.'">'.$label.'</a>
                           </div>
                         </div>';
     }
