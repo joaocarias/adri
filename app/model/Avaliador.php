@@ -80,6 +80,33 @@ class Avaliador extends ModelBasico {
         return $array;
     }
     
+    public function selectAvaliadoresPorUnidade($id_unidade){
+        $sql = " SELECT * FROM tb_avaliador WHERE id_status = '1' AND id_unidade = '{$id_unidade}' ORDER BY id_servidor ASC ";
+        
+        $dados = array();
+        $dados = $this->select($sql);
+        
+        $array = array();
+        
+        foreach ($dados as $row){
+            
+            $obj = new Avaliador();
+            
+            $obj->setCriador_por($row->criado_por);
+            $obj->setData_da_modificacao($row->data_da_modificacao);
+            $obj->setData_do_cadastro($row->data_do_cadastro);
+            $obj->setId_avaliador($row->id_avaliador);
+            $obj->setId_servidor($row->id_servidor);
+            $obj->setId_status($row->id_status);
+            $obj->setId_unidade($row->id_unidade);
+            $obj->setModificador_por($row->modificador_por);
+            
+            array_push($array, $obj);
+        }        
+        
+        return $array;
+    }
+
     public function deleteObj($id){
         $sql =  " UPDATE tb_avaliador SET id_status = '0', modificador_por = '{$_SESSION['id_servidor']}', data_da_modificacao = NOW() WHERE id_avaliador = '{$id}'; ";
         $retorno = $this->inativar($sql);

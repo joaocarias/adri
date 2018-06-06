@@ -2,6 +2,8 @@
 
 include_once '../app/model/Unidade.php';
 include_once '../app/model/Distrito.php';
+include_once '../app/model/Avaliador.php';
+include_once '../app/model/Servidor.php';
 include_once '../lib/Sistema.php';
 include_once '../lib/View.php';
 
@@ -57,41 +59,6 @@ class UnidadeView extends View{
                     </html>';
     }
         
-//    private function getForm($action = null, $param = null){
-//        $tituloForm = "Profissão";
-//        $actionForm = "/profissoes/addprofissao";
-//        
-//        $vProfissao = null;        
-//       
-//        $hi_id_obj = "";
-//        
-//        if($action == "editar"){
-//            $tituloForm .= " - ".ucfirst($action);
-//            $actionForm = "/profissoes/updateprofissao";
-//            
-//            $obj = new Profissao();
-//            $obj = $obj->selectObj($param[0]);
-//            $vProfissao = $obj->getProfissao();            
-//            $hi_id_obj = $this->getHidden("hi_id_obj", $obj->getId_profissao());
-//
-//        }   
-//                                       
-//        return ' 
-//                '.$this->beginCard("col-lg-12", $tituloForm).'             
-//                    '.$this->beginForm("col-lg-12" , "POST", $actionForm).'                          
-//                      
-//                            '.$this->getInput("text", "tx_profissao", "Profissão", "Nome da Profissão" ,"col-sm-6",true, $vProfissao).'
-//                                
-//                            '.$hi_id_obj.'
-//
-//                                <div class="line"></div>
-//                            '.$this->getInputButtonSubmit("btn_salvar", "Salvar", "btn-primary").' 
-//                       
-//                    '.$this->endForm().'
-//                '.$this->endCard().'                    
-//                ';
-//    }
-//
     private function getLista(){
                
         $content_ = '';        
@@ -103,11 +70,23 @@ class UnidadeView extends View{
         $linhas = "";
         foreach ($lista as $item){
             
-//            $button_edit = "<a id='btn_edit' name='btn-edit' href='/profissoes/editprofissao/{$item->getId_profissao()}' class='btn btn-primary btn-sm'>Editar</a>";
-//            $button_delete = '<button type="button" data-toggle="modal" data-target="#'.$idModalExcluir.$item->getId_profissao().'" class="btn btn-danger btn-sm">Excluir </button>';
-//                         
-//            $buttons = $button_edit." ".$button_delete ;
+            $objAvaliador = new Avaliador();
+            $objServidor = new Servidor();
+            $listaAvaliadores = $objAvaliador->selectAvaliadoresPorUnidade($item->getId_unidade());
 
+            $stringAvaliadores = "";
+            
+            $i = 0;
+            foreach ($listaAvaliadores as $v){
+                if($i == 0){
+                    $stringAvaliadores .= $objServidor->selectObj($v->getId_servidor())->getNome_servidor();
+                }else{
+                    $stringAvaliadores .= ", ".$objServidor->selectObj($v->getId_servidor())->getNome_servidor();
+                }
+                
+                $i++;
+            }
+            
             $distrito = new Distrito();
             $distrito = $distrito->selectObj($item->getId_distrito());
             
@@ -116,14 +95,10 @@ class UnidadeView extends View{
                               <td>'.$item->getNome_unidade().'</td>
                               <td>'.$item->getSigla_unidade().'</td>
                               <td>'.$distrito->getNome_distrito().'</td>                              
-                              <td></td>                              
-                              <td></td>                              
+                              <td>'.$stringAvaliadores.'</td>                                                       
                             </tr>
                         ';
-//            
-//            $buttonsModal = array('<button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>'
-//                         ,'<a href="/profissoes/deleteprofissao/'.$item->getId_profissao().'"><button type="button" class="btn btn-danger">Excluir Cadastro</button></a>');
-//            $content_ .= $this->getModal($idModalExcluir.$item->getId_profissao(), "Excluir Profissão", "Tem Certeza que deseja Excluir o Cadastro?", $buttonsModal);     
+ 
         }
         
         $content_ .= '
@@ -141,8 +116,7 @@ class UnidadeView extends View{
                               <th>UNIDADE</th>                              
                               <th>SIGLA</th>                              
                               <th>DISTRITO</th>
-                              <th>AVALIADORES</th>
-                              <th></th>
+                              <th>AVALIADOR(ES)</th>                             
                             </tr>
                           </thead>
                           <tbody>
