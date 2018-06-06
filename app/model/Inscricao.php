@@ -109,11 +109,39 @@ class Inscricao extends ModelBasico{
         $sql = " SELECT * FROM `inscricao` WHERE id_inscricao = '{$id}' ORDER BY nome_servidor ASC ";
                 
         $dados = $this->select($sql);        
-        $obj = new Cargo();
+        $obj = new Inscricao();
         
         foreach ($dados as $row){                        
-            $obj->setId_funcao($row->id_funcao);
-            $obj->setNome_funcao($row->nome_funcao);
+            $obj->setIdInscricao($row->id_inscricao);
+            $obj->setNomeServidor($row->nome_servidor);
+            $obj->setCpfServidor($row->cpf_servidor);
+            $obj->setCargo($row->cargo);
+            $obj->setFuncao($row->funcao);
+            $obj->setCep($row->cep);
+            $obj->setEndereco($row->endereco);
+            $obj->setEmail($row->email);
+            $obj->setTelefone($row->telefone);
+            $obj->setUnidadeAtual($row->unidade_atual);
+            $obj->setDataChegadaAtual($row->data_chegada);
+            $obj->setExperienciaSaude($row->experiencia_saude);
+            $obj->setMotivoSolicitacao($row->motivo_sair);
+            $obj->setUnidadeDesejo1($row->unidade_vai1);
+            $obj->setUnidadeDesejo2($row->unidade_vai2);
+            $obj->setUnidadeDesejo3($row->unidade_vai3);
+            $obj->setUnidadeAnterior1($row->unidade_foi1);
+            $obj->setChegadaUnidadeAnterior1($row->data_chegada_foi1);
+            $obj->setSaidaUnidadeAnterior1($row->data_saida_foi1);
+            $obj->setMotivoUnidadeAnterior1($row->motivo_foi1);
+            $obj->setUnidadeAnterior2($row->unidade_foi2);
+            $obj->setChegadaUnidadeAnterior2($row->data_chegada_foi2);
+            $obj->setSaidaUnidadeAnterior2($row->data_saida_foi2);
+            $obj->setMotivoUnidadeAnterior2($row->motivo_foi2);
+            $obj->setUnidadeAnterior3($row->unidade_foi3);
+            $obj->setChegadaUnidadeAnterior3($row->data_chegada_foi3);
+            $obj->setSaidaUnidadeAnterior3($row->data_saida_foi3);
+            $obj->setMotivoUnidadeAnterior3($row->motivo_foi3);
+            $obj->setSolicitadoPor($row->solicitado_por);
+            $obj->setDataSolicitacao($row->data_solicitacao);
         }                
         return $obj;
     }
@@ -122,11 +150,39 @@ class Inscricao extends ModelBasico{
         $sql = " SELECT * FROM `inscricao` WHERE cpf_servidor = '{$cpf}' ORDER BY nome_servidor ASC ";
                 
         $dados = $this->select($sql);        
-        $obj = new Cargo();
+        $obj = new Inscricao();
         
         foreach ($dados as $row){                        
-            $obj->setId_funcao($row->id_funcao);
-            $obj->setNome_funcao($row->nome_funcao);
+            $obj->setIdInscricao($row->id_inscricao);
+            $obj->setNomeServidor($row->nome_servidor);
+            $obj->setCpfServidor($row->cpf_servidor);
+            $obj->setCargo($row->cargo);
+            $obj->setFuncao($row->funcao);
+            $obj->setCep($row->cep);
+            $obj->setEndereco($row->endereco);
+            $obj->setEmail($row->email);
+            $obj->setTelefone($row->telefone);
+            $obj->setUnidadeAtual($row->unidade_atual);
+            $obj->setDataChegadaAtual($row->data_chegada);
+            $obj->setExperienciaSaude($row->experiencia_saude);
+            $obj->setMotivoSolicitacao($row->motivo_sair);
+            $obj->setUnidadeDesejo1($row->unidade_vai1);
+            $obj->setUnidadeDesejo2($row->unidade_vai2);
+            $obj->setUnidadeDesejo3($row->unidade_vai3);
+            $obj->setUnidadeAnterior1($row->unidade_foi1);
+            $obj->setChegadaUnidadeAnterior1($row->data_chegada_foi1);
+            $obj->setSaidaUnidadeAnterior1($row->data_saida_foi1);
+            $obj->setMotivoUnidadeAnterior1($row->motivo_foi1);
+            $obj->setUnidadeAnterior2($row->unidade_foi2);
+            $obj->setChegadaUnidadeAnterior2($row->data_chegada_foi2);
+            $obj->setSaidaUnidadeAnterior2($row->data_saida_foi2);
+            $obj->setMotivoUnidadeAnterior2($row->motivo_foi2);
+            $obj->setUnidadeAnterior3($row->unidade_foi3);
+            $obj->setChegadaUnidadeAnterior3($row->data_chegada_foi3);
+            $obj->setSaidaUnidadeAnterior3($row->data_saida_foi3);
+            $obj->setMotivoUnidadeAnterior3($row->motivo_foi3);
+            $obj->setSolicitadoPor($row->solicitado_por);
+            $obj->setDataSolicitacao($row->data_solicitacao);
         }                
         return $obj;
     }
@@ -138,8 +194,37 @@ class Inscricao extends ModelBasico{
         
         $i = 0;
         foreach ($list as $item){
-            $array[$i]['id'] = $item->getId_funcao();
-            $array[$i]['value'] = $item->getNome_funcao();
+            
+            $array[$i]['id_incricao'] = $item->getIdInscricao();
+            $array[$i]['nome_servidor'] = $item->getNomeServidor();
+            $array[$i]['cpf_servidor'] = $item->getCpfServidor();
+            $array[$i]['cargo'] = $item->getCargo();
+            $array[$i]['funcao'] = $item->getFuncao();
+            $array[$i]['cep'] = $item->getCep();
+            $array[$i]['endereco'] = $item->getEndereco();
+            $array[$i]['email'] = $item->getEmail();
+            $array[$i]['telefone'] = $item->getTelefone();
+            $array[$i]['unidade_atual'] = $item->getUnidadeAtual();
+            $array[$i]['data_chegada'] = $item->getDataChegadaAtual();
+            $array[$i]['experiencia_saude'] = $item->getExperienciaSaude();
+            $array[$i]['motivo_sair'] = $item->getMotivoSolicitacao();
+            $array[$i]['unidade_vai1'] = $item->getUnidadeDesejo1();
+            $array[$i]['unidade_vai2'] = $item->getUnidadeDesejo2();
+            $array[$i]['unidade_vai3'] = $item->getUnidadeDesejo3();
+            $array[$i]['unidade_foi1'] = $item->getUnidadeAnterior1();
+            $array[$i]['data_chegada_foi1'] = $item->getChegadaUnidadeAnterior1();
+            $array[$i]['data_saida_foi1'] = $item->getSaidaUnidadeAnterior1();
+            $array[$i]['motivo_foi1'] = $item->getMotivoUnidadeAnterior1();
+            $array[$i]['unidade_foi2'] = $item->getUnidadeAnterior2();
+            $array[$i]['data_chegada_foi2'] = $item->getChegadaUnidadeAnterior2();
+            $array[$i]['data_saida_foi2'] = $item->getSaidaUnidadeAnterior2();
+            $array[$i]['motivo_foi2'] = $item->getMotivoUnidadeAnterior2();
+            $array[$i]['unidade_foi3'] = $item->getUnidadeAnterior3();
+            $array[$i]['data_chegada_foi3'] = $item->getChegadaUnidadeAnterior3();
+            $array[$i]['data_saida_foi3'] = $item->getSaidaUnidadeAnterior3();
+            $array[$i]['motivo_foi3'] = $item->getMotivoUnidadeAnterior3();
+            $array[$i]['solicitado_por'] = $item->getSolicitadoPor();
+            $array[$i]['data_solicitacao'] = $item->getDataSolicitacao();
             $i++;
         }
         
@@ -156,10 +241,38 @@ class Inscricao extends ModelBasico{
         
         foreach ($dados as $row){
             
-            $obj = new Funcao();
+            $obj = new Inscricao();
             
-            $obj->setId_funcao($row->id_funcao);
-            $obj->setNome_funcao($row->nome_funcao);
+            $obj->setIdInscricao($row->id_inscricao);
+            $obj->setNomeServidor($row->nome_servidor);
+            $obj->setCpfServidor($row->cpf_servidor);
+            $obj->setCargo($row->cargo);
+            $obj->setFuncao($row->funcao);
+            $obj->setCep($row->cep);
+            $obj->setEndereco($row->endereco);
+            $obj->setEmail($row->email);
+            $obj->setTelefone($row->telefone);
+            $obj->setUnidadeAtual($row->unidade_atual);
+            $obj->setDataChegadaAtual($row->data_chegada);
+            $obj->setExperienciaSaude($row->experiencia_saude);
+            $obj->setMotivoSolicitacao($row->motivo_sair);
+            $obj->setUnidadeDesejo1($row->unidade_vai1);
+            $obj->setUnidadeDesejo2($row->unidade_vai2);
+            $obj->setUnidadeDesejo3($row->unidade_vai3);
+            $obj->setUnidadeAnterior1($row->unidade_foi1);
+            $obj->setChegadaUnidadeAnterior1($row->data_chegada_foi1);
+            $obj->setSaidaUnidadeAnterior1($row->data_saida_foi1);
+            $obj->setMotivoUnidadeAnterior1($row->motivo_foi1);
+            $obj->setUnidadeAnterior2($row->unidade_foi2);
+            $obj->setChegadaUnidadeAnterior2($row->data_chegada_foi2);
+            $obj->setSaidaUnidadeAnterior2($row->data_saida_foi2);
+            $obj->setMotivoUnidadeAnterior2($row->motivo_foi2);
+            $obj->setUnidadeAnterior3($row->unidade_foi3);
+            $obj->setChegadaUnidadeAnterior3($row->data_chegada_foi3);
+            $obj->setSaidaUnidadeAnterior3($row->data_saida_foi3);
+            $obj->setMotivoUnidadeAnterior3($row->motivo_foi3);
+            $obj->setSolicitadoPor($row->solicitado_por);
+            $obj->setDataSolicitacao($row->data_solicitacao);
             
             array_push($array, $obj);
         }        
@@ -252,15 +365,15 @@ class Inscricao extends ModelBasico{
     }
     
     function getChegadaUnidadeAnterior2() {
-        return $this->data_chegada_foi1;
+        return $this->data_chegada_foi2;
     }
     
     function getSaidaUnidadeAnterior2() {
-        return $this->data_saida_foi1;
+        return $this->data_saida_foi2;
     }
     
     function getMotivoUnidadeAnterior2() {
-        return $this->motivo_foi1;
+        return $this->motivo_foi2;
     }
     
     function getUnidadeAnterior3() {
@@ -268,15 +381,15 @@ class Inscricao extends ModelBasico{
     }
     
     function getChegadaUnidadeAnterior3() {
-        return $this->data_chegada_foi1;
+        return $this->data_chegada_foi3;
     }
     
     function getSaidaUnidadeAnterior3() {
-        return $this->data_saida_foi1;
+        return $this->data_saida_foi3;
     }
     
     function getMotivoUnidadeAnterior3() {
-        return $this->motivo_foi1;
+        return $this->motivo_foi3;
     }
     
     function getDataSolicitacao() {
@@ -287,123 +400,123 @@ class Inscricao extends ModelBasico{
         return $this->solicitado_por;
     }
     
-    function setIdInscricao() {
-        return $this->id_inscricao;
+    function setIdInscricao($id_incricao) {
+        $this->id_inscricao = $id_incricao;
     }
 
-    function setNomeServidor() {
-        return $this->nome_servidor;
+    function setNomeServidor($nome_servidor) {
+        $this->nome_servidor = $nome_servidor;
     }
     
-    function setCpfServidor() {
-        return $this->cpf_servidor;
+    function setCpfServidor($cpf_servidor) {
+        $this->cpf_servidor = $cpf_servidor;
     }
     
-    function setCep() {
-        return $this->cep;
+    function setCep($cep) {
+        $this->cep = $cep;
     }
     
-    function setEndereco() {
-        return $this->endereco;
+    function setEndereco($endereco) {
+        $this->endereco = $endereco;
     }
     
-    function setTelefone() {
-        return $this->telefone;
+    function setTelefone($telefone) {
+        $this->telefone = $telefone;
     }
     
-    function setEmail() {
-        return $this->email;
+    function setEmail($email) {
+        $this->email = $email;
     }
     
-    function setCargo() {
-        return $this->cargo;
+    function setCargo($cargo) {
+        $this->cargo = $cargo;
     }
     
-    function setFuncao() {
-        return $this->funcao;
+    function setFuncao($funcao) {
+        $this->funcao = $funcao;
     }
     
-    function setUnidadeAtual() {
-        return $this->unidade_atual;
+    function setUnidadeAtual($unidade_atual) {
+        $this->unidade_atual = $unidade_atual;
     }
     
-    function setDataChegadaAtual() {
-        return $this->data_chegada;
+    function setDataChegadaAtual($data_chegada) {
+        $this->data_chegada = $data_chegada;
     }
     
-    function setExperienciaSaude() {
-        return $this->experiencia_saude;
+    function setExperienciaSaude($experiencia_saude) {
+        $this->experiencia_saude = $experiencia_saude;
     }
     
-    function setMotivoSolicitacao() {
-        return $this->motivo_sair;
+    function setMotivoSolicitacao($motivo_sair) {
+        $this->motivo_sair = $motivo_sair;
     }
     
-    function setUnidadeDesejo1() {
-        return $this->unidade_vai1;
+    function setUnidadeDesejo1($unidade_vai1) {
+        $this->unidade_vai1 = $unidade_vai1;
     }
     
-    function setUnidadeDesejo2() {
-        return $this->unidade_vai2;
+    function setUnidadeDesejo2($unidade_vai2) {
+        $this->unidade_vai2 = $unidade_vai2;
     }
     
-    function setUnidadeDesejo3() {
-        return $this->unidade_vai3;
+    function setUnidadeDesejo3($unidade_vai3) {
+        $this->unidade_vai3 = $unidade_vai3;
     }
     
-    function setUnidadeAnterior1() {
-        return $this->unidade_foi1;
+    function setUnidadeAnterior1($unidade_foi1) {
+        $this->unidade_foi1 = $unidade_foi1;
     }
     
-    function setChegadaUnidadeAnterior1() {
-        return $this->data_chegada_foi1;
+    function setChegadaUnidadeAnterior1($data_chegada_foi1) {
+        $this->data_chegada_foi1 = $data_chegada_foi1;
     }
     
-    function setSaidaUnidadeAnterior1() {
-        return $this->data_saida_foi1;
+    function setSaidaUnidadeAnterior1($data_saida_foi1) {
+        $this->data_saida_foi1 = $data_saida_foi1;
     }
     
-    function setMotivoUnidadeAnterior1() {
-        return $this->motivo_foi1;
+    function setMotivoUnidadeAnterior1($motivo_foi1) {
+        $this->motivo_foi1 = $motivo_foi1;
     }
     
-    function setUnidadeAnterior2() {
-        return $this->unidade_foi2;
+    function setUnidadeAnterior2($unidade_foi2) {
+        $this->unidade_foi2 = $unidade_foi2;
     }
     
-    function setChegadaUnidadeAnterior2() {
-        return $this->data_chegada_foi1;
+    function setChegadaUnidadeAnterior2($data_chegada_foi2) {
+        $this->data_chegada_foi2 = $data_chegada_foi2;
     }
     
-    function setSaidaUnidadeAnterior2() {
-        return $this->data_saida_foi1;
+    function setSaidaUnidadeAnterior2($data_saida_foi2) {
+        $this->data_saida_foi2 = $data_saida_foi2;
     }
     
-    function setMotivoUnidadeAnterior2() {
-        return $this->motivo_foi1;
+    function setMotivoUnidadeAnterior2($motivo_foi2) {
+        $this->motivo_foi2 = $motivo_foi2;
     }
     
-    function setUnidadeAnterior3() {
-        return $this->unidade_foi3;
+    function setUnidadeAnterior3($unidade_foi3) {
+        $this->unidade_foi3 = $unidade_foi3;
     }
     
-    function setChegadaUnidadeAnterior3() {
-        return $this->data_chegada_foi1;
+    function setChegadaUnidadeAnterior3($data_chegada_foi3) {
+        $this->data_chegada_foi3 = $data_chegada_foi3;
     }
     
-    function setSaidaUnidadeAnterior3() {
-        return $this->data_saida_foi1;
+    function setSaidaUnidadeAnterior3($data_saida_foi3) {
+        $this->data_saida_foi3 = $data_saida_foi3;
     }
     
-    function setMotivoUnidadeAnterior3() {
-        return $this->motivo_foi1;
+    function setMotivoUnidadeAnterior3($motivo_foi3) {
+        $this->motivo_foi3 = $motivo_foi3;
     }
     
-    function setDataSolicitacao() {
-        return $this->data_solicitacao;
+    function setDataSolicitacao($data_solicitacao) {
+        $this->data_solicitacao;
     }
     
-    function setSolicitadoPor() {
-        return $this->solicitado_por;
+    function setSolicitadoPor($solicitado_por) {
+        $this->solicitado_por = $solicitado_por;
     }
 }

@@ -97,6 +97,26 @@ class Servidor extends ModelDimenisionamento{
         $dados = $this->select($sql);        
         return $dados;
     }
+    
+    public function getDadosServidorUltimoVinculo($id){
+        $sql = "SELECT * FROM `servidor` s
+                    INNER JOIN vinculo v ON s.id_servidor = v.id_servidor
+                    INNER JOIN movimentacao m ON s.id_servidor = m.id_servidor
+                    WHERE s.ativo = 1 AND s.id_servidor = '{$id}'
+                    ORDER BY v.id_vinculo DESC";
+        
+        $dados = $this->select($sql);  
+        
+        $result = array();
+        
+        foreach($dados as $valor){
+            $result['id_cargo'] = $valor->id_cargo;  
+            $result['id_funcao'] = $valor->id_funcao; 
+            $result['id_unidade_destino'] = $valor->id_unidade_destino; 
+        }
+        
+        return $result;
+    }
    
    function getId_servidor() {
        return $this->id_servidor;

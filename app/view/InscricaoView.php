@@ -571,11 +571,18 @@ class InscricaoView extends View {
 
     private function getContent(){
                 
-//        $objInscricao = new Inscricao();
-//        $inscrito = $objInscricao->
+        $objInscricao = new Inscricao();
+        $inscrito = $objInscricao->selectObjCPF($_SESSION['cpf_servidor']);
         
-        return '<!-- Dashboard Counts Section-->
-                <section> '.$this->getFormServidor().'</section>';
+        if(!empty($inscrito)){
+            return '<section> Inscrição já realizada!</section>';
+        }
+        else{
+            return '<!-- Dashboard Counts Section-->
+                    <section> '.$this->getFormServidor().'</section>';
+        }
+        
+        
     }
     
     private function getFormServidor(){
@@ -592,11 +599,14 @@ class InscricaoView extends View {
         $objServidor = new Servidor();
         $objPerfil = $objServidor->getObjPorLogin($_SESSION['cpf_servidor']);
         
+        $servidorDados = $objServidor->getDadosServidorUltimoVinculo($_SESSION['id_servidor']);
+        
         $arrayButton = array(
                             array("id" => 1, "value" => "A Pedido"),
                             array("id" => 2, "value" => "Devolução")
                         );
-            
+//                        print_r($servidorDados);
+//                        echo "Cargo: ".$servidorDados['id_cargo'];
         return $this->beginCard("col-md-12", "Solicitação Remanejamento Servidor").'
                 '.$this->beginForm("col-md-12", "POST", "../controller/InscricaoController.php").'
                     '.$this->getInput("hidden", "id_servidor", "", "", "col-sm-8", false, $_SESSION['id_servidor'], true).'
@@ -606,9 +616,9 @@ class InscricaoView extends View {
                     '.$this->getInput("text", "endereco", "Endereço", "Endereço Servidor", "col-sm-8", true).'
                     '.$this->getInput("tel", "telefone", "Telefone", "Telefone Servidor", "col-sm-8", true, $objPerfil->getTelefone()).'
                     '.$this->getInput("email", "email", "Email", "Email Servidor", "col-sm-8", true, $objPerfil->getEmail()).'
-                    '.$this->getSelect($arrayCargo, "cargo", "Cargo", "col-sm-8", true).'
-                    '.$this->getSelect($arrayFuncao, "funcao", "Função Atual", "col-sm-8", true).'
-                    '.$this->getSelect($arrayUnidade, "unidade_atual", "Unidade Atual", "col-sm-8", true).'
+                    '.$this->getSelect($arrayCargo, "cargo", "Cargo", "col-sm-8", true, $servidorDados['id_cargo']).'
+                    '.$this->getSelect($arrayFuncao, "funcao", "Função Atual", "col-sm-8", true, $servidorDados['id_funcao']).'
+                    '.$this->getSelect($arrayUnidade, "unidade_atual", "Unidade Atual", "col-sm-8", true, $servidorDados['id_unidade_destino']).'
                     '.$this->getInput("text", "data_chegada", "Data Chegada na Unidade Atual", "Data Chegada na Unidade", "col-sm-4", true, "", false, "99/99/9999").'
                     '.$this->getTextarea("motivo_sair","Motivo da Solicitação de Remanejamento", "Motivo do Remanejamento", "col-sm-8", true).'
                     '.$this->getTextarea("experiencia_saude","Descreva suas experiências profissionais na área de saúde nos últimos 2 anos", "Experiência em Saúde, tipo Enfermeiro NeoNatal, Aplicação de Vacina.", "col-sm-8", true).'
