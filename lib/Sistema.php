@@ -6,16 +6,35 @@
  * @author joao.franca
  */
 class Sistema {
-    private $name = "Sistema de Remanejamento Interno";
+    private $name = "Administração de Remanejamento Interno";
     private $reduced_name = "Remanejamento Interno";
-    private $sigla = "RI";
+    private $sigla = "ADRI";
     private $versao = "1.0";
-    private $description = "Sistema de Remoção Interna da Secretaria Municipal de Saúde de Natal";
-    private $company = "Secretaria Municipal de Saúde";
+    private $description = "Administração de Remanejamento Interno da Secretaria Municipal de Saúde de Natal";
+    private $company = "Secretaria Municipal de Saúde - Natal/RN";
     private $city = "Natal";
     private $state = "RN";
     private $unity = "Unidade Central";
-            
+    private $ano = "2018";
+    private $team = "SGTIC";
+    
+    function getTeam() {
+        return $this->team;
+    }
+
+    function setTeam($team) {
+        $this->team = $team;
+    }
+    
+    function getAno() {
+        return $this->ano;
+    }
+
+    function setAno($ano) {
+        $this->ano = $ano;
+    }
+
+                
     function getName() {
         return $this->name;
     }

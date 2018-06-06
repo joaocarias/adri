@@ -346,10 +346,10 @@ class View {
                                 <div class="container-fluid">
                                   <div class="row">
                                     <div class="col-sm-6">
-                                      <p>Secretaria Municipal de Saúde &copy; 2018</p>
+                                      <p> '.$this->sistema->getCompany().' &copy; '.$this->sistema->getAno().' Versão: '.$this->sistema->getVersao().'</p>
                                     </div>
                                     <div class="col-sm-6 text-right">
-                                      <p>Desenvolvido por SGTIC</p>                                      
+                                      <p>Desenvolvido por '.$this->sistema->getTeam().'</p>                                      
                                     </div>
                                   </div>
                                 </div>
