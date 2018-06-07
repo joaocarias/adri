@@ -298,40 +298,39 @@ class Inscricao extends ModelBasico{
         
         $array = array();
         
-        $i = 0;
         foreach ($list as $item){
             
-            $array[$i]['id_incricao'] = $item->getIdInscricao();
-            $array[$i]['nome_servidor'] = $item->getNomeServidor();
-            $array[$i]['cpf_servidor'] = $item->getCpfServidor();
-            $array[$i]['cargo'] = $item->getCargo();
-            $array[$i]['funcao'] = $item->getFuncao();
-            $array[$i]['cep'] = $item->getCep();
-            $array[$i]['endereco'] = $item->getEndereco();
-            $array[$i]['email'] = $item->getEmail();
-            $array[$i]['telefone'] = $item->getTelefone();
-            $array[$i]['unidade_atual'] = $item->getUnidadeAtual();
-            $array[$i]['data_chegada'] = $item->getDataChegadaAtual();
-            $array[$i]['experiencia_saude'] = $item->getExperienciaSaude();
-            $array[$i]['motivo_sair'] = $item->getMotivoSolicitacao();
-            $array[$i]['unidade_vai1'] = $item->getUnidadeDesejo1();
-            $array[$i]['unidade_vai2'] = $item->getUnidadeDesejo2();
-            $array[$i]['unidade_vai3'] = $item->getUnidadeDesejo3();
-            $array[$i]['unidade_foi1'] = $item->getUnidadeAnterior1();
-            $array[$i]['data_chegada_foi1'] = $item->getChegadaUnidadeAnterior1();
-            $array[$i]['data_saida_foi1'] = $item->getSaidaUnidadeAnterior1();
-            $array[$i]['motivo_foi1'] = $item->getMotivoUnidadeAnterior1();
-            $array[$i]['unidade_foi2'] = $item->getUnidadeAnterior2();
-            $array[$i]['data_chegada_foi2'] = $item->getChegadaUnidadeAnterior2();
-            $array[$i]['data_saida_foi2'] = $item->getSaidaUnidadeAnterior2();
-            $array[$i]['motivo_foi2'] = $item->getMotivoUnidadeAnterior2();
-            $array[$i]['unidade_foi3'] = $item->getUnidadeAnterior3();
-            $array[$i]['data_chegada_foi3'] = $item->getChegadaUnidadeAnterior3();
-            $array[$i]['data_saida_foi3'] = $item->getSaidaUnidadeAnterior3();
-            $array[$i]['motivo_foi3'] = $item->getMotivoUnidadeAnterior3();
-            $array[$i]['solicitado_por'] = $item->getSolicitadoPor();
-            $array[$i]['data_solicitacao'] = $item->getDataSolicitacao();
-            $i++;
+            $array['id_incricao'] = $item->getIdInscricao();
+            $array['nome_servidor'] = $item->getNomeServidor();
+            $array['cpf_servidor'] = $item->getCpfServidor();
+            $array['cargo'] = $item->getCargo();
+            $array['funcao'] = $item->getFuncao();
+            $array['cep'] = $item->getCep();
+            $array['endereco'] = $item->getEndereco();
+            $array['email'] = $item->getEmail();
+            $array['telefone'] = $item->getTelefone();
+            $array['unidade_atual'] = $item->getUnidadeAtual();
+            $array['data_chegada'] = $item->getDataChegadaAtual();
+            $array['experiencia_saude'] = $item->getExperienciaSaude();
+            $array['motivo_sair'] = $item->getMotivoSolicitacao();
+            $array['unidade_vai1'] = $item->getUnidadeDesejo1();
+            $array['unidade_vai2'] = $item->getUnidadeDesejo2();
+            $array['unidade_vai3'] = $item->getUnidadeDesejo3();
+            $array['unidade_foi1'] = $item->getUnidadeAnterior1();
+            $array['data_chegada_foi1'] = $item->getChegadaUnidadeAnterior1();
+            $array['data_saida_foi1'] = $item->getSaidaUnidadeAnterior1();
+            $array['motivo_foi1'] = $item->getMotivoUnidadeAnterior1();
+            $array['unidade_foi2'] = $item->getUnidadeAnterior2();
+            $array['data_chegada_foi2'] = $item->getChegadaUnidadeAnterior2();
+            $array['data_saida_foi2'] = $item->getSaidaUnidadeAnterior2();
+            $array['motivo_foi2'] = $item->getMotivoUnidadeAnterior2();
+            $array['unidade_foi3'] = $item->getUnidadeAnterior3();
+            $array['data_chegada_foi3'] = $item->getChegadaUnidadeAnterior3();
+            $array['data_saida_foi3'] = $item->getSaidaUnidadeAnterior3();
+            $array['motivo_foi3'] = $item->getMotivoUnidadeAnterior3();
+            $array['solicitado_por'] = $item->getSolicitadoPor();
+            $array['data_solicitacao'] = $item->getDataSolicitacao();
+            
         }
         
         return $array;

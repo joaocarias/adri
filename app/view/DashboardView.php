@@ -601,21 +601,21 @@ class DashboardView extends View {
     
     private function getHome() {
         
-//        $objInscricao = new Inscricao();
-//        $inscrito = $objInscricao->getArrayPorCPF($_SESSION['cpf_servidor']);
-//        print_r($inscrito);
-//        if(!empty($inscrito)){
-//            return $this->beginCard("col-md-12", "Introdução")
-//                . 'Seu cadastro já foi realizado, aguarde para saber se sua solicitação foi aprovada!'
-//                . ''
-//                . $this->endCard();
-//        }
-//        else{
+        $objInscricao = new Inscricao();
+        $inscrito = $objInscricao->selectObjCPF($_SERVER['cpf_servidor']);
+//        echo "Id: ".$inscrito->getIdInscricao();
+        if(!empty($inscrito->getIdInscricao())){
+            return $this->beginCard("col-md-12", "Introdução")
+                . 'Seu cadastro já foi realizado, aguarde para saber se sua solicitação foi aprovada!'
+                . ''
+                . $this->endCard();
+        }
+        else{
             return $this->beginCard("col-md-12", "Introdução")
                 . 'Bem vindo ao cadastro de solicitação Remanejamento Interno, clique no botão abaixo para realizar seu cadastro.'
                 . ''.$this->getButton("Inscrição", "inscricao.php", "btn-primary")
                 . $this->endCard();
-//        }
+        }
         
     }
 

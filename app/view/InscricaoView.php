@@ -571,18 +571,18 @@ class InscricaoView extends View {
 
     private function getContent(){
                 
-//        $objInscricao = new Inscricao();
-//        $inscrito = $objInscricao->selectObjCPF($_SESSION['cpf_servidor']);
-//        
-//        if(!empty($inscrito)){
-//            return '<section> <div class="alert alert-success" role="alert">
-//                        Solicitação de Remanejamento já Cadastrada!
-//                      </div></section>';
-//        }
-//        else{
+        $objInscricao = new Inscricao();
+        $inscrito = $objInscricao->selectObjCPF($_SERVER['cpf_servidor']);
+        
+        if(!empty($inscrito->getIdInscricao())){
+            return '<section> <div class="alert alert-success" role="alert">
+                        Solicitação de Remanejamento já Cadastrada!
+                      </div></section>';
+        }
+        else{
             return '<!-- Dashboard Counts Section-->
                     <section> '.$this->getFormServidor().'</section>';
-//        }
+        }
         
         
     }
