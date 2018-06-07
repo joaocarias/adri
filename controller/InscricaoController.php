@@ -4,8 +4,8 @@ session_start();
 include_once '../app/model/Inscricao.php';
 include_once '../lib/Auxiliar.php';
 
-//print_r($_POST);
-//die();
+print_r($_POST);
+die();
 
 if(isset($_POST['nome_servidor']) && !empty($_POST['nome_servidor'])){
     $nome_servidor = $_POST['nome_servidor'];
@@ -196,8 +196,15 @@ else{
     $experiencia = NULL;
 }
 
+if(isset($_POST['id_servidor']) && !empty($_POST['id_servidor'])){
+    $cadastrado_por = $_POST['id_servidor'];
+}
+else{
+    $cadastrado_por = NULL;
+}
+
 $inscricao = new Inscricao();
-$result = $inscricao->inserir($nome_servidor, $cpf_servidor, $cep_servidor, $endereco, $telefone, $email, $cargo, $funcao, $unidade_atual, $data_chegada, $motivo_sair, $unidade_vai1, $unidade_vai2, $unidade_vai3, $experiencia, $unidade_foi1, $data_chegada_foi1, $data_saida_foi1, $motivo_foi1, $unidade_foi2, $data_chegada_foi2, $data_saida_foi2, $motivo_foi2, $unidade_foi3, $data_chegada_foi3, $data_saida_foi3, $motivo_foi3);
+$result = $inscricao->inserir($cadastrado_por, $nome_servidor, $cpf_servidor, $cep_servidor, $endereco, $telefone, $email, $cargo, $funcao, $unidade_atual, $data_chegada, $motivo_sair, $unidade_vai1, $unidade_vai2, $unidade_vai3, $experiencia, $unidade_foi1, $data_chegada_foi1, $data_saida_foi1, $motivo_foi1, $unidade_foi2, $data_chegada_foi2, $data_saida_foi2, $motivo_foi2, $unidade_foi3, $data_chegada_foi3, $data_saida_foi3, $motivo_foi3);
    
 if($result['id'] > 0){
     $_SESSION['msg'] = 'cadastrado';

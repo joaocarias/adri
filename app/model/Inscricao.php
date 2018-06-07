@@ -78,26 +78,43 @@ class Inscricao extends ModelBasico{
 //        $this->motivo_foi3;
 //    }
     
-    public function inserir($nome_servidor, $cpf_servidor, $cep, $endereco,
+    public function inserir($cadastrado_por, $nome_servidor, $cpf_servidor, $cep, $endereco,
                          $telefone, $email, $cargo, $funcao, $unidade_atual, $data_chegada,
                          $motivo_sair, $unidade_vai1, $unidade_vai2, $unidade_vai3, $experiencia,
                          $unidade_foi1, $data_chegada_foi1, $data_saida_foi1, $motivo_foi1, 
                          $unidade_foi2, $data_chegada_foi2, $data_saida_foi2, $motivo_foi2, 
                          $unidade_foi3, $data_chegada_foi3, $data_saida_foi3, $motivo_foi3) {
         
+        $coluna = "";
+        $valor = "";
+        
+        if(!empty($unidade_vai2)){
+            $coluna .= ", `unidade_desejo2`";
+            $valor .= ", '{$unidade_vai2}'";
+        }
+        if(!empty($unidade_vai3)){
+            $coluna .= ", `unidade_desejo3`";
+            $valor .= ", '{$unidade_vai3}'";
+        }
+        if(!empty($unidade_foi1)){
+            $coluna .= ", `unidade_anterior1`, `data_chegada_anterior1`, `data_saida_anterior1`, `motivo_saida_anterior1`";
+            $valor .= ", '{$unidade_foi1}', '{$data_chegada_foi1}', '{$data_saida_foi1}', '{$motivo_foi1}'";
+        }
+        if(!empty($unidade_foi2)){
+            $coluna .= ", `unidade_anterior2`, `data_chegada_anterior2`, `data_saida_anterior2`, `motivo_saida_anterior2`";
+            $valor .= ", '{$unidade_foi2}', '{$data_chegada_foi2}', '{$data_saida_foi2}', '{$motivo_foi2}'";
+        }
+        if(!empty($unidade_foi3)){
+            $coluna .= ", `unidade_anterior3`, `data_chegada_anterior3`, `data_saida_anterior3`, `motivo_saida_anterior3`";
+            $valor .= ", '{$unidade_foi3}', '{$data_chegada_foi3}', '{$data_saida_foi3}', '{$motivo_foi3}'";
+        }
         
         $sql = " INSERT INTO `inscricao` (`nome_servidor`, `cpf_servidor`, `cep`, 
                     `endereco`, `telefone`, `email`, `cargo`, `funcao`, `unidade_atual`, `data_chegada_atual`, 
-                    `motivo_solicitacao`, `unidade_desejo1`, `unidade_desejo2`, `unidade_desejo3`, `experiencia_saude`,
-                    `unidade_anterior1`, `data_chegada_anterior1`, `data_saida_anterior1`, `motivo_saida_anterior1`, 
-                    `unidade_anterior2`, `data_chegada_anterior2`, `data_saida_anterior2`, `motivo_saida_anterior2`, 
-                    `unidade_anterior3`, `data_chegada_anterior3`, `data_saida_anterior3`, `motivo_saida_anterior3`) 
+                    `motivo_solicitacao`, `unidade_desejo1`, `experiencia_saude`, `solicitado_por` ".$coluna.") 
                     VALUES ( '{$nome_servidor}', '{$cpf_servidor}', '{$cep}', '{$endereco}', 
                             '{$telefone}', '{$email}', '{$cargo}', '{$funcao}', '{$unidade_atual}', '{$data_chegada}',
-                            '{$motivo_sair}', '{$unidade_vai1}', '{$unidade_vai2}', '{$unidade_vai3}', '{$experiencia}',
-                            '{$unidade_foi1}', '{$data_chegada_foi1}', '{$data_saida_foi1}', '{$motivo_foi1}',
-                            '{$unidade_foi2}', '{$data_chegada_foi2}', '{$data_saida_foi2}', '{$motivo_foi2}', 
-                            '{$unidade_foi3}', '{$data_chegada_foi3}', '{$data_saida_foi3}', '{$motivo_foi3}');";
+                            '{$motivo_sair}', '{$unidade_vai1}', '{$experiencia}', '{$cadastrado_por}' ".$valor.");";
         
 //        echo $sql;
 //        die();
@@ -623,5 +640,15 @@ class Inscricao extends ModelBasico{
     
     function setSolicitadoPor($solicitado_por) {
         $this->solicitado_por = $solicitado_por;
+    }
+    
+    function getLabelMotivoAnterior($label) {
+        if($label == 1){
+            return "A Pedido";
+        }
+        else{
+            return "Devolução";
+        }
+        
     }
 }
