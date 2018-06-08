@@ -530,7 +530,7 @@ class View {
         $options = "";
         
         foreach ($array as $row){
-            if($row['id'] == $id_select){
+            if($row['id'] == $id_select AND !is_null($id_select)){
                 $option_selected_ = 'selected="selected"';
             }else{
                 $option_selected_ = "";

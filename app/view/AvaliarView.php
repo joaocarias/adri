@@ -1,6 +1,7 @@
 <?php
 
 include_once '../lib/Sistema.php';
+include_once '../lib/Auxiliar.php';
 include_once '../lib/View.php';
 include_once '../app/model/Inscricao.php';
 include_once '../app/model/Unidade.php';
@@ -16,13 +17,67 @@ class AvaliarView extends View{
     private function getContent($action = null, $params = null){
         if($action == "lista"){
             return '<section>' .  $this->getLista(). '</section>';
+        }else if($action == "parecer"){
+            return '<section>' . $this->getDadosServidorInscrito($params) 
+                               . $this->getFormParecer($params)
+                    . '</section>';
         }else{
-            return '<section>' .  $this->getFormParecer(). '</section>';
+            return '<section>' .  $this->getLista(). '</section>';
         }
     }
     
-    public function getDadosServidor(){
+    public function getDadosServidorInscrito($params){
+        $objInscricao = new Inscricao();
+        $item = $objInscricao->selectObj($params);
         
+        $content_ = '';        
+
+        $objUnidade = new Unidade();
+        $objCargo = new Cargo();
+        $objFuncao = new Funcao();
+
+        $linhas = '<tr>
+                          <th scope="row">'.$item->getIdInscricao().'</th>
+                          <td>'.$item->getNomeServidor().'</td>
+                          <td>'.$item->getCpfServidor().'</td>
+                          <td>'.$objUnidade->selectObj($item->getUnidadeAtual())->getNome_unidade().'</td>                              
+                          <td>'.$objCargo->selectObj($item->getCargo())->getNome_cargo().'</td>                              
+                          <td>'.$objFuncao->selectObj($item->getFuncao())->getNome_funcao().'</td>        
+                          <td>'. Auxiliar::converterDataParaBR($item->getDataChegadaAtual()).'</td>                                                                                       
+                    </tr>
+                ';
+
+        $content_ .= '
+                    <div class="col-lg-12">
+                  <div class="card">                    
+                    <div class="card-header d-flex align-items-center">
+                      <h3 class="h4">Lista</h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">                       
+                        <table class="table table-striped table-hover">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>SERVIDOR</th>                              
+                              <th>CPF</th>                              
+                              <th>UNIDADE ATUAL</th>                              
+                              <th>CARGO</th>                              
+                              <th>FUNÇÃO</th>          
+                              <th>DATA LOTAÇÃO</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                               '.$linhas.'            
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ';        
+                                  
+        return $content_;     
     }
     
     private function getLista(){
@@ -46,6 +101,8 @@ class AvaliarView extends View{
 
             $linhas = "";
             foreach ($listaInscritoPorUnidades as $item){
+                
+                $button_avaliar = "<a id='btn_avaliar' name='btn-avaliar' href='?inscricao={$item->getIdInscricao()}' class='btn btn-success btn-sm'>Avaliar</a>";
 
                 $linhas .= '<tr>
                                   <th scope="row">'.$item->getIdInscricao().'</th>
@@ -54,7 +111,7 @@ class AvaliarView extends View{
                                   <td>'.$objUnidade->selectObj($item->getUnidadeAtual())->getNome_unidade().'</td>                              
                                   <td>'.$objCargo->selectObj($item->getCargo())->getNome_cargo().'</td>                              
                                   <td>'.$objFuncao->selectObj($item->getFuncao())->getNome_funcao().'</td>        
-                                  <td>avaliar</td>                                                                                       
+                                  <td>'.$button_avaliar.'</td>                                                                                       
                             </tr>
                             ';
             }
@@ -122,9 +179,12 @@ class AvaliarView extends View{
                     </html>';
     }
     
-    private function getFormParecer(){
+    private function getFormParecer($params = null){
+                
+        $hi_id_inscricao = $this->getHidden("hi_id_inscricao", $params);
+        
         $tituloForm = "Parecer da Chefia Imediata";
-        $actionForm = "avaliar.php";
+        $actionForm = "../controller/AvaliarController.php";
         
         $arrayZeroANove = array();
         
@@ -153,28 +213,30 @@ class AvaliarView extends View{
                             <h5>Descreva a atuação do servidor no setor quanto aos seguintes aspectos:</h5>
                             <p>* Avalie com notas de 0 a 9 (sendo 0 a menor nota e 9 a maior nota)</p>
                              <div class="line"><hr /></div>
-                            '.$this->getSelect($arrayZeroANove, "teste", "O Servidor demostra interesse pela atividade desenvolvida" , "col-sm-2", false).'
+                            '.$this->getSelect($arrayZeroANove, "nota1", "O Servidor demostra interesse pela atividade desenvolvida" , "col-sm-2", true).'
                                         
-                            '.$this->getSelect($arrayZeroANove, "teste", "O Servidor cumpre com as tarefas que lhe são atribuídas e atende as necessidades dos usuários "
-                                    . " que procuram a Unidade/Departamento" , "col-sm-2", false).'
+                            '.$this->getSelect($arrayZeroANove, "nota2", "O Servidor cumpre com as tarefas que lhe são atribuídas e atende as necessidades dos usuários "
+                                    . " que procuram a Unidade/Departamento" , "col-sm-2", true).'
                                         
-                            '.$this->getSelect($arrayZeroANove, "teste", "O Servidor mantém um bom relacionamento com a chefia imediata bem como "
-                                    . "respeita aos regulamentos e normas internas" , "col-sm-2", false).'
+                            '.$this->getSelect($arrayZeroANove, "nota3", "O Servidor mantém um bom relacionamento com a chefia imediata bem como "
+                                    . "respeita aos regulamentos e normas internas" , "col-sm-2", true).'
 
-                            '.$this->getSelect($arrayZeroANove, "teste", "O servidor cumpre sua jornada de trabalho com pontualidade e regularidade" , "col-sm-2", false).'
+                            '.$this->getSelect($arrayZeroANove, "nota4", "O servidor cumpre sua jornada de trabalho com pontualidade e regularidade" , "col-sm-2", true).'
 
-                            '.$this->getSelect($arrayZeroANove, "teste", "O Servidor mantém uma postrura ética perante os demais profissionais "
-                                    . " e usuários" , "col-sm-2", false).'
+                            '.$this->getSelect($arrayZeroANove, "nota5", "O Servidor mantém uma postrura ética perante os demais profissionais "
+                                    . " e usuários" , "col-sm-2", true).'
                                         
-                            '.$this->getTextarea("teste", "Cite outras informações que julgue importantes ou "
+                            '.$this->getTextarea("pergunta6", "Cite outras informações que julgue importantes ou "
                                     . " que não foram citadas anteriormente", "", "col-sm-6" , true).'
                                         
-                            '.$this->getSelect($arraySimNao, "teste", "Você confirma que o servidor trabalhou na unidade "
+                            '.$this->getSelect($arraySimNao, "pergunta7", "Você confirma que o servidor trabalhou na unidade "
                                     . " no período <strong>NNN</strong> ", "col-sm-6", true).'
 
-                            '.$this->getSelect($arrayLiberacao, "teste", "Mediante as informações acimas prestadas", "col-sm-6", true).'
+                            '.$this->getSelect($arrayLiberacao, "pergunta8", "Mediante as informações acimas prestadas", "col-sm-6", true).'
                                 
-                            '.$this->getTextarea("teste", "Justificava", "Justifique a sua resposta anterior", "col-sm-6" , true).'
+                            '.$this->getTextarea("pergunta9", "Justificava", "Justifique a sua resposta anterior", "col-sm-6" , true).'
+
+                            '.$hi_id_inscricao.'
 
                             <div class="line"></div>
                             '.$this->getInputButtonSubmit("btn_salvar", "Salvar Avaliação", "btn-primary").' 

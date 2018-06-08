@@ -36,3 +36,23 @@ create table tb_administrador(
     id_status smallint default 1,
     primary key(id_administrador)
 )engine=InnoDB;
+
+create table tb_avaliacao(
+    id_avaliacao int(11) auto_increment not null,
+    id_inscricao int(11) not null,    
+    nota1 int(11) default 0,
+    nota2 int(11) default 0,
+    nota3 int(11) default 0,
+    nota4 int(11) default 0,
+    nota5 int(11) default 0,
+    pergunta6 varchar(500),
+    pergunta7 varchar(3),
+    pergunta8 int(11) default 0,
+    pergunta9 varchar(500),               
+    id_avaliador int(11) not null,    
+    data_da_avaliacao timestamp default current_timestamp,
+    modificado_por int(11),
+    data_da_modificacao datetime,
+    id_status smallint default 1,
+    primary key(id_avaliacao)
+)engine=InnoDB;
