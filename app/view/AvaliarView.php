@@ -8,6 +8,7 @@ include_once '../app/model/Unidade.php';
 include_once '../app/model/Cargo.php';
 include_once '../app/model/Funcao.php';
 include_once '../app/model/Avaliador.php';
+include_once '../app/model/Avaliacao.php';
 
 class AvaliarView extends View{
     function __construct($title_page = null, $sistema = null) {
@@ -89,6 +90,7 @@ class AvaliarView extends View{
         if($objAvaliador->is_avaliador($id_avaliador)){
                                 
             $params = $objAvaliador->getArrayIdUnidadesPorAvaliador($id_avaliador);
+            
 
             $content_ = '';        
 
@@ -98,11 +100,16 @@ class AvaliarView extends View{
             $objUnidade = new Unidade();
             $objCargo = new Cargo();
             $objFuncao = new Funcao();
+            $objAvaliacao = new Avaliacao();
 
             $linhas = "";
             foreach ($listaInscritoPorUnidades as $item){
                 
-                $button_avaliar = "<a id='btn_avaliar' name='btn-avaliar' href='?inscricao={$item->getIdInscricao()}' class='btn btn-success btn-sm'>Avaliar</a>";
+                if($objAvaliacao->is_avaliado($item->getIdInscricao())){
+                    $button_avaliar = "Ver Avaliacao";
+                }else{
+                    $button_avaliar = "<a id='btn_avaliar' name='btn-avaliar' href='?inscricao={$item->getIdInscricao()}' class='btn btn-success btn-sm'>Avaliar</a>";
+                }
 
                 $linhas .= '<tr>
                                   <th scope="row">'.$item->getIdInscricao().'</th>

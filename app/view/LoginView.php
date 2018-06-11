@@ -46,26 +46,15 @@ class LoginView {
                       </head>';
         
     }
-    
-    private function getContent(){
+   
+      private function getContent(){
         $action_form = "../controller/LoginController.php";
         
         return ' <div class="page login-page">
                           <div class="container d-flex align-items-center">
-                            <div class="form-holder has-shadow">
+                            <div class="form-holder">
                               <div class="row">
-                                <!-- Logo & Information Panel-->
-                                <div class="col-lg-6">
-                                  <div class="info d-flex align-items-center">
-                                    <div class="content">
-                                      <div class="logo">
-                                        <h1>'.$this->sistema->getSigla().'</h1>
-                                        <h2>'.$this->sistema->getName().' '. $this->sistema->getVersao().'</h2>
-                                      </div>
-                                      <p>'.$this->sistema->getCompany().' - '.$this->sistema->getCity().'/'.$this->sistema->getState().'</p>
-                                    </div>
-                                  </div>
-                                </div>
+                                
                                 <!-- Form Panel    -->
                                 <div class="col-lg-6 bg-white">
                                   <div class="form d-flex align-items-center">
@@ -90,6 +79,50 @@ class LoginView {
                           
                  
                 ';
+    
+//    private function getContent(){
+//        $action_form = "../controller/LoginController.php";
+//        
+//        return ' <div class="page login-page">
+//                          <div class="container d-flex align-items-center">
+//                            <div class="form-holder has-shadow">
+//                              <div class="row">
+//                                <!-- Logo & Information Panel-->
+//                                <div class="col-lg-6">
+//                                  <div class="info d-flex align-items-center">
+//                                    <div class="content">
+//                                      <div class="logo">
+//                                        <h1>'.$this->sistema->getSigla().'</h1>
+//                                        <h2>'.$this->sistema->getName().' '. $this->sistema->getVersao().'</h2>
+//                                      </div>
+//                                      <p>'.$this->sistema->getCompany().' - '.$this->sistema->getCity().'/'.$this->sistema->getState().'</p>
+//                                    </div>
+//                                  </div>
+//                                </div>
+//                                <!-- Form Panel    -->
+//                                <div class="col-lg-6 bg-white">
+//                                  <div class="form d-flex align-items-center">
+//                                    <div class="content">
+//                                    '.$this->erroLogin().'
+//                                      <form method="post" class="form-validate" action="'.$action_form.'">
+//                                        <div class="form-group">
+//                                          <input id="login-username" type="text" name="loginUsername" required data-msg="Por favor informe seu CPF" class="input-material" 
+//                                                        data-mask="000.000.000-00" maxlength="14" >
+//                                          <label for="login-username" class="label-material">CPF do Usuário</label>
+//                                        </div>
+//                                        <div class="form-group">
+//                                          <input id="login-password" type="password" name="loginPassword" required data-msg="Informe a sua Senha" class="input-material" maxlength="30">
+//                                          <label for="login-password" class="label-material">Senha do Usuário</label>
+//                                        </div><input type="submit" id="login" name="btnLogin" class="btn btn-primary" value="Login" />                                        
+//                                    </div>
+//                                  </div>
+//                                </div>
+//                              </div>
+//                            </div>
+//                          </div>
+//                          
+//                 
+//                ';
         
     }
     

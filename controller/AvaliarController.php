@@ -41,10 +41,9 @@ if(!(isset($_SESSION['logado'])) OR  $_SESSION['logado'] != '1'){
                 
             $_SESSION['retorno'] =  $retorno;
           
-        header('Location: ../page/avaliadores.php?lista=true');   
+        header('Location: ../page/avaliar.php?lista=true');   
       
-    }else{      
-        
+    }else{     
         header('Location: ../page/avaliar.php?lista=true');        
     }       
     

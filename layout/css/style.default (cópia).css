@@ -1877,9 +1877,10 @@ select option {
   height: 100%;
   display: block;
   z-index: -1;
-  background: url(../img/bgorigem.jpeg) no-repeat bottom center scroll;
+  background: url(../img/bg.jpg);
   background-size: cover;
- 	background-position: 30% 45%;
+  -webkit-filter: blur(10px);
+  filter: blur(10px);
   z-index: 1;
   position: absolute;
   top: 0;
@@ -1889,7 +1890,7 @@ select option {
 .login-page .container {
   min-height: 100vh;
   z-index: 999;
-  padding: 100px;
+  padding: 30px;
   position: relative;
 }
 
@@ -1901,7 +1902,7 @@ select option {
 }
 
 .login-page .form-holder .info, .login-page .form-holder .form {
-  min-height: 20vh;
+  min-height: 70vh;
   padding: 40px;
   height: 100%;
 }

@@ -47,6 +47,20 @@ class Avaliacao extends ModelBasico{
         return $this->insert($sql);
     }
     
+    public function is_avaliado($id_inscricao){
+        $sql = " SELECT count(id_inscricao) as cont FROM tb_avaliacao WHERE id_inscricao = '{$id_inscricao}' AND id_status = '1' ";
+        
+        $dados = $this->select($sql);        
+        $cont = 0;    
+        
+        foreach ($dados as $row){                        
+            $cont = $row->cont;            
+        }       
+        
+        if($cont > 0) return true;
+        else return false;
+    }
+    
     function getId_avaliacao() {
         return $this->id_avaliacao;
     }
