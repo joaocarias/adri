@@ -15,7 +15,6 @@ if(!(isset($_SESSION['logado'])) OR  $_SESSION['logado'] != '1'){
     }else{
         echo $view->get("lista");
     }
-   
 }
 
 

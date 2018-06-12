@@ -25,6 +25,20 @@ class Avaliacao extends ModelBasico{
     private $data_da_modificacao;
     private $id_status;
     
+    public function getPontuacao($idInscricao){        
+        $sql = " SELECT * FROM tb_avaliacao WHERE id_inscricao = '{$idInscricao}' AND id_status = '1' ";
+        
+        $dados = $this->select($sql);        
+        $nota = 0;    
+        
+        foreach ($dados as $row){                        
+            $nota = $row->nota1 + $row->nota1 + $row->nota1 + $row->nota1;            
+        }       
+        
+        if($nota > 0) return $nota;
+        else return 0;        
+    }
+
     public function insertObj($tabela, array $params){       
         $i = 0;
         
