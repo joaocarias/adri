@@ -4,6 +4,7 @@ include_once '../app/model/Inscricao.php';
 include_once '../app/model/Cargo.php';
 include_once '../app/model/Funcao.php';
 include_once '../app/model/Unidade.php';
+include_once '../app/model/Servidor.php';
 include_once '../lib/Auxiliar.php';
 include_once '../lib/Sistema.php';
 include_once '../lib/View.php';
@@ -676,10 +677,23 @@ class DashboardView extends View {
             return $table;
         }
         else{
-            return $this->beginCard("col-md-12", "Introdução")
-                . '<p>Bem vindo ao cadastro de solicitação <b>Remanejamento Interno</b>, clique no botão abaixo para realizar seu cadastro.</p>'
+            $serv = new Servidor();
+            
+            $res = $this->beginCard("col-md-12", "Introdução")
+                . '<p>Bem vindo ao cadastro de solicitação <b>Remanejamento Interno</b>.</p>';
+            
+            if(!$serv->ehEfetivo($_SESSION['id_servidor'])){
+                $res .= '<p>O cadastro somente é aberto aos servidores efetivos da SMS, obrigado pela atenção.</p>';
+            }
+            else{
+                $res .= '<p>Clique no botão abaixo para realizar seu cadastro.</p>'
                 . '<br>'.$this->getButton("Inscrição", "inscricao.php", "btn-primary")
                 . $this->endCard();
+            }
+            
+            
+            
+            return $res;
         }
         
     }

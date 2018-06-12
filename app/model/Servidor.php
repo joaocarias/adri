@@ -98,6 +98,24 @@ class Servidor extends ModelDimenisionamento{
         return $dados;
     }
     
+    public function ehEfetivo($id_servidor){
+        $sql = "SELECT * FROM `vinculo` 
+                           
+                        WHERE id_servidor = '".$id_servidor."' and ativo = '1' "
+                . "ORDER BY `id_vinculo` DESC";
+        
+        $dados = $this->select($sql); 
+        
+        $res = false;
+        foreach($dados as $valor){
+            if($valor->id_orgao >= 14 && $valor->id_orgao <= 17){
+                $res = true;
+            }   
+        }
+        
+        return $res;
+    }
+    
     public function getDadosServidorUltimoVinculo($id){
         $sql = "SELECT * FROM `servidor` s
                     INNER JOIN vinculo v ON s.id_servidor = v.id_servidor
