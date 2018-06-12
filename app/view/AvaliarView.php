@@ -2,6 +2,7 @@
 
 include_once '../lib/Sistema.php';
 include_once '../lib/Auxiliar.php';
+include_once '../lib/Pergunta.php';
 include_once '../lib/View.php';
 include_once '../app/model/Inscricao.php';
 include_once '../app/model/Unidade.php';
@@ -190,6 +191,9 @@ class AvaliarView extends View{
                 
         $hi_id_inscricao = $this->getHidden("hi_id_inscricao", $params);
         
+        $objInscricao = new Inscricao();
+        $objInscricao = $objInscricao->selectObj($params);
+                        
         $tituloForm = "Parecer da Chefia Imediata";
         $actionForm = "../controller/AvaliarController.php";
         
@@ -199,49 +203,30 @@ class AvaliarView extends View{
             $arrayZeroANove[$i]['id'] = $i;
             $arrayZeroANove[$i]['value'] = $i;            
         }
-        
-        $arraySimNao = array();
-        $arraySimNao[0]['id'] = "sim";
-        $arraySimNao[0]['value'] = "SIM - Confirmo que o servidor trabalhou na unidade no período indicado";            
-        $arraySimNao[1]['id'] = "nao";
-        $arraySimNao[1]['value'] = "NÃO";      
-        
-        $arrayLiberacao = array();
-        $arrayLiberacao[0]['id'] = "1";
-        $arrayLiberacao[0]['value'] = "Libero o (a) servidor (a) sem substituição";            
-        $arrayLiberacao[1]['id'] = "2";
-        $arrayLiberacao[1]['value'] = "Libero o (a) servidor (a) mediante substituição";      
-        $arrayLiberacao[2]['id'] = "3";
-        $arrayLiberacao[2]['value'] = "Não Libero o (a) servidor (a)";      
-                                                        
+                                                                
         return ' 
                 '.$this->beginCard("col-lg-12", $tituloForm).'
                     '.$this->beginForm("col-lg-12" , "POST", $actionForm).'                          
                             <h5>Descreva a atuação do servidor no setor quanto aos seguintes aspectos:</h5>
                             <p>* Avalie com notas de 0 a 9 (sendo 0 a menor nota e 9 a maior nota)</p>
                              <div class="line"><hr /></div>
-                            '.$this->getSelect($arrayZeroANove, "nota1", "O Servidor demostra interesse pela atividade desenvolvida" , "col-sm-2", true).'
+                            '.$this->getSelect($arrayZeroANove, "nota1", Pergunta::getNota1Avaliacao() , "col-sm-2", true).'
                                         
-                            '.$this->getSelect($arrayZeroANove, "nota2", "O Servidor cumpre com as tarefas que lhe são atribuídas e atende as necessidades dos usuários "
-                                    . " que procuram a Unidade/Departamento" , "col-sm-2", true).'
+                            '.$this->getSelect($arrayZeroANove, "nota2", Pergunta::getNota2Avaliacao() , "col-sm-2", true).'
                                         
-                            '.$this->getSelect($arrayZeroANove, "nota3", "O Servidor mantém um bom relacionamento com a chefia imediata bem como "
-                                    . "respeita aos regulamentos e normas internas" , "col-sm-2", true).'
+                            '.$this->getSelect($arrayZeroANove, "nota3", Pergunta::getNota3Avaliacao() , "col-sm-2", true).'
 
-                            '.$this->getSelect($arrayZeroANove, "nota4", "O servidor cumpre sua jornada de trabalho com pontualidade e regularidade" , "col-sm-2", true).'
+                            '.$this->getSelect($arrayZeroANove, "nota4", Pergunta::getNota4Avaliacao() , "col-sm-2", true).'
 
-                            '.$this->getSelect($arrayZeroANove, "nota5", "O Servidor mantém uma postrura ética perante os demais profissionais "
-                                    . " e usuários" , "col-sm-2", true).'
+                            '.$this->getSelect($arrayZeroANove, "nota5", Pergunta::getNota5Avaliacao() , "col-sm-2", true).'
                                         
-                            '.$this->getTextarea("pergunta6", "Cite outras informações que julgue importantes ou "
-                                    . " que não foram citadas anteriormente", "", "col-sm-6" , true).'
+                            '.$this->getTextarea("pergunta6", Pergunta::getPergunta6Avaliacao(), "", "col-sm-6" , true).'
                                         
-                            '.$this->getSelect($arraySimNao, "pergunta7", "Você confirma que o servidor trabalhou na unidade "
-                                    . " no período <strong>NNN</strong> ", "col-sm-6", true).'
+                            '.$this->getSelect(Pergunta::getArrayPergunta7(), "pergunta7", Pergunta::getPergunta7Avaliacao(Auxiliar::converterDataParaBR($objInscricao->getDataChegadaAtual())), "col-sm-6", true).'
 
-                            '.$this->getSelect($arrayLiberacao, "pergunta8", "Mediante as informações acimas prestadas", "col-sm-6", true).'
+                            '.$this->getSelect(Pergunta::getArrayPergunta8(), "pergunta8", Pergunta::getPergunta8Avaliacao(), "col-sm-6", true).'
                                 
-                            '.$this->getTextarea("pergunta9", "Justificava", "Justifique a sua resposta anterior", "col-sm-6" , true).'
+                            '.$this->getTextarea("pergunta9", Pergunta::getPergunta9Avaliacao(), "", "col-sm-6" , true).'
 
                             '.$hi_id_inscricao.'
 

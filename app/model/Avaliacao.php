@@ -25,6 +25,34 @@ class Avaliacao extends ModelBasico{
     private $data_da_modificacao;
     private $id_status;
     
+    public function getObjPorInscricao($idInscricao){
+        $sql = " SELECT * FROM tb_avaliacao WHERE id_inscricao = '{$idInscricao}' AND id_status = '1' ";
+        
+        $dados = $this->select($sql);        
+        $obj = new Avaliacao();
+        
+        foreach ($dados as $row){           
+            $obj->setData_da_avaliacao($row->data_da_avaliacao);
+            $obj->setData_da_modificacao($row->data_da_modificacao);
+            $obj->setId_avaliacao($row->id_avaliacao);
+            $obj->setId_avaliador($row->id_avaliador);
+            $obj->setId_inscricao($row->id_inscricao);
+            $obj->setId_status($row->id_status);
+            $obj->setModificador_por($row->modificado_por);
+            $obj->setNota1($row->nota1);
+            $obj->setNota2($row->nota2);
+            $obj->setNota3($row->nota3);
+            $obj->setNota4($row->nota4);
+            $obj->setNota5($row->nota5);
+            $obj->setPergunta6($row->pergunta6);
+            $obj->setPergunta7($row->pergunta7);
+            $obj->setPergunta8($row->pergunta8);
+            $obj->setPergunta9($row->pergunta9);
+        }       
+        
+        return $obj;        
+    }
+    
     public function getPontuacao($idInscricao){        
         $sql = " SELECT * FROM tb_avaliacao WHERE id_inscricao = '{$idInscricao}' AND id_status = '1' ";
         
@@ -32,7 +60,7 @@ class Avaliacao extends ModelBasico{
         $nota = 0;    
         
         foreach ($dados as $row){                        
-            $nota = $row->nota1 + $row->nota1 + $row->nota1 + $row->nota1;            
+            $nota = $row->nota1 + $row->nota2 + $row->nota3 + $row->nota4 + $row->nota5;            
         }       
         
         if($nota > 0) return $nota;

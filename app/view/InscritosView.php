@@ -46,7 +46,7 @@ class InscritosView extends View {
                     $pontuacao = "Ainda não Avaliado";
                 }
                 
-                $button_avaliar = '';
+                $button_mais_informacoes = "<a id='btn_mais_informacoes' name='btn-mais-informacoes' href='servidor.php?idinscricao={$item->getIdInscricao()}' class='btn btn-info btn-sm'>Mais Informações</a>";
 
                 $linhas .= '<tr>
                                   <th scope="row">'.$item->getIdInscricao().'</th>
@@ -57,7 +57,8 @@ class InscritosView extends View {
                                   <td>'.$objFuncao->selectObj($item->getFuncao())->getNome_funcao().'</td>        
                                   <td>'.
                                             $pontuacao
-                                       .'</td>                                                                                       
+                                       .'</td>   
+                                   <td>'.$button_mais_informacoes.'</td>
                             </tr>
                             ';
             }
@@ -80,6 +81,7 @@ class InscritosView extends View {
                                   <th>CARGO</th>                              
                                   <th>FUNÇÃO</th>          
                                   <th>PONTUAÇÃO</th>
+                                  <th>MAIS INFORMAÇÕES</th>
                                 </tr>
                               </thead>
                               <tbody>
