@@ -574,16 +574,25 @@ class InscricaoView extends View {
         $objInscricao = new Inscricao();
         $inscrito = $objInscricao->selectObjCPF($_SESSION['cpf_servidor']);
         
-        if(!empty($inscrito->getIdInscricao())){
-            return '<section> <div class="alert alert-success" role="alert">
-                        Solicitação de Remanejamento já Cadastrada!
-                      </div></section>';
+        $serv = new Servidor();
+                
+        if($serv->ehEfetivo($_SESSION['id_servidor'])){
+           if(!empty($inscrito->getIdInscricao())){
+                return '<section> <div class="alert alert-success" role="alert">
+                            Solicitação de Remanejamento já Cadastrada!
+                          </div></section>';
+            }
+            else{
+                return '<!-- Dashboard Counts Section-->
+                        <section> '.$this->getFormServidor().'</section>';
+            } 
         }
         else{
-            return '<!-- Dashboard Counts Section-->
-                    <section> '.$this->getFormServidor().'</section>';
+            return '<section> <div class="alert alert-success" role="alert">
+                        Somente cargos efetivos podem fazer a inscrição. Obrigado!
+                    </div></section>';
         }
-        
+             
         
     }
     
