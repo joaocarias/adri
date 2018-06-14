@@ -206,7 +206,7 @@ class Inscricao extends ModelBasico{
         return $obj;
     }
     
-    public function getObjsPorUnidadeAtual($params){
+    public function getObjsPorUnidadeAtual($params, $arrayFiltro = null){
         $cont = 0;
         $string_id_unidade = "";
         foreach ($params as $v){
@@ -218,8 +218,15 @@ class Inscricao extends ModelBasico{
             $cont++;
         }
         
-        $sql = " SELECT * FROM inscricao WHERE {$string_id_unidade} ORDER BY nome_servidor ASC ; ";
+        $string_filtro = "";
+        if(!is_null($arrayFiltro)){
+            foreach ($arrayFiltro as $col => $value){
+                $string_filtro = " AND {$col} = '{$value}'  ";
+            }
+        }
         
+        $sql = " SELECT * FROM inscricao WHERE ({$string_id_unidade}) {$string_filtro} ORDER BY nome_servidor ASC ; ";
+                       
         $dados = array();
         $dados = $this->select($sql);
         

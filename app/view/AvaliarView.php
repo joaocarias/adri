@@ -18,7 +18,7 @@ class AvaliarView extends View{
     
     private function getContent($action = null, $params = null){
         if($action == "lista"){
-            return '<section>' .  $this->getLista(). '</section>';
+            return '<section>' . $this->getFormFiltro() . $this->getLista(). '</section>';
         }else if($action == "parecer"){
             return '<section>' . $this->getDadosServidorInscrito($params) 
                                . $this->getFormParecer($params)
@@ -27,7 +27,7 @@ class AvaliarView extends View{
             return '<section>' .  $this->getLista(). '</section>';
         }
     }
-    
+        
     public function getDadosServidorInscrito($params){
         $objInscricao = new Inscricao();
         $item = $objInscricao->selectObj($params);
@@ -92,11 +92,33 @@ class AvaliarView extends View{
                                 
             $params = $objAvaliador->getArrayIdUnidadesPorAvaliador($id_avaliador);
             
-
             $content_ = '';        
 
             $objInscricao = new Inscricao();
-            $listaInscritoPorUnidades = $objInscricao->getObjsPorUnidadeAtual($params);
+            
+            //Filtros de consulta
+            $tx_unidade = filter_input(INPUT_POST, "tx_unidade", FILTER_SANITIZE_STRING);
+            $tx_cargo = filter_input(INPUT_POST, "tx_cargo", FILTER_SANITIZE_STRING);
+            $tx_funcao = filter_input(INPUT_POST, "tx_funcao", FILTER_SANITIZE_STRING);
+            
+            $arrayFiltro = array();
+            if($tx_unidade || $tx_cargo || $tx_funcao ){
+                if($tx_unidade){
+                    $arrayFiltro['unidade_atual'] = $tx_unidade;
+                }
+
+                if($tx_cargo){
+                    $arrayFiltro['cargo'] = $tx_cargo;
+                }
+
+                if($tx_funcao){
+                    $arrayFiltro['funcao'] = $tx_funcao;
+                }            
+            }else{
+                $arrayFiltro = null;
+            }
+            
+            $listaInscritoPorUnidades = $objInscricao->getObjsPorUnidadeAtual($params, $arrayFiltro);
 
             $objUnidade = new Unidade();
             $objCargo = new Cargo();
@@ -107,7 +129,7 @@ class AvaliarView extends View{
             foreach ($listaInscritoPorUnidades as $item){
                 
                 if($objAvaliacao->is_avaliado($item->getIdInscricao())){
-                    $button_avaliar = "Ver Avaliacao";
+                    $button_avaliar = "<a id='btn_avaliar' name='btn-avaliar' href='servidor.php?idinscricao={$item->getIdInscricao()}' class='btn btn-info btn-sm'>Avaliado - Mais Informação</a>";
                 }else{
                     $button_avaliar = "<a id='btn_avaliar' name='btn-avaliar' href='?inscricao={$item->getIdInscricao()}' class='btn btn-success btn-sm'>Avaliar</a>";
                 }
@@ -185,6 +207,32 @@ class AvaliarView extends View{
                               '.$this->getFooter().'
                       </body>
                     </html>';
+    }
+    
+      private function getFormFiltro(){
+          
+        $objUnidade = new Unidade();
+        $arrayUnidade = $objUnidade->getArrayBasic();
+        
+        $objCargo = new Cargo();
+        $arrayCargo = $objCargo->getArrayBasic();
+        
+        $objFuncao = new Funcao();
+        $arrayFuncao = $objFuncao->getArrayBasic();
+        
+        $tituloForm = "Filtro";
+        $actionForm = "avaliar.php";
+        return ' '.$this->beginCard("col-lg-12", $tituloForm).'
+                    '.$this->beginForm("col-lg-12" , "POST", $actionForm).'                          
+                            '.$this->getSelect($arrayUnidade , "tx_unidade", "Unidade Atual", "col-sm-6", false).'
+                            '.$this->getSelect($arrayCargo , "tx_cargo", "Cargo", "col-sm-6", false).'
+                            '.$this->getSelect($arrayFuncao , "tx_funcao", "Função", "col-sm-6", false).'                      '
+                            .'<div class="line"></div>'
+                            .$this->getInputButtonSubmit("btn_buscar", "Realziar Filtro", "btn-primary")
+                    .$this->endForm()
+                .$this->endCard()
+                ;
+        
     }
     
     private function getFormParecer($params = null){
