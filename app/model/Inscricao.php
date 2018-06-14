@@ -360,9 +360,23 @@ class Inscricao extends ModelBasico{
         return $array;
     }
     
-    public function getListObjActive(){
-        $sql = " SELECT * FROM `inscricao` ORDER BY nome_servidor ASC ";
+    public function getListObjActive($arrayFiltro = null){
         
+        $string_filtro = "";
+        $cont = 0;
+        if(!is_null($arrayFiltro)){
+            foreach ($arrayFiltro as $col => $value){
+                if($cont == 0 ){
+                    $string_filtro .= " WHERE {$col} = '{$value}'  ";
+                }else{
+                    $string_filtro .= " AND {$col} = '{$value}'  ";
+                }    
+                $cont++;
+            }
+        }
+        
+        $sql = " SELECT * FROM `inscricao` {$string_filtro} ORDER BY nome_servidor ASC ";
+              
         $dados = array();
         $dados = $this->select($sql);
         

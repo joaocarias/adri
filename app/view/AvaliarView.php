@@ -24,7 +24,7 @@ class AvaliarView extends View{
                                . $this->getFormParecer($params)
                     . '</section>';
         }else{
-            return '<section>' .  $this->getLista(). '</section>';
+            return '<section>' . $this->getFormFiltro() .  $this->getLista(). '</section>';
         }
     }
         
