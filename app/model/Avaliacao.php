@@ -103,6 +103,34 @@ class Avaliacao extends ModelBasico{
         else return false;
     }
     
+    public function getDadosClassificacao($arrayFiltro){
+        
+        $string_filtro = "";
+        $cont = 0;
+        if(!is_null($arrayFiltro)){
+            foreach ($arrayFiltro as $col => $value){
+                if($cont == 0 ){
+                    $string_filtro .= " WHERE {$col} = '{$value}'  ";
+                }else{
+                    $string_filtro .= " AND {$col} = '{$value}'  ";
+                }    
+                $cont++;
+            }
+        }
+        
+        $sql = " SELECT id_avaliacao, ava.id_inscricao as id_inscricacao, (nota1 + nota2 + nota3 + nota4 + nota5) as pontuacao "
+                . " FROM `tb_avaliacao` as ava "
+                . " INNER JOIN inscricao as ins ON ins.id_inscricao = ava.id_inscricao  "
+                . $string_filtro
+                . " ORDER BY pontuacao DESC";
+        
+        var_dump($sql);
+        
+        $dados = $this->select($sql);
+        
+        return $dados;
+    }
+    
     function getId_avaliacao() {
         return $this->id_avaliacao;
     }
