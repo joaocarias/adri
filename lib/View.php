@@ -14,6 +14,7 @@ class View {
     private $title_page;
     
     function __construct($title_page = null, $sistema = null) {
+        header('Content-Type: text/html; charset=utf-8');
         $this->title_page = is_null($title_page) ? "" : $title_page;
         $this->sistema = is_null($sistema) ? new Sistema() : $sistema;
     }
@@ -23,6 +24,7 @@ class View {
                     <meta charset="utf-8">
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta http-equiv="Content-Language" content="pt-br">
+                    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
                     <title>'.$this->sistema->getName().'</title>
                     <meta name="description" content="'.$this->sistema->getDescription().'">
                     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -539,7 +541,8 @@ class View {
                 $option_selected_ = "";
             }
             
-            $options = $options . '<option value="'.$row['id'].'" '.$option_selected_.'>'.$row['value'].'</option>';
+            $options = $options . ' <option value="'.$row['id'].'" '.$option_selected_.'>'.utf8_encode($row['value']).'</option>';
+            
         }
         
         return '<div class="form-group row">
