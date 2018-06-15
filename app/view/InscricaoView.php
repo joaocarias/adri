@@ -616,6 +616,7 @@ class InscricaoView extends View {
                             array("id" => 1, "value" => "A Pedido"),
                             array("id" => 2, "value" => "Devolução")
                         );
+        
 //                        print_r($servidorDados);
 //                        echo "Cargo: ".$servidorDados['id_cargo'];
         return $this->beginCard("col-md-12", "Solicitação Remanejamento Servidor").'

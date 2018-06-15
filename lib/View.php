@@ -538,7 +538,8 @@ class View {
                 $option_selected_ = "";
             }
             
-            $options = $options . '<option value="'.$row['id'].'" '.$option_selected_.'>'.utf8_encode($row['value']).'</option>';
+            $options = $options . ' <option value="'.$row['id'].'" '.$option_selected_.'>'.utf8_encode($row['value']).'</option>';
+            
         }
         
         return '<div class="form-group row">
