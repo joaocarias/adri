@@ -65,7 +65,7 @@ class Funcao extends ModelDimenisionamento{
     }
 
     function getNome_funcao() {
-        return $this->nome_funcao;
+        return utf8_encode($this->nome_funcao);
     }
     
     function setId_funcao($id_funcao) {

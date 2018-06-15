@@ -71,7 +71,7 @@ class Unidade extends ModelDimenisionamento{
     }
 
     function getNome_unidade() {
-        return $this->nome_unidade;
+        return utf8_encode($this->nome_unidade);
     }
 
     function getId_distrito() {
@@ -79,7 +79,7 @@ class Unidade extends ModelDimenisionamento{
     }
 
     function getSigla_unidade() {
-        return $this->sigla_unidade;
+        return utf8_encode($this->sigla_unidade);
     }
 
     function setId_unidade($id_unidade) {
