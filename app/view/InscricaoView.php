@@ -576,7 +576,7 @@ class InscricaoView extends View {
         
         $serv = new Servidor();
                 
-        if($serv->ehEfetivo($_SESSION['id_servidor'])){
+//        if($serv->ehEfetivo($_SESSION['id_servidor'])){
            if(!empty($inscrito->getIdInscricao())){
                 return '<section> <div class="alert alert-success" role="alert">
                             Solicitação de Remanejamento já Cadastrada!
@@ -586,12 +586,12 @@ class InscricaoView extends View {
                 return '<!-- Dashboard Counts Section-->
                         <section> '.$this->getFormServidor().'</section>';
             } 
-        }
-        else{
-            return '<section> <div class="alert alert-success" role="alert">
-                        Somente cargos efetivos podem fazer a inscrição. Obrigado!
-                    </div></section>';
-        }
+//        }
+//        else{
+//            return '<section> <div class="alert alert-success" role="alert">
+//                        Somente cargos efetivos podem fazer a inscrição. Obrigado!
+//                    </div></section>';
+//        }
              
         
     }
@@ -621,37 +621,37 @@ class InscricaoView extends View {
         return $this->beginCard("col-md-12", "Solicitação Remanejamento Servidor").'
                 '.$this->beginForm("col-md-12", "POST", "../controller/InscricaoController.php").'
                     '.$this->getInput("hidden", "id_servidor", "", "", "col-sm-8", false, $_SESSION['id_servidor'], true).'
-                    '.$this->getInput("text", "nome_servidor", "Nome", "Nome Servidor", "col-sm-8", true, $objPerfil->getNome_servidor(), true).'
-                    '.$this->getInput("text", "cpf_servidor", "CPF", "CPF Servidor", "col-sm-8", true, $objPerfil->getCpf_servidor(), true).'
-                    '.$this->getInput("text", "cep_servidor", "CEP", "CEP", "col-sm-4", true, "", false, "99999-999").'
-                    '.$this->getInput("text", "endereco", "Endereço", "Endereço Servidor", "col-sm-8", true).'
-                    '.$this->getInput("tel", "telefone", "Telefone", "Telefone Servidor", "col-sm-8", true, $objPerfil->getTelefone()).'
-                    '.$this->getInput("email", "email", "Email", "Email Servidor", "col-sm-8", true, $objPerfil->getEmail()).'
-                    '.$this->getSelect($arrayCargo, "cargo", "Cargo", "col-sm-8", true, $servidorDados['id_cargo']).'
-                    '.$this->getSelect($arrayFuncao, "funcao", "Função Atual", "col-sm-8", true, $servidorDados['id_funcao']).'
-                    '.$this->getSelect($arrayUnidade, "unidade_atual", "Unidade Atual", "col-sm-8", true, $servidorDados['id_unidade_destino']).'
-                    '.$this->getInput("text", "data_chegada", "Data Chegada na Unidade Atual", "Data Chegada na Unidade", "col-sm-4", true, "", false, "99/99/9999").'
-                    '.$this->getTextarea("motivo_sair","Motivo da Solicitação de Remanejamento", "Motivo do Remanejamento", "col-sm-8", true).'
-                    '.$this->getTextarea("experiencia_saude","Descreva suas experiências profissionais na área de saúde nos últimos 2 anos", "Experiência em Saúde, tipo Enfermeiro NeoNatal, Aplicação de Vacina.", "col-sm-8", true).'
+                    '.$this->getInput("text", "nome_servidor", "1 - Nome", "Nome Servidor", "col-sm-8", true, $objPerfil->getNome_servidor(), true).'
+                    '.$this->getInput("text", "cpf_servidor", "2 - CPF", "CPF Servidor", "col-sm-8", true, $objPerfil->getCpf_servidor(), true).'
+                    '.$this->getInput("text", "cep_servidor", "3 - CEP", "CEP", "col-sm-4", true, "", false, "99999-999").'
+                    '.$this->getInput("text", "endereco", "4 - Endereço", "Endereço Servidor", "col-sm-8", true).'
+                    '.$this->getInput("tel", "telefone", "5 - Telefone", "Telefone Servidor", "col-sm-8", true, $objPerfil->getTelefone()).'
+                    '.$this->getInput("email", "email", "6 - Email", "Email Servidor", "col-sm-8", true, $objPerfil->getEmail()).'
+                    '.$this->getSelect($arrayCargo, "cargo", "7 - Cargo", "col-sm-8", true, $servidorDados['id_cargo']).'
+                    '.$this->getSelect($arrayFuncao, "funcao", "8 - Função Atual", "col-sm-8", true, $servidorDados['id_funcao']).'
+                    '.$this->getSelect($arrayUnidade, "unidade_atual", "9 - Unidade Atual", "col-sm-8", true, $servidorDados['id_unidade_destino']).'
+                    '.$this->getInput("text", "data_chegada", "10 - Data Chegada na Unidade Atual", "Data Chegada na Unidade", "col-sm-4", true, "", false, "99/99/9999").'
+                    '.$this->getTextarea("motivo_sair","11 - Motivo da Solicitação de Remanejamento", "Motivo do Remanejamento", "col-sm-8", true).'
+                    '.$this->getTextarea("experiencia_saude","12 - Descreva suas experiências profissionais na área de saúde nos últimos 2 anos", "Experiência em Saúde, tipo Enfermeiro NeoNatal, Aplicação de Vacina.", "col-sm-8", true).'
                     <br><h5>Escolha de 1 a 3 unidades para onde deseja ser remanejado(a).</h5><br>
-                    '.$this->getSelect($arrayUnidade, "unidade_vai1", "Unidade 1", "col-sm-8", true).'
-                    '.$this->getSelect($arrayUnidade, "unidade_vai2", "Unidade 2", "col-sm-8", false).'
-                    '.$this->getSelect($arrayUnidade, "unidade_vai3", "Unidade 3", "col-sm-8", false).'
+                    '.$this->getSelect($arrayUnidade, "unidade_vai1", "13 - Unidade 1", "col-sm-8", true).'
+                    '.$this->getSelect($arrayUnidade, "unidade_vai2", "14 - Unidade 2", "col-sm-8", false).'
+                    '.$this->getSelect($arrayUnidade, "unidade_vai3", "15 - Unidade 3", "col-sm-8", false).'
                     <br><h5>Se trabalhou em outra unidade além da atual, informe até 3 unidades anteriores.</h5><br>
-                    '.$this->getSelect($arrayUnidade, "unidade_foi1", "Unidade 1", "col-sm-8", false).'
-                    '.$this->getInput("text", "data_chegada_foi1", "Data Chegada", "Data Chegada na Unidade", "col-sm-4", false, "", false, "99/99/9999").'
-                    '.$this->getInput("text", "data_saida_foi1", "Data Saida", "Data Saida da Unidade", "col-sm-4", false, "", false, "99/99/9999").'
-                    '.$this->getRadioButton($arrayButton, "motivo_foi1", "Motivo de Saída", "col-sm-8").'
+                    '.$this->getSelect($arrayUnidade, "unidade_foi1", "16 - Unidade 1", "col-sm-8", false).'
+                    '.$this->getInput("text", "data_chegada_foi1", "17 - Data Chegada", "Data Chegada na Unidade", "col-sm-4", false, "", false, "99/99/9999").'
+                    '.$this->getInput("text", "data_saida_foi1", "18 - Data Saida", "Data Saida da Unidade", "col-sm-4", false, "", false, "99/99/9999").'
+                    '.$this->getRadioButton($arrayButton, "motivo_foi1", "19 - Motivo de Saída", "col-sm-8").'
                     <hr>
-                    '.$this->getSelect($arrayUnidade, "unidade_foi2", "Unidade 2", "col-sm-8", false).'
-                    '.$this->getInput("text", "data_chegada_foi2", "Data Chegada", "Data Chegada na Unidade", "col-sm-4", false, "", false, "99/99/9999").'
-                    '.$this->getInput("text", "data_saida_foi2", "Data Saida", "Data Saida da Unidade", "col-sm-4", false, "", false, "99/99/9999").'
-                    '.$this->getRadioButton($arrayButton, "motivo_foi2", "Motivo de Saída", "col-sm-8").'
+                    '.$this->getSelect($arrayUnidade, "unidade_foi2", "20 - Unidade 2", "col-sm-8", false).'
+                    '.$this->getInput("text", "data_chegada_foi2", "21 - Data Chegada", "Data Chegada na Unidade", "col-sm-4", false, "", false, "99/99/9999").'
+                    '.$this->getInput("text", "data_saida_foi2", "22 - Data Saida", "Data Saida da Unidade", "col-sm-4", false, "", false, "99/99/9999").'
+                    '.$this->getRadioButton($arrayButton, "motivo_foi2", "23 - Motivo de Saída", "col-sm-8").'
                     <hr>
-                    '.$this->getSelect($arrayUnidade, "unidade_foi3", "Unidade 3", "col-sm-8", false).'
-                    '.$this->getInput("text", "data_chegada_foi3", "Data Chegada", "Data Chegada na Unidade", "col-sm-4", false, "", false, "99/99/9999").'
-                    '.$this->getInput("text", "data_saida_foi3", "Data Saida", "Data Saida da Unidade", "col-sm-4", false, "", false, "99/99/9999").'
-                    '.$this->getRadioButton($arrayButton, "motivo_foi3", "Motivo de Saída", "col-sm-8").'
+                    '.$this->getSelect($arrayUnidade, "unidade_foi3", "24 - Unidade 3", "col-sm-8", false).'
+                    '.$this->getInput("text", "data_chegada_foi3", "25 - Data Chegada", "Data Chegada na Unidade", "col-sm-4", false, "", false, "99/99/9999").'
+                    '.$this->getInput("text", "data_saida_foi3", "26 - Data Saida", "Data Saida da Unidade", "col-sm-4", false, "", false, "99/99/9999").'
+                    '.$this->getRadioButton($arrayButton, "motivo_foi3", "27 - Motivo de Saída", "col-sm-8").'
                     <hr>    
                     '.$this->getCheckConfirm().'
                     '.$this->getInputButtonSubmit("btn_cadastro", "Cadastrar", "btn-primary").'
