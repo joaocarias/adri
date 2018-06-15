@@ -16,22 +16,44 @@ class InscritosView extends View {
     
     private function getContent($action = null, $params = null){
         if($action == "lista"){
-            return '<section>' .  $this->getLista(). '</section>';
+            return '<section>' .  $this->getFormFiltro() . $this->getLista(). '</section>';
         }else if($action == "parecer"){
             return '<section>' . $this->getDadosServidorInscrito($params) 
                                . $this->getFormParecer($params)
                     . '</section>';
         }else{
-            return '<section>' .  $this->getLista(). '</section>';
+            return '<section>'  . $this->getFormFiltro() . $this->getLista(). '</section>';
         }
     }
     
     private function getLista(){
         $content_ = '';    
 
-            $objInscricao = new Inscricao();
-            $listaInscritos = $objInscricao->getListObjActive();
+            //Filtros de consulta
+            $tx_unidade = filter_input(INPUT_POST, "tx_unidade", FILTER_SANITIZE_STRING);
+            $tx_cargo = filter_input(INPUT_POST, "tx_cargo", FILTER_SANITIZE_STRING);
+            $tx_funcao = filter_input(INPUT_POST, "tx_funcao", FILTER_SANITIZE_STRING);
+            
+            $arrayFiltro = array();
+            if($tx_unidade || $tx_cargo || $tx_funcao ){
+                if($tx_unidade){
+                    $arrayFiltro['unidade_atual'] = $tx_unidade;
+                }
 
+                if($tx_cargo){
+                    $arrayFiltro['cargo'] = $tx_cargo;
+                }
+
+                if($tx_funcao){
+                    $arrayFiltro['funcao'] = $tx_funcao;
+                }            
+            }else{
+                $arrayFiltro = null;
+            }
+        
+            $objInscricao = new Inscricao();
+            $listaInscritos = $objInscricao->getListObjActive($arrayFiltro);
+                        
             $objUnidade = new Unidade();
             $objCargo = new Cargo();
             $objFuncao = new Funcao();
@@ -127,5 +149,28 @@ class InscritosView extends View {
                     </html>';
     }
     
-  
+    private function getFormFiltro(){
+          
+        $objUnidade = new Unidade();
+        $arrayUnidade = $objUnidade->getArrayBasic();
+        
+        $objCargo = new Cargo();
+        $arrayCargo = $objCargo->getArrayBasic();
+        
+        $objFuncao = new Funcao();
+        $arrayFuncao = $objFuncao->getArrayBasic();
+        
+        $tituloForm = "Filtro";
+        $actionForm = "inscritos.php";
+        return ' '.$this->beginCard("col-lg-12", $tituloForm).'
+                    '.$this->beginForm("col-lg-12" , "POST", $actionForm).'                          
+                            '.$this->getSelect($arrayUnidade , "tx_unidade", "Unidade Atual", "col-sm-6", false).'
+                            '.$this->getSelect($arrayCargo , "tx_cargo", "Cargo", "col-sm-6", false).'
+                            '.$this->getSelect($arrayFuncao , "tx_funcao", "Função", "col-sm-6", false).'                      '
+                            .'<div class="line"></div>'
+                            .$this->getInputButtonSubmit("btn_buscar", "Realziar Filtro", "btn-primary")
+                    .$this->endForm()
+                .$this->endCard()
+                ;        
+    }      
 }
