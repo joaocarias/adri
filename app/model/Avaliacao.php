@@ -118,14 +118,12 @@ class Avaliacao extends ModelBasico{
             }
         }
         
-        $sql = " SELECT id_avaliacao, ava.id_inscricao as id_inscricacao, (nota1 + nota2 + nota3 + nota4 + nota5) as pontuacao "
+        $sql = " SELECT id_avaliacao, ava.id_inscricao as id_inscricao, (nota1 + nota2 + nota3 + nota4 + nota5) as pontuacao "
                 . " FROM `tb_avaliacao` as ava "
                 . " INNER JOIN inscricao as ins ON ins.id_inscricao = ava.id_inscricao  "
                 . $string_filtro
                 . " ORDER BY pontuacao DESC";
-        
-        var_dump($sql);
-        
+       
         $dados = $this->select($sql);
         
         return $dados;

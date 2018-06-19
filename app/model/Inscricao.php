@@ -163,6 +163,8 @@ class Inscricao extends ModelBasico{
         return $obj;
     }
     
+   
+    
     public function selectObjCPF($cpf){
         $sql = " SELECT * FROM `inscricao` WHERE cpf_servidor = '{$cpf}' ORDER BY nome_servidor ASC ";
                 
@@ -356,6 +358,63 @@ class Inscricao extends ModelBasico{
             $array['data_solicitacao'] = $item->getDataSolicitacao();
             
         }
+        
+        return $array;
+    }
+    
+    public function getListNaoAvaliados($arrayFiltro = null){
+        $string_filtro = "";
+        $cont = 0;
+        if(!is_null($arrayFiltro)){
+            foreach ($arrayFiltro as $col => $value){               
+                    $string_filtro .= " AND {$col} = '{$value}'  ";               
+            }
+        }
+        
+        $sql = " SELECT * FROM `inscricao` WHERE id_inscricao NOT IN (SELECT id_inscricao FROM tb_avaliacao WHERE id_status = '1' ) {$string_filtro}  ORDER BY nome_servidor ASC ";
+        
+        $dados = array();
+        $dados = $this->select($sql);
+        
+        $array = array();
+        
+        foreach ($dados as $row){
+            
+            $obj = new Inscricao();
+            
+            $obj->setIdInscricao($row->id_inscricao);
+            $obj->setNomeServidor($row->nome_servidor);
+            $obj->setCpfServidor($row->cpf_servidor);
+            $obj->setCargo($row->cargo);
+            $obj->setFuncao($row->funcao);
+            $obj->setCep($row->cep);
+            $obj->setEndereco($row->endereco);
+            $obj->setEmail($row->email);
+            $obj->setTelefone($row->telefone);
+            $obj->setUnidadeAtual($row->unidade_atual);
+            $obj->setDataChegadaAtual($row->data_chegada_atual);
+            $obj->setExperienciaSaude($row->experiencia_saude);
+            $obj->setMotivoSolicitacao($row->motivo_solicitacao);
+            $obj->setUnidadeDesejo1($row->unidade_desejo1);
+            $obj->setUnidadeDesejo2($row->unidade_desejo2);
+            $obj->setUnidadeDesejo3($row->unidade_desejo3);
+            $obj->setUnidadeAnterior1($row->unidade_anterior1);
+            $obj->setChegadaUnidadeAnterior1($row->data_chegada_anterior1);
+            $obj->setSaidaUnidadeAnterior1($row->data_saida_anterior1);
+            $obj->setMotivoUnidadeAnterior1($row->motivo_saida_anterior1);
+            $obj->setUnidadeAnterior2($row->unidade_anterior2);
+            $obj->setChegadaUnidadeAnterior2($row->data_chegada_anterior2);
+            $obj->setSaidaUnidadeAnterior2($row->data_saida_anterior2);
+            $obj->setMotivoUnidadeAnterior2($row->motivo_saida_anterior2);
+            $obj->setUnidadeAnterior3($row->unidade_anterior3);
+            $obj->setChegadaUnidadeAnterior3($row->data_chegada_anterior3);
+            $obj->setSaidaUnidadeAnterior3($row->data_saida_anterior3);
+            $obj->setMotivoUnidadeAnterior3($row->motivo_saida_anterior3);
+            $obj->setSolicitadoPor($row->solicitado_por);
+            $obj->setDataSolicitacao($row->data_solicitacao);
+            
+            array_push($array, $obj);
+        }        
         
         return $array;
     }
