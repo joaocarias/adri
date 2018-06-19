@@ -65,7 +65,7 @@ class Cargo extends ModelDimenisionamento{
     }
 
     function getNome_cargo() {
-        return $this->nome_cargo;
+        return utf8_encode($this->nome_cargo);
     }
     
     function setId_cargo($id_cargo) {
