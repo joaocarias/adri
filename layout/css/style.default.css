@@ -1877,13 +1877,34 @@ select option {
   height: 100%;
   display: block;
   z-index: -1;
-  background: url(../img/bgorigem.jpeg) no-repeat bottom center scroll;
+  background: url(../img/bgorigem.jpg) no-repeat bottom center scroll;
   background-size: cover;
  	background-position: 30% 45%;
   z-index: 1;
   position: absolute;
   top: 0;
   right: 0;
+}
+
+@media (max-width: 1480px) {
+  .login-page::before {
+    background: url(../img/bgorigem-1440.jpg) no-repeat bottom center scroll;
+    background-position: 30% 45%;
+  }
+}
+
+@media (max-width: 1350px) {
+  .login-page::before {
+    background: url(../img/bgorigem-1360.jpg) no-repeat bottom center scroll;
+    background-position: 30% 45%;
+  }
+}
+
+@media (max-width: 1050px) {
+  .login-page::before {
+    background: url(../img/bgorigem-1024.jpg) no-repeat bottom center scroll;
+    background-position: 30% 45%;
+  }
 }
 
 .login-page .container {
