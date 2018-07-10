@@ -1907,6 +1907,13 @@ select option {
   }
 }
 
+@media (max-width: 500px) {
+  .login-page::before {
+    background: url(../img/bgorigem-480.jpg) no-repeat bottom center scroll;
+    background-position: 30% 45%;
+  }
+}
+
 .login-page .container {
   min-height: 100vh;
   z-index: 999;
