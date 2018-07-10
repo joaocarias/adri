@@ -19,6 +19,22 @@ class View {
         $this->sistema = is_null($sistema) ? new Sistema() : $sistema;
     }
     
+    function getSistema() {
+        return $this->sistema;
+    }
+
+    function getTitle_page() {
+        return $this->title_page;
+    }
+
+    function setSistema($sistema) {
+        $this->sistema = $sistema;
+    }
+
+    function setTitle_page($title_page) {
+        $this->title_page = $title_page;
+    }
+        
     public function getHeader(){
         return '<head>
                     <meta charset="utf-8">
@@ -336,6 +352,10 @@ class View {
                               </ul>                            
                                     '.$conteudoAvaliar.'
                                     '.$conteudoAdmin.'
+                              <!-- Sidebar Navidation Menus--><span class="heading">Extras</span>
+                              <ul class="list-unstyled">
+                                    '.$this->itemMenu("contato.php", "icon-ios-email-outline", "Contato").'  
+                                    '.$this->itemMenu("sobre.php", "icon-search", "Sobre").'  
                             </nav>';
     }
     

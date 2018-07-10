@@ -128,9 +128,7 @@ class LoginView {
     
     public function getFooter(){
         return '<div class="copyrights text-center">
-                    <p>Desenvolvido por SGTIC - Setor de Tecnologia da Informação e Comunicação</p>
-                            <p>Template baseado em <a href="https://bootstrapious.com/admin-templates" class="external">Bootstrapious</a>
-                              <!-- Please do not remove the backlink to us unless you support further theme\'s development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                    <p>Desenvolvido por SGTIC - Setor de Tecnologia da Informação e Comunicação</p>                            
                             </p>
                           </div>
                         </div>
