@@ -10,6 +10,7 @@ include_once '../app/model/Cargo.php';
 include_once '../app/model/Funcao.php';
 include_once '../app/model/Avaliador.php';
 include_once '../app/model/Avaliacao.php';
+include_once '../app/model/PeriodoAvaliacao.php';
 
 class AvaliarView extends View{
     function __construct($title_page = null, $sistema = null) {
@@ -17,14 +18,30 @@ class AvaliarView extends View{
     }
     
     private function getContent($action = null, $params = null){
-        if($action == "lista"){
-            return '<section>' . $this->getFormFiltro() . $this->getLista(). '</section>';
+        if($action == "lista"){           
+              
+            $objPeriodoAvaliacao = new PeriodoAvaliacao();
+            $objPeriodoAvaliacao = $objPeriodoAvaliacao->getObjPorID(1);
+
+            if($objPeriodoAvaliacao->is_periodo_inscricao($objPeriodoAvaliacao->getId_periodo_avaliacao())){
+                return '<section>' . $this->getPeriodoAvaliar() . $this->getFormFiltro() . $this->getLista(). '</section>';
+            }else{
+                return '<section>' . $this->getPeriodoAvaliar() .'</section>';
+            }            
+            
         }else if($action == "parecer"){
             return '<section>' . $this->getDadosServidorInscrito($params) 
                                . $this->getFormParecer($params)
                     . '</section>';
         }else{
-            return '<section>' . $this->getFormFiltro() .  $this->getLista(). '</section>';
+            $objPeriodoAvaliacao = new PeriodoAvaliacao();
+            $objPeriodoAvaliacao = $objPeriodoAvaliacao->getObjPorID(1);
+
+            if($objPeriodoAvaliacao->is_periodo_inscricao($objPeriodoAvaliacao->getId_periodo_avaliacao())){
+                return '<section>' .  $this->getPeriodoAvaliar() . $this->getFormFiltro() .  $this->getLista(). '</section>';
+            }else{
+                return '<section>' . $this->getPeriodoAvaliar() .'</section>';
+            }    
         }
     }
         
@@ -82,100 +99,114 @@ class AvaliarView extends View{
         return $content_;     
     }
     
+    private function getPeriodoAvaliar(){
+        
+        $objPeriodoAvaliacao = new PeriodoAvaliacao();
+        $objPeriodoAvaliacao = $objPeriodoAvaliacao->getObjPorID(1);
+        
+        return 
+                 $this->beginCard('col-sm-12', "Período de Avaliação")
+                        .'<p>Período de Avaliação: <strong> '. Auxiliar::converterDataTimeBR($objPeriodoAvaliacao->getInicio()).' </strong> até <strong>  '
+                        . Auxiliar::converterDataTimeBR($objPeriodoAvaliacao->getFim()).' </strong> </p>'
+                    . $this->endCard()
+                . ' ';
+    }
+    
     private function getLista(){
         
         $id_avaliador = $_SESSION['id_servidor'];
         
         $objAvaliador = new Avaliador();
         
-        if($objAvaliador->is_avaliador($id_avaliador)){
+        $content_ = ''; 
+      
+            if($objAvaliador->is_avaliador($id_avaliador)){
                                 
-            $params = $objAvaliador->getArrayIdUnidadesPorAvaliador($id_avaliador);
-            
-            $content_ = '';        
+                $params = $objAvaliador->getArrayIdUnidadesPorAvaliador($id_avaliador);
 
-            $objInscricao = new Inscricao();
-            
-            //Filtros de consulta
-            $tx_unidade = filter_input(INPUT_POST, "tx_unidade", FILTER_SANITIZE_STRING);
-            $tx_cargo = filter_input(INPUT_POST, "tx_cargo", FILTER_SANITIZE_STRING);
-            $tx_funcao = filter_input(INPUT_POST, "tx_funcao", FILTER_SANITIZE_STRING);
-            
-            $arrayFiltro = array();
-            if($tx_unidade || $tx_cargo || $tx_funcao ){
-                if($tx_unidade){
-                    $arrayFiltro['unidade_atual'] = $tx_unidade;
-                }
+                $objInscricao = new Inscricao();
 
-                if($tx_cargo){
-                    $arrayFiltro['cargo'] = $tx_cargo;
-                }
+                //Filtros de consulta
+                $tx_unidade = filter_input(INPUT_POST, "tx_unidade", FILTER_SANITIZE_STRING);
+                $tx_cargo = filter_input(INPUT_POST, "tx_cargo", FILTER_SANITIZE_STRING);
+                $tx_funcao = filter_input(INPUT_POST, "tx_funcao", FILTER_SANITIZE_STRING);
 
-                if($tx_funcao){
-                    $arrayFiltro['funcao'] = $tx_funcao;
-                }            
-            }else{
-                $arrayFiltro = null;
-            }
-            
-            $listaInscritoPorUnidades = $objInscricao->getObjsPorUnidadeAtual($params, $arrayFiltro);
+                $arrayFiltro = array();
+                if($tx_unidade || $tx_cargo || $tx_funcao ){
+                    if($tx_unidade){
+                        $arrayFiltro['unidade_atual'] = $tx_unidade;
+                    }
 
-            $objUnidade = new Unidade();
-            $objCargo = new Cargo();
-            $objFuncao = new Funcao();
-            $objAvaliacao = new Avaliacao();
+                    if($tx_cargo){
+                        $arrayFiltro['cargo'] = $tx_cargo;
+                    }
 
-            $linhas = "";
-            foreach ($listaInscritoPorUnidades as $item){
-                
-                if($objAvaliacao->is_avaliado($item->getIdInscricao())){
-                    $button_avaliar = "<a id='btn_avaliar' name='btn-avaliar' href='servidor.php?idinscricao={$item->getIdInscricao()}' class='btn btn-info btn-sm'>Avaliado - Mais Informação</a>";
+                    if($tx_funcao){
+                        $arrayFiltro['funcao'] = $tx_funcao;
+                    }            
                 }else{
-                    $button_avaliar = "<a id='btn_avaliar' name='btn-avaliar' href='?inscricao={$item->getIdInscricao()}' class='btn btn-success btn-sm'>Avaliar</a>";
+                    $arrayFiltro = null;
                 }
 
-                $linhas .= '<tr>
-                                  <th scope="row">'.$item->getIdInscricao().'</th>
-                                  <td>'.$item->getNomeServidor().'</td>
-                                  <td>'.$item->getCpfServidor().'</td>
-                                  <td>'.$objUnidade->selectObj($item->getUnidadeAtual())->getNome_unidade().'</td>                              
-                                  <td>'.$objCargo->selectObj($item->getCargo())->getNome_cargo().'</td>                              
-                                  <td>'.$objFuncao->selectObj($item->getFuncao())->getNome_funcao().'</td>        
-                                  <td>'.$button_avaliar.'</td>                                                                                       
-                            </tr>
-                            ';
-            }
+                $listaInscritoPorUnidades = $objInscricao->getObjsPorUnidadeAtual($params, $arrayFiltro);
 
-            $content_ .= '
-                        <div class="col-lg-12">
-                      <div class="card">                    
-                        <div class="card-header d-flex align-items-center">
-                          <h3 class="h4">Lista</h3>
-                        </div>
-                        <div class="card-body">
-                          <div class="table-responsive">                       
-                            <table class="table table-striped table-hover">
-                              <thead>
-                                <tr>
-                                  <th>#</th>
-                                  <th>SERVIDOR</th>                              
-                                  <th>CPF</th>                              
-                                  <th>UNIDADE ATUAL</th>                              
-                                  <th>CARGO</th>                              
-                                  <th>FUNÇÃO</th>          
-                                  <th>AVALIAR</th>
+                $objUnidade = new Unidade();
+                $objCargo = new Cargo();
+                $objFuncao = new Funcao();
+                $objAvaliacao = new Avaliacao();
+
+                $linhas = "";
+                foreach ($listaInscritoPorUnidades as $item){
+
+                    if($objAvaliacao->is_avaliado($item->getIdInscricao())){
+                        $button_avaliar = "<a id='btn_avaliar' name='btn-avaliar' href='servidor.php?idinscricao={$item->getIdInscricao()}' class='btn btn-info btn-sm'>Avaliado - Mais Informação</a>";
+                    }else{
+                        $button_avaliar = "<a id='btn_avaliar' name='btn-avaliar' href='?inscricao={$item->getIdInscricao()}' class='btn btn-success btn-sm'>Avaliar</a>";
+                    }
+
+                    $linhas .= '<tr>
+                                      <th scope="row">'.$item->getIdInscricao().'</th>
+                                      <td>'.$item->getNomeServidor().'</td>
+                                      <td>'.$item->getCpfServidor().'</td>
+                                      <td>'.$objUnidade->selectObj($item->getUnidadeAtual())->getNome_unidade().'</td>                              
+                                      <td>'.$objCargo->selectObj($item->getCargo())->getNome_cargo().'</td>                              
+                                      <td>'.$objFuncao->selectObj($item->getFuncao())->getNome_funcao().'</td>        
+                                      <td>'.$button_avaliar.'</td>                                                                                       
                                 </tr>
-                              </thead>
-                              <tbody>
-                                   '.$linhas.'            
-                              </tbody>
-                            </table>
+                                ';
+                }
+
+                $content_ .= '
+                            <div class="col-lg-12">
+                          <div class="card">                    
+                            <div class="card-header d-flex align-items-center">
+                              <h3 class="h4">Lista</h3>
+                            </div>
+                            <div class="card-body">
+                              <div class="table-responsive">                       
+                                <table class="table table-striped table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th>SERVIDOR</th>                              
+                                      <th>CPF</th>                              
+                                      <th>UNIDADE ATUAL</th>                              
+                                      <th>CARGO</th>                              
+                                      <th>FUNÇÃO</th>          
+                                      <th>AVALIAR</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                       '.$linhas.'            
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  ';
-        }
+                      ';
+            }
+          
                                   
         return $content_;       
     }

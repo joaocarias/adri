@@ -2,6 +2,19 @@ create database bd_srisms;
 
 use bd_srisms;
 
+CREATE TABLE tb_periodo_avaliacao 
+(
+    id_periodo_avaliacao int(11) NOT null AUTO_INCREMENT,
+    inicio datetime not null,
+    fim datetime NOT null,
+    criado_por int(11) not null,    
+    data_do_cadastro timestamp default current_timestamp,
+    modificador_por int(11),
+    data_da_modificacao datetime,
+    id_status smallint default 1,
+    primary key(id_periodo_inscricao)
+);
+
 CREATE TABLE tb_periodo_inscricao 
 (
     id_periodo_inscricao int(11) NOT null AUTO_INCREMENT,
