@@ -7,6 +7,8 @@ include_once '../app/model/Funcao.php';
 include_once '../app/model/Inscricao.php';
 include_once '../lib/Sistema.php';
 include_once '../lib/View.php';
+include_once '../app/model/PeriodoInscricao.php';
+include_once '../lib/Auxiliar.php';
 
 /**
  * Description of InscricaoView
@@ -581,10 +583,21 @@ class InscricaoView extends View {
                 return '<section> <div class="alert alert-success" role="alert">
                             Solicitação de Remanejamento já Cadastrada!
                           </div></section>';
-            }
-            else{
-                return '<!-- Dashboard Counts Section-->
+            }else{
+                $objPeriodoInscricao = new PeriodoInscricao();
+                $objPeriodoInscricao = $objPeriodoInscricao->getObjPorID(1);               
+                                            
+                if($objPeriodoInscricao->is_periodo_inscricao($objPeriodoInscricao->getId_periodo_inscricao())){
+                     return '<!-- Dashboard Counts Section-->
                         <section> '.$this->getFormServidor().'</section>';
+                }else{                    
+                    return '<section>'
+                            . $this->beginCard("col-md-12", "Solicitação Remanejamento Servidor")
+                                . '<p>Período de Inscrição: <strong> '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getInicio()).' </strong> até '
+                                . '<strong>  '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getFim()).' </strong> </p>' 
+                            . $this->endCard()
+                        . '</section>';                                        
+                }
             } 
 //        }
 //        else{

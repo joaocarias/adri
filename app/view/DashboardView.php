@@ -5,6 +5,7 @@ include_once '../app/model/Cargo.php';
 include_once '../app/model/Funcao.php';
 include_once '../app/model/Unidade.php';
 include_once '../app/model/Servidor.php';
+include_once '../app/model/PeriodoInscricao.php';
 include_once '../lib/Auxiliar.php';
 include_once '../lib/Sistema.php';
 include_once '../lib/View.php';
@@ -686,8 +687,17 @@ class DashboardView extends View {
 //                $res .= '<p>O cadastro somente é aberto aos servidores efetivos da SMS, obrigado pela atenção.</p>';
 //            }
 //            else{
-                $res .= '<p>Clique no botão abaixo para realizar seu cadastro.</p>'
-                . '<br>'.$this->getButton("Inscrição", "inscricao.php", "btn-primary")
+            
+                $objPeriodoInscricao = new PeriodoInscricao();
+                $objPeriodoInscricao = $objPeriodoInscricao->getObjPorID(1);
+            
+                $button_inscricao = $objPeriodoInscricao->is_periodo_inscricao($objPeriodoInscricao->getId_periodo_inscricao()) 
+                        ? '<p>Clique no botão abaixo para realizar seu cadastro.</p>'
+                            . '<br>'.$this->getButton("Inscrição", "inscricao.php", "btn-primary") 
+                        : "" ;
+                                
+                $res .= '<p>Período de Inscrição: <strong> '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getInicio()).' </strong> até <strong>  '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getFim()).' </strong> </p>'
+                     . $button_inscricao
                 . $this->endCard();
 //            }
             

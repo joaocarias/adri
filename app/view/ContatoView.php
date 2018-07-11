@@ -50,11 +50,11 @@ class ContatoView extends View {
     }
     
     public function getInfo(){
-        return $this->beginCard("col-lg-12", "DGTES").'
+        return $this->beginCard("col-lg-12", "NCL").'
                     <ul>
-                        <li>DGTES - Departamento de Gestão do Trabalho e da Educação na Saúde</li>
-                        <li>Telefone: 84-3232-8501</li>                        
-                        <li>E-Mail: <a href="mailto:dgtessms14@gmail.com">dgtessms14@gmail.com</a></li>
+                        <li>NCL - Núcleo de Cadastro de Lotação</li>
+                        <li>Telefone: 84-3232-8163</li>                        
+                        <li>E-Mail: <a href="mailto:ncl_dgtes@outlook.com">ncl_dgtes@outlook.com</a></li>
                     </ul>
                 '.$this->endCard().'                    
                 ';
