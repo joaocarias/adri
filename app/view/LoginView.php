@@ -69,7 +69,9 @@ class LoginView {
                                         <div class="form-group">
                                           <input id="login-password" type="password" name="loginPassword" required data-msg="Informe a sua Senha" class="input-material" maxlength="30">
                                           <label for="login-password" class="label-material">Senha do Usuário</label>
-                                        </div><input type="submit" id="login" name="btnLogin" class="btn btn-primary" value="Login" />                                        
+                                        </div><input type="submit" id="login" name="btnLogin" class="btn btn-primary" value="Login" />   
+                                        </form> 
+                                        <small>* O Acesso (Login e Senha) é o mesmo do Sistema de Ponto Eletrônico.</small>
                                     </div>
                                   </div>
                                 </div>

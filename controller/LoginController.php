@@ -21,12 +21,12 @@ if($btnLogin){
         $logAcesso = new LogAcesso();
         $retorno = $logAcesso->insertObj($dados->getId_servidor(), $loginUsername,  'PERMITIDO');
         header('Location: ../page/dashboard.php?r='.$retorno['id']);
-        var_dump($retorno);
+//        var_dump($retorno);
     }else{
         $_SESSION['logado'] = '0';
         $logAcesso = new LogAcesso();
         $retorno = $logAcesso->insertObj(null, $loginUsername,'NEGADO');
-        var_dump($retorno);
+//        var_dump($retorno);
         header('Location: ../page/login.php?msg=senha_invalida&r='.$retorno['id']);
     }
 }else{

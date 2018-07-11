@@ -22,7 +22,8 @@ class ConexaoDimensionamento {
                 self::$instance_->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             endif;
         } catch (\PDOException $ex) {
-            echo "Erro: ".$ex->getMessage();
+            //echo "Error: ".$ex->getMessage();
+            header("location: /");
         }
         return self::$instance_;
     }
