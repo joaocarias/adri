@@ -1,14 +1,13 @@
 <?php
 
-
 include_once '../lib/Sistema.php';
 
 /**
- * Description of LoginView
+ * Description of InfoLogin
  *
- * @author joao
+ * @author joao.franca
  */
-class LoginView {
+class InfoLoginView {
     private $sistema;
     
     function __construct($sistema = null) {
@@ -58,21 +57,17 @@ class LoginView {
                                 <!-- Form Panel    -->
                                 <div class="col-lg-6 bg-white"> 
                                   <div class="form d-flex align-items-center">
-                                    <div class="content">
-                                    '.$this->erroLogin().'
-                                      <form method="post" class="form-validate" action="'.$action_form.'">
-                                        <div class="form-group">
-                                          <input id="login-username" type="text" name="loginUsername" required data-msg="Por favor informe seu CPF" class="input-material" 
-                                                        data-mask="000.000.000-00" maxlength="14" >
-                                          <label for="login-username" class="label-material">CPF do Usuário</label>
-                                        </div>
-                                        <div class="form-group">
-                                          <input id="login-password" type="password" name="loginPassword" required data-msg="Informe a sua Senha" class="input-material" maxlength="30">
-                                          <label for="login-password" class="label-material">Senha do Usuário</label>
-                                        </div><input type="submit" id="login" name="btnLogin" class="btn btn-primary" value="Login" />   
-                                        </form> 
-                                        <p><small>* O Acesso (Login e Senha) é o mesmo do Sistema de Ponto Eletrônico.</small></p>
-                                        <p><small>** Problemas com o acesso, <a href="infologin.php">clique aqui!</a></p>
+                                    <div class="content"> 
+                                        <h2>Sobre o Acesso</h2>
+                                            <p>O Acesso (Login e Senha) ao ADRIF é o mesmo usado no Sistema de Ponto Eletrônico.</p>
+                                            <p>Dúvidas ou problemas em relação ao acesso entrar em contato com o NCL (Núcleo de Cadastro de Lotação) pelos meios:
+                                                <ul>
+                                                    <li>Telefone: (84) 3232-8163</li>
+                                                    <li>E-Mail: <a href="mailto:ncl_dgtes@outlook.com">ncl_dgtes@outlook.com</a></li>
+                                                </ul>
+                                            </p>
+                                            <br />
+                                            <h4><a href="login.php">Voltar!</a></h4>
                                     </div>
                                   </div>
                                 </div>
@@ -81,52 +76,8 @@ class LoginView {
                           </div>
                           
                  
-                ';
-    
-//    private function getContent(){
-//        $action_form = "../controller/LoginController.php";
-//        
-//        return ' <div class="page login-page">
-//                          <div class="container d-flex align-items-center">
-//                            <div class="form-holder has-shadow">
-//                              <div class="row">
-//                                <!-- Logo & Information Panel-->
-//                                <div class="col-lg-6">
-//                                  <div class="info d-flex align-items-center">
-//                                    <div class="content">
-//                                      <div class="logo">
-//                                        <h1>'.$this->sistema->getSigla().'</h1>
-//                                        <h2>'.$this->sistema->getName().' '. $this->sistema->getVersao().'</h2>
-//                                      </div>
-//                                      <p>'.$this->sistema->getCompany().' - '.$this->sistema->getCity().'/'.$this->sistema->getState().'</p>
-//                                    </div>
-//                                  </div>
-//                                </div>
-//                                <!-- Form Panel    -->
-//                                <div class="col-lg-6 bg-white">
-//                                  <div class="form d-flex align-items-center">
-//                                    <div class="content">
-//                                    '.$this->erroLogin().'
-//                                      <form method="post" class="form-validate" action="'.$action_form.'">
-//                                        <div class="form-group">
-//                                          <input id="login-username" type="text" name="loginUsername" required data-msg="Por favor informe seu CPF" class="input-material" 
-//                                                        data-mask="000.000.000-00" maxlength="14" >
-//                                          <label for="login-username" class="label-material">CPF do Usuário</label>
-//                                        </div>
-//                                        <div class="form-group">
-//                                          <input id="login-password" type="password" name="loginPassword" required data-msg="Informe a sua Senha" class="input-material" maxlength="30">
-//                                          <label for="login-password" class="label-material">Senha do Usuário</label>
-//                                        </div><input type="submit" id="login" name="btnLogin" class="btn btn-primary" value="Login" />                                        
-//                                    </div>
-//                                  </div>
-//                                </div>
-//                              </div>
-//                            </div>
-//                          </div>
-//                          
-//                 
-//                ';
-        
+                ';  
+       
     }
     
     public function getFooter(){

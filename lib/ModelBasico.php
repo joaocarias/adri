@@ -14,7 +14,7 @@ class ModelBasico extends ConexaoBasica {
             $query = $pdo->prepare($sql);            
             $query->execute();
         } catch (Exception $ex) {
-            die("ERROR_404: " . $ex->getMessage() . " " . $sql);
+         //   die("ERROR_404: " . $ex->getMessage() . " " . $sql);
         }
         
         $array = array();
