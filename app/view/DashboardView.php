@@ -672,11 +672,17 @@ class DashboardView extends View {
                                 . '<tr><th scope="row">Motivo Saida Unidade Anterior 3:</th> <td> '.$inscrito->getLabelMotivoAnterior($inscrito->getMotivoUnidadeAnterior3()).'</td></tr>';
                     }
                     
-                $table .= '</table>'
-                . $this->endCard();
+                $table .= '</table>'                         
+                            . $this->beginForm("col-sm-12", "POST", "../print/inscricaoprint.php")
+                                . $this->getHidden("hi_id", $inscrito->getIdInscricao())
+                                . $this->getInputButtonSubmit("btn_imprimir", "Imprimir", "btn-dark")                                
+                            . $this->endForm()                                                 
+                   . $this->endCard();
                 
             return $table;
         }
+        // .'<a href="../print/inscricaoprint.php" target="_blank"><button type="button" class="btn btn-dark">Imprimir</button></a>'       
+        //
         else{
             $serv = new Servidor();
             
