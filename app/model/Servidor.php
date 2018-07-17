@@ -42,6 +42,20 @@ class Servidor extends ModelDimenisionamento{
         return $obj;
     }
     
+    public function pussiu_vinculo_ativo($id_servidor){
+        $sql = "SELECT * FROM `vinculo`                            
+                        WHERE id_servidor = '".$id_servidor."' and ativo = '1' and (id_status_vinculo = '1' OR id_status_vinculo = '2') "
+                . "ORDER BY `id_vinculo` DESC";
+        
+        $dados = $this->select($sql); 
+        
+        $res = false;
+        foreach($dados as $valor){        
+                $res = true;               
+        }
+        return $res;
+    }
+    
     public function selectObjCPF($cpf){        
         $sql = " SELECT * FROM servidor WHERE cpf_servidor = '{$cpf}' AND ativo = '1' ";
         
