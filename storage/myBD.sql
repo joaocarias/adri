@@ -2,6 +2,32 @@ create database bd_srisms;
 
 use bd_srisms;
 
+CREATE TABLE tb_periodo_avaliacao 
+(
+    id_periodo_avaliacao int(11) NOT null AUTO_INCREMENT,
+    inicio datetime not null,
+    fim datetime NOT null,
+    criado_por int(11) not null,    
+    data_do_cadastro timestamp default current_timestamp,
+    modificador_por int(11),
+    data_da_modificacao datetime,
+    id_status smallint default 1,
+    primary key(id_periodo_inscricao)
+);
+
+CREATE TABLE tb_periodo_inscricao 
+(
+    id_periodo_inscricao int(11) NOT null AUTO_INCREMENT,
+    inicio datetime not null,
+    fim datetime NOT null,
+    criado_por int(11) not null,    
+    data_do_cadastro timestamp default current_timestamp,
+    modificador_por int(11),
+    data_da_modificacao datetime,
+    id_status smallint default 1,
+    primary key(id_periodo_inscricao)
+);
+
 create table tb_log_acesso(
 	id_log int(11) auto_increment not null,
     id_servidor int(11),
@@ -56,3 +82,14 @@ create table tb_avaliacao(
     id_status smallint default 1,
     primary key(id_avaliacao)
 )engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `tb_cargo_selecao` (
+  `id_cargo_selecao` int(11) NOT NULL,
+  `id_cargo` int(11) NOT NULL,  
+  `criado_por` int(11) NOT NULL,
+  `data_do_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modificador_por` int(11) DEFAULT NULL,
+  `data_da_modificacao` datetime DEFAULT NULL,
+  `id_status` smallint(6) DEFAULT '1',
+   primary key(`id_cargo_selecao`)
+) ENGINE=InnoDB;

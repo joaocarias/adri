@@ -4,7 +4,7 @@ session_start();
 include_once '../app/model/Inscricao.php';
 include_once '../lib/Auxiliar.php';
 
-print_r($_POST);
+//print_r($_POST);
 //die();
 
 if(isset($_POST['nome_servidor']) && !empty($_POST['nome_servidor'])){

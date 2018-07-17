@@ -5,6 +5,7 @@ include_once '../app/model/Cargo.php';
 include_once '../app/model/Funcao.php';
 include_once '../app/model/Unidade.php';
 include_once '../app/model/Servidor.php';
+include_once '../app/model/PeriodoInscricao.php';
 include_once '../lib/Auxiliar.php';
 include_once '../lib/Sistema.php';
 include_once '../lib/View.php';
@@ -671,25 +672,43 @@ class DashboardView extends View {
                                 . '<tr><th scope="row">Motivo Saida Unidade Anterior 3:</th> <td> '.$inscrito->getLabelMotivoAnterior($inscrito->getMotivoUnidadeAnterior3()).'</td></tr>';
                     }
                     
-                $table .= '</table>'
-                . $this->endCard();
+                $table .= '</table>'                         
+                            . $this->beginForm("col-sm-12", "POST", "../print/inscricaoprint.php")
+                                . $this->getHidden("hi_id", $inscrito->getIdInscricao())
+                                . $this->getInputButtonSubmit("btn_imprimir", "Imprimir", "btn-dark")                                
+                            . $this->endForm()                                                 
+                   . $this->endCard();
                 
             return $table;
         }
+        
         else{
             $serv = new Servidor();
             
             $res = $this->beginCard("col-md-12", "Introdução")
                 . '<p>Bem vindo ao cadastro de solicitação <b>Remanejamento Interno</b>.</p>';
             
-//            if(!$serv->ehEfetivo($_SESSION['id_servidor'])){
-//                $res .= '<p>O cadastro somente é aberto aos servidores efetivos da SMS, obrigado pela atenção.</p>';
-//            }
-//            else{
-                $res .= '<p>Clique no botão abaixo para realizar seu cadastro.</p>'
-                . '<br>'.$this->getButton("Inscrição", "inscricao.php", "btn-primary")
+            if(!$serv->ehEfetivo($_SESSION['id_servidor'])){
+                $res .= '<p>Inscrições para a possibilidade de remanejamento interno dos servidores estatutários que assim desejem/necessitem mudança de local de exercício '
+                        . ' e possuam mesmo cargo, em conformidade com o Edital Nº 001/2018 – SEMAD – SMS, tais como: Assistente Social; Biomédico; Enfermeiro; '
+                        . ' Farmacêutico; Farmacêutico Bioquímico ; Fisioterapeuta; Fonoaudiólogo; Médico; Nutricionista;Odontólogo; Psicólogo;Sanitarista; Terapeuta '
+                        . ' Ocupacional, Auxiliar em Saúde Bucal – ASB; Técnico em Enfermagem; Técnico em Radiologia; Técnico em Saneamento ; Técnico em Patologia Clínica; '
+                        . ' Educador Social ; Profissional de Educação Física; Auxiliar de Farmácia; Técnico de Nutrição; Técnico em Segurança do Trabalho.</p>';
+            }
+            else{
+            
+                $objPeriodoInscricao = new PeriodoInscricao();
+                $objPeriodoInscricao = $objPeriodoInscricao->getObjPorID(1);
+            
+                $button_inscricao = $objPeriodoInscricao->is_periodo_inscricao($objPeriodoInscricao->getId_periodo_inscricao()) 
+                        ? '<p>Clique no botão abaixo para realizar seu cadastro.</p>'
+                            . '<br>'.$this->getButton("Inscrição", "inscricao.php", "btn-primary") 
+                        : "" ;
+                                
+                $res .= '<p>Período de Inscrição: <strong> '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getInicio()).' </strong> até <strong>  '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getFim()).' </strong> </p>'
+                     . $button_inscricao
                 . $this->endCard();
-//            }
+            }
             
             
             

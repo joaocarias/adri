@@ -162,9 +162,7 @@ class Inscricao extends ModelBasico{
         }                
         return $obj;
     }
-    
-   
-    
+        
     public function selectObjCPF($cpf){
         $sql = " SELECT * FROM `inscricao` WHERE cpf_servidor = '{$cpf}' ORDER BY nome_servidor ASC ";
                 

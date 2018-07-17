@@ -6,11 +6,11 @@
  * @author joao.franca
  */
 class Sistema {
-    private $name = "Administração de Remanejamento Interno";
+    private $name = "Administração de Remanejamento Interno Funcional";
     private $reduced_name = "Remanejamento Interno";
-    private $sigla = "ADRI";
+    private $sigla = "ADRIF";
     private $versao = "1.0";
-    private $description = "Administração de Remanejamento Interno da Secretaria Municipal de Saúde de Natal";
+    private $description = "Administração de Remanejamento Interno Funcional da Secretaria Municipal de Saúde de Natal";
     private $company = "Secretaria Municipal de Saúde - Natal/RN";
     private $city = "Natal";
     private $state = "RN";

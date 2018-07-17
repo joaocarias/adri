@@ -22,7 +22,8 @@ class ConexaoBasica {
                 self::$instance_->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             endif;
         } catch (\PDOException $ex) {
-            echo "Erro: ".$ex->getMessage();
+           // echo "Erro: ".$ex->getMessage();
+           header("location: /");
         }
         return self::$instance_;
     }
