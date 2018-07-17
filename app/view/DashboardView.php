@@ -638,6 +638,8 @@ class DashboardView extends View {
                     . '<tr><th scope="row">Função:</th> <td> '.$funcao->getNome_funcao().'</td></tr>'
                     . '<tr><th scope="row">Unidade Atual:</th> <td> '.$uniAtual->getNome_unidade().'</td></tr>'
                     . '<tr><th scope="row">Data de Chegada na Unidade Atual:</th> <td> '. Auxiliar::converterDataParaBR($inscrito->getDataChegadaAtual()).'</td></tr>'
+                    . '<tr><th scope="row">Data de Chegada no Setor:</th> <td> '. Auxiliar::converterDataParaBR($inscrito->getDataChegadaSetor()).'</td></tr>'
+                    . '<tr><th scope="row">Data de Chegada na SMS:</th> <td> '. Auxiliar::converterDataParaBR($inscrito->getDataChegadaSms()).'</td></tr>'
                     . '<tr><th scope="row">Motivo da Solicitação:</th> <td> '.$inscrito->getMotivoSolicitacao().'</td></tr>'
                     . '<tr><th scope="row">Experiência em Saúde:</th> <td> '.$inscrito->getExperienciaSaude().'</td></tr>'
                     

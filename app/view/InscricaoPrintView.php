@@ -44,7 +44,7 @@ class InscricaoPrintView extends View {
             
             $meu_html .= '<!DOCTYPE html>
                     <html>      
-                      <body>
+                      <body style=" font-size: 10pt;">
                       <p><address><strong>PREFEITURA MUNICIPAL DO NATAL</strong><br/>                            
                                 <strong>Secretaria Municipal de Saúde - SMS</strong><br />
                                 R. Fabrício Pedroza, 915 <br />
@@ -66,6 +66,8 @@ class InscricaoPrintView extends View {
                     . '<tr><td>Função:</td> <td> '.$funcao->getNome_funcao().'</td></tr>'
                     . '<tr><td>Unidade Atual:</td> <td> '.$uniAtual->getNome_unidade().'</td></tr>'
                     . '<tr><td>Chegada na Unid. Atual:</td> <td> '. Auxiliar::converterDataParaBR($inscrito->getDataChegadaAtual()).'</td></tr>'
+                    . '<tr><td>Chegada no Setor:</td> <td> '. Auxiliar::converterDataParaBR($inscrito->getDataChegadaSetor()).'</td></tr>'
+                    . '<tr><td>Chegada na SMS:</td> <td> '. Auxiliar::converterDataParaBR($inscrito->getDataChegadaSms()).'</td></tr>'
                     . '<tr><td>Motivo da Solicitação:</td> <td> '.$inscrito->getMotivoSolicitacao().'</td></tr>'
                     . '<tr><td>Experiência em Saúde:</td> <td> '.$inscrito->getExperienciaSaude().'</td></tr>'
                     

@@ -20,7 +20,9 @@ class Inscricao extends ModelBasico{
     private $unidade_atual;
     private $data_chegada;
     private $experiencia_saude;
-    private $motivo_sair;
+    private $motivo_sair;    
+    private $data_chegada_sms;    
+    private $data_chegada_setor;
     private $unidade_vai1;
     private $unidade_vai2;
     private $unidade_vai3;
@@ -79,11 +81,12 @@ class Inscricao extends ModelBasico{
 //    }
     
     public function inserir($cadastrado_por, $nome_servidor, $cpf_servidor, $cep, $endereco,
-                         $telefone, $email, $cargo, $funcao, $unidade_atual, $data_chegada,
+                         $telefone, $email, $cargo, $funcao, $unidade_atual, $data_chegada, $data_chegada_sms, $data_chegada_setor,
                          $motivo_sair, $unidade_vai1, $unidade_vai2, $unidade_vai3, $experiencia,
                          $unidade_foi1, $data_chegada_foi1, $data_saida_foi1, $motivo_foi1, 
                          $unidade_foi2, $data_chegada_foi2, $data_saida_foi2, $motivo_foi2, 
-                         $unidade_foi3, $data_chegada_foi3, $data_saida_foi3, $motivo_foi3) {
+                         $unidade_foi3, $data_chegada_foi3, $data_saida_foi3, $motivo_foi3, $admissao_igual) {
+        
         
         $coluna = "";
         $valor = "";
@@ -109,12 +112,12 @@ class Inscricao extends ModelBasico{
             $valor .= ", '{$unidade_foi3}', '{$data_chegada_foi3}', '{$data_saida_foi3}', '{$motivo_foi3}'";
         }
         
-        $sql = " INSERT INTO `inscricao` (`nome_servidor`, `cpf_servidor`, `cep`, 
-                    `endereco`, `telefone`, `email`, `cargo`, `funcao`, `unidade_atual`, `data_chegada_atual`, 
-                    `motivo_solicitacao`, `unidade_desejo1`, `experiencia_saude`, `solicitado_por` ".$coluna.") 
-                    VALUES ( '{$nome_servidor}', '{$cpf_servidor}', '{$cep}', '{$endereco}', 
-                            '{$telefone}', '{$email}', '{$cargo}', '{$funcao}', '{$unidade_atual}', '{$data_chegada}',
-                            '{$motivo_sair}', '{$unidade_vai1}', '{$experiencia}', '{$cadastrado_por}' ".$valor.");";
+        $sql = " INSERT INTO `inscricao` (`nome_servidor`, `cpf_servidor`, `cep`, `admissao_igual`,
+                    `endereco`, `telefone`, `email`, `cargo`, `funcao`, `unidade_atual`, `data_chegada_atual`, `data_chegada_sms`,
+                    `data_chegada_setor`, `motivo_solicitacao`, `unidade_desejo1`, `experiencia_saude`, `solicitado_por` ".$coluna.") 
+                    VALUES ( '{$nome_servidor}', '{$cpf_servidor}', '{$cep}', '{$admissao_igual}', '{$endereco}', 
+                            '{$telefone}', '{$email}', '{$cargo}', '{$funcao}', '{$unidade_atual}', '{$data_chegada}', '{$data_chegada_sms}',
+                            '{$data_chegada_setor}', '{$motivo_sair}', '{$unidade_vai1}', '{$experiencia}', '{$cadastrado_por}' ".$valor.");";
         
 //        echo $sql;
 //        die();
@@ -140,6 +143,8 @@ class Inscricao extends ModelBasico{
             $obj->setTelefone($row->telefone);
             $obj->setUnidadeAtual($row->unidade_atual);
             $obj->setDataChegadaAtual($row->data_chegada_atual);
+            $obj->setDataChegadaSetor($row->data_chegada_setor);
+            $obj->setDataChegadaSms($row->data_chegada_sms);
             $obj->setExperienciaSaude($row->experiencia_saude);
             $obj->setMotivoSolicitacao($row->motivo_solicitacao);
             $obj->setUnidadeDesejo1($row->unidade_desejo1);
@@ -183,6 +188,8 @@ class Inscricao extends ModelBasico{
             $obj->setTelefone($row->telefone);
             $obj->setUnidadeAtual($row->unidade_atual);
             $obj->setDataChegadaAtual($row->data_chegada_atual);
+            $obj->setDataChegadaSetor($row->data_chegada_setor);
+            $obj->setDataChegadaSms($row->data_chegada_sms);
             $obj->setExperienciaSaude($row->experiencia_saude);
             $obj->setMotivoSolicitacao($row->motivo_solicitacao);
             $obj->setUnidadeDesejo1($row->unidade_desejo1);
@@ -247,6 +254,8 @@ class Inscricao extends ModelBasico{
             $obj->setTelefone($row->telefone);
             $obj->setUnidadeAtual($row->unidade_atual);
             $obj->setDataChegadaAtual($row->data_chegada_atual);
+            $obj->setDataChegadaSetor($row->data_chegada_setor);
+            $obj->setDataChegadaSms($row->data_chegada_sms);
             $obj->setExperienciaSaude($row->experiencia_saude);
             $obj->setMotivoSolicitacao($row->motivo_solicitacao);
             $obj->setUnidadeDesejo1($row->unidade_desejo1);
@@ -292,6 +301,8 @@ class Inscricao extends ModelBasico{
             $array[$i]['telefone'] = $item->getTelefone();
             $array[$i]['unidade_atual'] = $item->getUnidadeAtual();
             $array[$i]['data_chegada'] = $item->getDataChegadaAtual();
+            $array[$i]['data_chegada_setor'] = $item->getDataChegadaSetor();
+            $array[$i]['data_chegada_sms'] = $item->getDataChegadaSms();
             $array[$i]['experiencia_saude'] = $item->getExperienciaSaude();
             $array[$i]['motivo_sair'] = $item->getMotivoSolicitacao();
             $array[$i]['unidade_vai1'] = $item->getUnidadeDesejo1();
@@ -335,6 +346,8 @@ class Inscricao extends ModelBasico{
             $array['telefone'] = $item->getTelefone();
             $array['unidade_atual'] = $item->getUnidadeAtual();
             $array['data_chegada'] = $item->getDataChegadaAtual();
+            $array['data_chegada_setor'] = $item->getDataChegadaSetor();
+            $array['data_chegada_sms'] = $item->getDataChegadaSms();
             $array['experiencia_saude'] = $item->getExperienciaSaude();
             $array['motivo_sair'] = $item->getMotivoSolicitacao();
             $array['unidade_vai1'] = $item->getUnidadeDesejo1();
@@ -391,6 +404,8 @@ class Inscricao extends ModelBasico{
             $obj->setTelefone($row->telefone);
             $obj->setUnidadeAtual($row->unidade_atual);
             $obj->setDataChegadaAtual($row->data_chegada_atual);
+            $obj->setDataChegadaSetor($row->data_chegada_setor);
+            $obj->setDataChegadaSms($row->data_chegada_sms);
             $obj->setExperienciaSaude($row->experiencia_saude);
             $obj->setMotivoSolicitacao($row->motivo_solicitacao);
             $obj->setUnidadeDesejo1($row->unidade_desejo1);
@@ -454,6 +469,8 @@ class Inscricao extends ModelBasico{
             $obj->setTelefone($row->telefone);
             $obj->setUnidadeAtual($row->unidade_atual);
             $obj->setDataChegadaAtual($row->data_chegada_atual);
+            $obj->setDataChegadaSetor($row->data_chegada_setor);
+            $obj->setDataChegadaSms($row->data_chegada_sms);
             $obj->setExperienciaSaude($row->experiencia_saude);
             $obj->setMotivoSolicitacao($row->motivo_solicitacao);
             $obj->setUnidadeDesejo1($row->unidade_desejo1);
@@ -522,6 +539,14 @@ class Inscricao extends ModelBasico{
     
     function getDataChegadaAtual() {
         return $this->data_chegada;
+    }
+    
+    function getDataChegadaSetor() {
+        return $this->data_chegada_setor;
+    }
+    
+    function getDataChegadaSms() {
+        return $this->data_chegada_sms;
     }
     
     function getExperienciaSaude() {
@@ -642,6 +667,14 @@ class Inscricao extends ModelBasico{
     
     function setDataChegadaAtual($data_chegada) {
         $this->data_chegada = $data_chegada;
+    }
+    
+    function setDataChegadaSetor($data_chegada_setor) {
+        $this->data_chegada_setor = $data_chegada_setor;
+    }
+    
+    function setDataChegadaSms($data_chegada_sms) {
+        $this->data_chegada_sms = $data_chegada_sms;
     }
     
     function setExperienciaSaude($experiencia_saude) {
