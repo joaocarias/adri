@@ -312,6 +312,7 @@ class View {
         $arrayAvaliadores = array("Cadastro" => "cadastro=true", "Listar" => "lista=true" );
         $arrayUnidades = array("Listar" => "lista=true" );
         $arrayClassificacao = array("Primeira Opção" => "primeira_opcao=true", "Segunda Opção" => "segunda_opcao=true", "Terceira Opção" => "terceira_opcao=true" );
+        $arrayCargo = array("Listar" => "lista=true");
         
         $avaliador = new Avaliador();
         $admin = new Administrador();
@@ -335,7 +336,7 @@ class View {
                                  '.$this->itemMenuDown("avaliadores.php", "icon-form", "Avaliadores",$arrayAvaliadores).'                  
                                  '.$this->itemMenuDown("administradores.php", "icon-screen", "Administradores",$arrayAdministradores).'                                                                                                   
                                  '.$this->itemMenuDown("unidade.php", "icon-picture", "Unidades",$arrayUnidades).'                                          
-                                  
+                                 '.$this->itemMenuDown("cargo.php", "icon-flask", "Cargo",$arrayCargo).'     
                               </ul>';
             }            
         }else{

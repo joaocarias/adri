@@ -82,3 +82,14 @@ create table tb_avaliacao(
     id_status smallint default 1,
     primary key(id_avaliacao)
 )engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `tb_cargo_selecao` (
+  `id_cargo_selecao` int(11) NOT NULL,
+  `id_cargo` int(11) NOT NULL,  
+  `criado_por` int(11) NOT NULL,
+  `data_do_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modificador_por` int(11) DEFAULT NULL,
+  `data_da_modificacao` datetime DEFAULT NULL,
+  `id_status` smallint(6) DEFAULT '1',
+   primary key(`id_cargo_selecao`)
+) ENGINE=InnoDB;

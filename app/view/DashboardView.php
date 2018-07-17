@@ -681,18 +681,21 @@ class DashboardView extends View {
                 
             return $table;
         }
-        // .'<a href="../print/inscricaoprint.php" target="_blank"><button type="button" class="btn btn-dark">Imprimir</button></a>'       
-        //
+        
         else{
             $serv = new Servidor();
             
             $res = $this->beginCard("col-md-12", "Introdução")
                 . '<p>Bem vindo ao cadastro de solicitação <b>Remanejamento Interno</b>.</p>';
             
-//            if(!$serv->ehEfetivo($_SESSION['id_servidor'])){
-//                $res .= '<p>O cadastro somente é aberto aos servidores efetivos da SMS, obrigado pela atenção.</p>';
-//            }
-//            else{
+            if(!$serv->ehEfetivo($_SESSION['id_servidor'])){
+                $res .= '<p>Inscrições para a possibilidade de remanejamento interno dos servidores estatutários que assim desejem/necessitem mudança de local de exercício '
+                        . ' e possuam mesmo cargo, em conformidade com o Edital Nº 001/2018 – SEMAD – SMS, tais como: Assistente Social; Biomédico; Enfermeiro; '
+                        . ' Farmacêutico; Farmacêutico Bioquímico ; Fisioterapeuta; Fonoaudiólogo; Médico; Nutricionista;Odontólogo; Psicólogo;Sanitarista; Terapeuta '
+                        . ' Ocupacional, Auxiliar em Saúde Bucal – ASB; Técnico em Enfermagem; Técnico em Radiologia; Técnico em Saneamento ; Técnico em Patologia Clínica; '
+                        . ' Educador Social ; Profissional de Educação Física; Auxiliar de Farmácia; Técnico de Nutrição; Técnico em Segurança do Trabalho.</p>';
+            }
+            else{
             
                 $objPeriodoInscricao = new PeriodoInscricao();
                 $objPeriodoInscricao = $objPeriodoInscricao->getObjPorID(1);
@@ -705,7 +708,7 @@ class DashboardView extends View {
                 $res .= '<p>Período de Inscrição: <strong> '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getInicio()).' </strong> até <strong>  '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getFim()).' </strong> </p>'
                      . $button_inscricao
                 . $this->endCard();
-//            }
+            }
             
             
             

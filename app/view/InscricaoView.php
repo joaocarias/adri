@@ -578,7 +578,7 @@ class InscricaoView extends View {
         
         $serv = new Servidor();
                 
-//        if($serv->ehEfetivo($_SESSION['id_servidor'])){
+        if($serv->ehEfetivo($_SESSION['id_servidor'])){
            if(!empty($inscrito->getIdInscricao())){
                 return '<section> <div class="alert alert-success" role="alert">
                             Solicitação de Remanejamento já Cadastrada!
@@ -599,13 +599,12 @@ class InscricaoView extends View {
                         . '</section>';                                        
                 }
             } 
-//        }
-//        else{
-//            return '<section> <div class="alert alert-success" role="alert">
-//                        Somente cargos efetivos podem fazer a inscrição. Obrigado!
-//                    </div></section>';
-//        }
-             
+        }
+        else{
+            return '<section> <div class="alert alert-success" role="alert">
+                        Somente cargos efetivos podem fazer a inscrição. Obrigado!
+                    </div></section>';
+        }          
         
     }
     
