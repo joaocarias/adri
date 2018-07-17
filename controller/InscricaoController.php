@@ -3,9 +3,11 @@ session_start();
 
 include_once '../app/model/Inscricao.php';
 include_once '../lib/Auxiliar.php';
+include_once '../app/model/Servidor.php';
 
 //print_r($_POST);
 //die();
+
 
 if(isset($_POST['nome_servidor']) && !empty($_POST['nome_servidor'])){
     $nome_servidor = $_POST['nome_servidor'];
@@ -75,6 +77,27 @@ if(isset($_POST['data_chegada']) && !empty($_POST['data_chegada'])){
 }
 else{
     $data_chegada = NULL;
+}
+
+if(isset($_POST['data_chegada_sms']) && !empty($_POST['data_chegada_sms'])){
+    $data_chegada_sms = Auxiliar::converterDataParaUSA($_POST['data_chegada_sms']);
+}
+else{
+    $data_chegada_sms = NULL;
+}
+
+$objServidor = new Servidor();
+$objPerfil = $objServidor->getObjPorLogin($_SESSION['cpf_servidor']);
+
+$data2 = $objPerfil->getDt_admissao_servidor();
+$admissao_igual = Auxiliar::compararDataUSA($data_chegada_sms, $data2);
+
+
+if(isset($_POST['data_chegada_setor']) && !empty($_POST['data_chegada_setor'])){
+    $data_chegada_setor = Auxiliar::converterDataParaUSA($_POST['data_chegada_setor']);
+}
+else{
+    $data_chegada_setor = NULL;
 }
 
 if(isset($_POST['motivo_sair']) && !empty($_POST['motivo_sair'])){
@@ -204,7 +227,7 @@ else{
 }
 
 $inscricao = new Inscricao();
-$result = $inscricao->inserir($cadastrado_por, $nome_servidor, $cpf_servidor, $cep_servidor, $endereco, $telefone, $email, $cargo, $funcao, $unidade_atual, $data_chegada, $motivo_sair, $unidade_vai1, $unidade_vai2, $unidade_vai3, $experiencia, $unidade_foi1, $data_chegada_foi1, $data_saida_foi1, $motivo_foi1, $unidade_foi2, $data_chegada_foi2, $data_saida_foi2, $motivo_foi2, $unidade_foi3, $data_chegada_foi3, $data_saida_foi3, $motivo_foi3);
+$result = $inscricao->inserir($cadastrado_por, $nome_servidor, $cpf_servidor, $cep_servidor, $endereco, $telefone, $email, $cargo, $funcao, $unidade_atual, $data_chegada, $data_chegada_sms, $data_chegada_setor, $motivo_sair, $unidade_vai1, $unidade_vai2, $unidade_vai3, $experiencia, $unidade_foi1, $data_chegada_foi1, $data_saida_foi1, $motivo_foi1, $unidade_foi2, $data_chegada_foi2, $data_saida_foi2, $motivo_foi2, $unidade_foi3, $data_chegada_foi3, $data_saida_foi3, $motivo_foi3, $admissao_igual);
    
 if($result['id'] > 0){
     $_SESSION['msg'] = 'cadastrado';

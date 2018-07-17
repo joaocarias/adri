@@ -31,4 +31,13 @@ class Auxiliar {
         $dOK = $d[2].'-'.$d[1].'-'.$d[0];
         return $dOK;     
     }
+    
+    public static function compararDataUSA($data1, $data2){                        
+        if(strtotime($data1) == strtotime($data2)){
+            return 1;
+        }
+        else{
+            return 0;
+        }     
+    }
 }

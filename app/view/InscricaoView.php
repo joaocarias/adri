@@ -645,11 +645,15 @@ class InscricaoView extends View {
                     '.$this->getSelect($arrayUnidade, "unidade_atual", "9 - Unidade Atual", "col-sm-8", true, $servidorDados['id_unidade_destino']).'
                     '.$this->getInput("text", "data_chegada", "10 - Data Chegada na Unidade Atual", "Data Chegada na Unidade", "col-sm-4", true, "", false, "99/99/9999").'
                     '.$this->getTextarea("motivo_sair","11 - Motivo da Solicitação de Remanejamento", "Motivo do Remanejamento", "col-sm-8", true).'
-                    '.$this->getTextarea("experiencia_saude","12 - Descreva suas experiências profissionais na área de saúde nos últimos 2 anos", "Experiência em Saúde, tipo Enfermeiro NeoNatal, Aplicação de Vacina.", "col-sm-8", true).'
+                    '.$this->getInput("text", "data_chegada_sms", "12 - Data de Admissão na secretaria", "Data Chegada na SMS", "col-sm-4", true, "", false, "99/99/9999").'
+                    '.$this->getTextarea("experiencia_saude","13 - Descreva suas experiências profissionais na área de saúde nos últimos 2 anos", "Experiência em Saúde, tipo Enfermeiro NeoNatal, Aplicação de Vacina.", "col-sm-8", true).'
+                    '.$this->getInput("text", "data_chegada_setor", "14 - Data Chegada no Setor", "Data Início no Setor de Saúde", "col-sm-4", true, "", false, "99/99/9999").'
+                    
                     <br><h5>Escolha de 1 a 3 unidades para onde deseja ser remanejado(a).</h5><br>
                     '.$this->getSelect($arrayUnidade, "unidade_vai1", "13 - Unidade 1", "col-sm-8", true).'
                     '.$this->getSelect($arrayUnidade, "unidade_vai2", "14 - Unidade 2", "col-sm-8", false).'
                     '.$this->getSelect($arrayUnidade, "unidade_vai3", "15 - Unidade 3", "col-sm-8", false).'
+                    
                     <br><h5>Se trabalhou em outra unidade além da atual, informe até 3 unidades anteriores.</h5><br>
                     '.$this->getSelect($arrayUnidade, "unidade_foi1", "16 - Unidade 1", "col-sm-8", false).'
                     '.$this->getInput("text", "data_chegada_foi1", "17 - Data Chegada", "Data Chegada na Unidade", "col-sm-4", false, "", false, "99/99/9999").'
