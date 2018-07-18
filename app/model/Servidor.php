@@ -113,8 +113,7 @@ class Servidor extends ModelDimenisionamento{
     }
     
     public function ehEfetivo($id_servidor){
-        $sql = "SELECT * FROM `vinculo` 
-                           
+        $sql = "SELECT * FROM `vinculo`                            
                         WHERE id_servidor = '".$id_servidor."' and ativo = '1' "
                 . "ORDER BY `id_vinculo` DESC";
         
@@ -122,14 +121,128 @@ class Servidor extends ModelDimenisionamento{
         
         $res = false;
         foreach($dados as $valor){
-            if($valor->id_orgao >= 14 && $valor->id_orgao <= 17){
-                $res = true;
-            }   
+            switch ($valor->id_orgao){
+                case 14:
+                    $res = true;
+                    break;
+                case 16:
+                    $res = true;
+                    break;
+                case 17:
+                    $res = true;
+                    break;
+                case 22:
+                    $res = true;
+                    break;  
+                case 35:
+                    $res = true;
+                    break;  
+                
+                case 37:
+                    $res = true;
+                    break;
+                case 29:
+                    $res = true;
+                    break;
+                case 3:
+                    $res = true;
+                    break;
+                case 32:
+                    $res = true;
+                    break;                
+                case 6:
+                    $res = true;
+                    break;                
+                
+                case 7:
+                    $res = true;
+                    break;
+                case 8:
+                    $res = true;
+                    break;
+                case 9:
+                    $res = true;
+                    break;
+                case 10:
+                    $res = true;
+                    break;                
+                case 31:
+                    $res = true;
+                    break;   
+                
+                case 49:
+                    $res = true;
+                    break;
+                case 48:
+                    $res = true;
+                    break;
+                case 34:
+                    $res = true;
+                    break;
+                case 25:
+                    $res = true;
+                    break;                
+                case 54:
+                    $res = true;
+                    break;   
+                
+                case 126:
+                    $res = true;
+                    break;
+                case 30:
+                    $res = true;
+                    break;
+                case 52:
+                    $res = true;
+                    break;
+                case 127:
+                    $res = true;
+                    break;                
+                case 53:
+                    $res = true;
+                    break;   
+                
+                case 27:
+                    $res = true;
+                    break;
+                case 11:
+                    $res = true;
+                    break;
+                case 44:
+                    $res = true;
+                    break;
+                case 59:
+                    $res = true;
+                    break;                
+                case 75:
+                    $res = true;
+                    break;   
+                
+                case 68:
+                    $res = true;
+                    break;
+                case 41:
+                    $res = true;
+                    break;
+                case 24:
+                    $res = true;
+                    break;
+                case 28:
+                    $res = true;
+                    break;                
+                case 13:
+                    $res = true;
+                    break;   
+                
+                default :
+                    $res = false;
+                    break;
+            }
         }
         
         return $res;
     }
-    
+        
     public function getDadosServidorUltimoVinculo($id){
         $sql = "SELECT * FROM `servidor` s
                     INNER JOIN vinculo v ON s.id_servidor = v.id_servidor

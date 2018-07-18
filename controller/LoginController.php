@@ -12,7 +12,7 @@ if($btnLogin){
     $servidor = new Servidor();
     $dados = $servidor->getObjPorLogin($loginUsername);
 
-    if($servidor->pussiu_vinculo_ativo($dados->getId_servidor())){
+    if($servidor->pussiu_vinculo_ativo($dados->getId_servidor())){        
         if (md5(sha1(sha1($loginPassword . 'pontobio'))) == $dados->getSenha_servidor()){
             $_SESSION['id_servidor'] = $dados->getId_servidor();
             $_SESSION['nome_servidor'] = $dados->getNome_servidor();       

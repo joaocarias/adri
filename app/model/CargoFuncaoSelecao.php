@@ -44,7 +44,7 @@ class CargoFuncaoSelecao extends ModelBasico {
         
         return $array;
     }
-    
+       
     function getId_cargo_funcao_selecao() {
         return $this->id_cargo_funcao_selecao;
     }

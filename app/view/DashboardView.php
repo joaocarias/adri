@@ -2,6 +2,7 @@
 
 include_once '../app/model/Inscricao.php';
 include_once '../app/model/Cargo.php';
+include_once '../app/model/CargosSelecao.php';
 include_once '../app/model/Funcao.php';
 include_once '../app/model/Unidade.php';
 include_once '../app/model/Servidor.php';
@@ -686,33 +687,43 @@ class DashboardView extends View {
         
         else{
             $serv = new Servidor();
+            $objCargoSelecao = new CargosSelecao();
             
             $res = $this->beginCard("col-md-12", "Introdução")
                 . '<p>Bem vindo ao cadastro de solicitação <b>Remanejamento Interno</b>.</p>';
             
-            if(!$serv->ehEfetivo($_SESSION['id_servidor'])){
-                $res .= '<p>Inscrições para a possibilidade de remanejamento interno dos servidores estatutários que assim desejem/necessitem mudança de local de exercício '
+            $msg_cargos_portaria = '<p>Inscrições para a possibilidade de remanejamento interno dos servidores estatutários que assim desejem/necessitem mudança de local de exercício '
                         . ' e possuam mesmo cargo, em conformidade com o Edital Nº 001/2018 – SEMAD – SMS, tais como: Assistente Social; Biomédico; Enfermeiro; '
                         . ' Farmacêutico; Farmacêutico Bioquímico ; Fisioterapeuta; Fonoaudiólogo; Médico; Nutricionista;Odontólogo; Psicólogo;Sanitarista; Terapeuta '
                         . ' Ocupacional, Auxiliar em Saúde Bucal – ASB; Técnico em Enfermagem; Técnico em Radiologia; Técnico em Saneamento ; Técnico em Patologia Clínica; '
                         . ' Educador Social ; Profissional de Educação Física; Auxiliar de Farmácia; Técnico de Nutrição; Técnico em Segurança do Trabalho.</p>';
+            
+            if(!$serv->ehEfetivo($_SESSION['id_servidor'])){
+                $res .= $msg_cargos_portaria;
             }
             else{
-            
-                $objPeriodoInscricao = new PeriodoInscricao();
-                $objPeriodoInscricao = $objPeriodoInscricao->getObjPorID(1);
-            
-                $button_inscricao = $objPeriodoInscricao->is_periodo_inscricao($objPeriodoInscricao->getId_periodo_inscricao()) 
-                        ? '<p>Clique no botão abaixo para realizar seu cadastro.</p>'
-                            . '<br>'.$this->getButton("Inscrição", "inscricao.php", "btn-primary") 
-                        : "" ;
-                                
-                $res .= '<p>Período de Inscrição: <strong> '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getInicio()).' </strong> até <strong>  '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getFim()).' </strong> </p>'
-                     . $button_inscricao
-                . $this->endCard();
-            }
-            
-            
+                
+                $dadosServidorVinculo = $serv->getDadosServidorUltimoVinculo($_SESSION['id_servidor']);
+                
+                var_dump($dadosServidorVinculo);     
+                
+                if($objCargoSelecao->possui_cargo_selecao($dadosServidorVinculo['id_cargo'])){
+                    $objPeriodoInscricao = new PeriodoInscricao();
+                    $objPeriodoInscricao = $objPeriodoInscricao->getObjPorID(1);
+
+                    $button_inscricao = $objPeriodoInscricao->is_periodo_inscricao($objPeriodoInscricao->getId_periodo_inscricao()) 
+                            ? '<p>Clique no botão abaixo para realizar seu cadastro.</p>'
+                                . '<br>'.$this->getButton("Inscrição", "inscricao.php", "btn-primary") 
+                            : "" ;
+
+                    $res .= '<p>Período de Inscrição: <strong> '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getInicio()).' </strong> até <strong>  '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getFim()).' </strong> </p>'
+                         . $button_inscricao
+                    . $this->endCard();
+                }else{
+                    $res .= $msg_cargos_portaria;
+                }              
+                
+            }     
             
             return $res;
         }
