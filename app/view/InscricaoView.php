@@ -602,7 +602,7 @@ class InscricaoView extends View {
         }
         else{
             return '<section> <div class="alert alert-success" role="alert">
-                        Somente cargos efetivos podem fazer a inscrição. Obrigado!
+                        Inscrições para a possibilidade de remanejamento interno dos servidores estatutários que assim desejem/necessitem mudança de local de exercício e possuam mesmo cargo, em conformidade com o Edital Nº 001/2018 – SEMAD – SMS, tais como: Assistente Social; Biomédico; Enfermeiro; Farmacêutico; Farmacêutico Bioquímico ; Fisioterapeuta; Fonoaudiólogo; Médico; Nutricionista;Odontólogo; Psicólogo;Sanitarista; Terapeuta Ocupacional, Auxiliar em Saúde Bucal – ASB; Técnico em Enfermagem; Técnico em Radiologia; Técnico em Saneamento; Técnico em Patologia Clínica; Educador Social; Profissional de Educação Física; Auxiliar de Farmácia; Técnico de Nutrição; Técnico em Segurança do Trabalho.
                     </div></section>';
         }          
         

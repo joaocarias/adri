@@ -93,3 +93,15 @@ CREATE TABLE IF NOT EXISTS `tb_cargo_selecao` (
   `id_status` smallint(6) DEFAULT '1',
    primary key(`id_cargo_selecao`)
 ) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `tb_cargo_funcao_selecao` (
+  `id_cargo_funcao_selecao` int(11) NOT NULL,
+  `id_cargo` int(11) NOT NULL,
+  `id_funcao` int(11) NOT NULL,
+  `criado_por` int(11) NOT NULL,
+  `data_do_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modificador_por` int(11) DEFAULT NULL,
+  `data_da_modificacao` datetime DEFAULT NULL,
+  `id_status` smallint(6) DEFAULT '1',
+  PRIMARY KEY (`id_cargo_funcao_selecao`)  
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
