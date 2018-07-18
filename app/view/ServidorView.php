@@ -147,6 +147,10 @@ class ServidorView extends View {
                                   <td>'.Pergunta::getPergunta9Avaliacao().'</td>
                                   <td>'.$item->getPergunta9().'</td>                                  
                             </tr>
+                            <tr><th scope="row">10</th>
+                                  <td>'.Pergunta::getPergunta10Avaliacao(Auxiliar::converterDataParaBR($objInscricao->getDataChegadaSetor())).'</td>
+                                  <td>'.$item->getPergunta10().'</td>                                  
+                            </tr>
                             ';
             
             $tabela = '
