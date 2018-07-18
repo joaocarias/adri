@@ -19,6 +19,7 @@ if(!(isset($_SESSION['logado'])) OR  $_SESSION['logado'] != '1'){
         $pergunta7 = filter_input(INPUT_POST, "pergunta7", FILTER_SANITIZE_STRING);
         $pergunta8 = filter_input(INPUT_POST, "pergunta8", FILTER_SANITIZE_STRING);
         $pergunta9 = filter_input(INPUT_POST, "pergunta9", FILTER_SANITIZE_STRING);
+        $pergunta10 = filter_input(INPUT_POST, "pergunta10", FILTER_SANITIZE_STRING);
         $hi_id_inscricao = filter_input(INPUT_POST, "hi_id_inscricao", FILTER_SANITIZE_STRING);
         
         $params = array(
@@ -31,7 +32,8 @@ if(!(isset($_SESSION['logado'])) OR  $_SESSION['logado'] != '1'){
                         , "pergunta6" => $pergunta6
                         , "pergunta7" => $pergunta7
                         , "pergunta8" => $pergunta8
-                        , "pergunta9" => $pergunta9                        
+                        , "pergunta9" => $pergunta9  
+                        , "pergunta10" => $pergunta10  
                         , "id_avaliador" => $_SESSION['id_servidor']
                     );      
         

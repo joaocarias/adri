@@ -645,7 +645,7 @@ class InscricaoView extends View {
                     '.$this->getSelect($arrayUnidade, "unidade_atual", "9 - Unidade Atual", "col-sm-8", true, $servidorDados['id_unidade_destino']).'
                     '.$this->getInput("text", "data_chegada", "10 - Data Chegada na Unidade Atual", "Data Chegada na Unidade", "col-sm-4", true, "", false, "99/99/9999").'
                     '.$this->getTextarea("motivo_sair","11 - Motivo da Solicitação de Remanejamento", "Motivo do Remanejamento", "col-sm-8", true).'
-                    '.$this->getInput("text", "data_chegada_sms", "12 - Data de Admissão na secretaria", "Data Chegada na SMS", "col-sm-4", true, "", false, "99/99/9999").'
+                    '.$this->getInput("text", "data_chegada_sms", "12 - Data de Admissão na secretaria", "Data Chegada na SMS", "col-sm-4", true, Auxiliar::converterDataParaBR($objPerfil->getDt_admissao_servidor()), false, "99/99/9999").'
                     '.$this->getTextarea("experiencia_saude","13 - Descreva suas experiências profissionais na área de saúde nos últimos 2 anos", "Experiência em Saúde, tipo Enfermeiro NeoNatal, Aplicação de Vacina.", "col-sm-8", true).'
                     '.$this->getInput("text", "data_chegada_setor", "14 - Data Chegada no Setor", "Data Início no Setor de Saúde", "col-sm-4", true, "", false, "99/99/9999").'
                     

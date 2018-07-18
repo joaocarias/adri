@@ -302,6 +302,8 @@ class AvaliarView extends View{
                             '.$this->getTextarea("pergunta6", Pergunta::getPergunta6Avaliacao(), "", "col-sm-6" , true).'
                                         
                             '.$this->getSelect(Pergunta::getArrayPergunta7(), "pergunta7", Pergunta::getPergunta7Avaliacao(Auxiliar::converterDataParaBR($objInscricao->getDataChegadaAtual())), "col-sm-6", true).'
+                                
+                            '.$this->getSelect(Pergunta::getArrayPergunta10(), "pergunta10", Pergunta::getPergunta10Avaliacao(Auxiliar::converterDataParaBR($objInscricao->getDataChegadaSetor())), "col-sm-6", true).'
 
                             '.$this->getSelect(Pergunta::getArrayPergunta8(), "pergunta8", Pergunta::getPergunta8Avaliacao(), "col-sm-6", true).'
                                 

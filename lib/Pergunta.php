@@ -16,14 +16,35 @@ class Pergunta {
     private static $pergunta8Avaliacao;
     private static $pergunta9Avaliacao;
     
+    private static $pergunta10Avaliacao;
+    
     private static $arrayPergunta7;
     private static $arrayPergunta8;
+    
+    private static $arrayPergunta10;
     
     static function stringPergunta7($value){
         $return = "";
         switch ($value){
             case "sim":
                 $return = "SIM - Confirmo que o servidor trabalhou na unidade no período indicado";
+                break;
+            case "nao":
+                $return = "NÃO";
+                break;
+            default :
+                $return = "NÃO INFORMADO";
+                break;
+        }
+        
+        return $return;
+    }
+    
+    static function stringPergunta10($value){
+        $return = "";
+        switch ($value){
+            case "sim":
+                $return = "SIM - Confirmo que o servidor trabalhou no setor no período indicado";
                 break;
             case "nao":
                 $return = "NÃO";
@@ -83,6 +104,18 @@ class Pergunta {
         self::$arrayPergunta8 = $arrayLiberacao;        
         return self::$arrayPergunta8;
     }
+    
+    static function getArrayPergunta10() {
+        
+        $arraySimNao = array();
+        $arraySimNao[0]['id'] = "sim";
+        $arraySimNao[0]['value'] = self::stringPergunta10("sim");            
+        $arraySimNao[1]['id'] = "nao";
+        $arraySimNao[1]['value'] = self::stringPergunta10("nao");            
+        
+        self::$arrayPergunta10 = $arraySimNao;        
+        return self::$arrayPergunta10;
+    }
        
     static function getNota1Avaliacao() {
         self::$nota1Avaliacao = "O Servidor demostra interesse pela atividade desenvolvida";
@@ -117,7 +150,7 @@ class Pergunta {
     static function getPergunta7Avaliacao($data) {
         
         
-        self::$pergunta7Avaliacao = "Você confirma que o servidor trabalhou na unidade a partir do período <strong>{$data}</strong> como informado pelo o mesmo ";
+        self::$pergunta7Avaliacao = "Você confirma que o servidor trabalhou na Unidade a partir do período <strong>{$data}</strong> como informado pelo o mesmo ";
         return self::$pergunta7Avaliacao;
     }
 
@@ -129,5 +162,11 @@ class Pergunta {
     static function getPergunta9Avaliacao() {
         self::$pergunta9Avaliacao = "Justifique a sua resposta anterior";
         return self::$pergunta9Avaliacao;
-    }        
+    }      
+    
+    static function getPergunta10Avaliacao($data) {
+                
+        self::$pergunta10Avaliacao = "Você confirma que o servidor trabalhou no Setor a partir do período <strong>{$data}</strong> como informado pelo o mesmo ";
+        return self::$pergunta10Avaliacao;
+    }
 }

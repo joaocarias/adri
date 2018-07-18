@@ -19,6 +19,7 @@ class Avaliacao extends ModelBasico{
     private $pergunta7;
     private $pergunta8;
     private $pergunta9;
+    private $pergunta10;
     private $id_avaliador;
     private $data_da_avaliacao;
     private $modificador_por;
@@ -48,6 +49,7 @@ class Avaliacao extends ModelBasico{
             $obj->setPergunta7($row->pergunta7);
             $obj->setPergunta8($row->pergunta8);
             $obj->setPergunta9($row->pergunta9);
+            $obj->setPergunta10($row->pergunta10);
         }       
         
         return $obj;        
@@ -172,6 +174,10 @@ class Avaliacao extends ModelBasico{
     function getPergunta9() {
         return $this->pergunta9;
     }
+    
+    function getPergunta10() {
+        return $this->pergunta10;
+    }
 
     function getId_avaliador() {
         return $this->id_avaliador;
@@ -235,6 +241,10 @@ class Avaliacao extends ModelBasico{
 
     function setPergunta9($pergunta9) {
         $this->pergunta9 = $pergunta9;
+    }
+    
+    function setPergunta10($pergunta10) {
+        $this->pergunta10 = $pergunta10;
     }
 
     function setId_avaliador($id_avaliador) {
