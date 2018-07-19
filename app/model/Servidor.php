@@ -113,9 +113,9 @@ class Servidor extends ModelDimenisionamento{
     }
     
     public function ehEfetivo($id_servidor){
-        $sql = "SELECT * FROM `vinculo`                            
-                        WHERE id_servidor = '".$id_servidor."' and ativo = '1' "
-                . "ORDER BY `id_vinculo` DESC";
+        $sql = " SELECT * FROM `vinculo`                            
+                        WHERE id_servidor = '".$id_servidor."' and (id_status_vinculo = '1' or id_status_vinculo = '2' ) and ativo = '1' "
+                . " ORDER BY `id_vinculo` DESC ";
         
         $dados = $this->select($sql); 
         
@@ -268,7 +268,7 @@ class Servidor extends ModelDimenisionamento{
    }
 
    function getNome_servidor() {
-       return $this->nome_servidor;
+       return utf8_encode($this->nome_servidor);
    }
 
    function getSenha_servidor() {

@@ -29,7 +29,7 @@ class Distrito extends ModelDimenisionamento{
   }
 
   function getNome_distrito() {
-      return $this->nome_distrito;
+      return utf8_encode($this->nome_distrito);
   }
 
   function setId_distrito($id_distrito) {
