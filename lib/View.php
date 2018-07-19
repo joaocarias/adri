@@ -339,7 +339,7 @@ class View {
                                  '.$this->itemMenuDown("cargo.php", "icon-flask", "Cargo",$arrayCargo).'     
                               </ul>';
             }            
-        }else{
+        }else{                                   
             $conteudoInscricao = $this->itemMenu("inscricao.php", "icon-check", "Inscrição");
         }
         

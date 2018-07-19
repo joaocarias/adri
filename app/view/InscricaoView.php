@@ -9,6 +9,8 @@ include_once '../lib/Sistema.php';
 include_once '../lib/View.php';
 include_once '../app/model/PeriodoInscricao.php';
 include_once '../lib/Auxiliar.php';
+include_once '../app/model/CargosSelecao.php';
+include_once '../app/model/CargoFuncaoSelecao.php';
 
 /**
  * Description of InscricaoView
@@ -575,8 +577,15 @@ class InscricaoView extends View {
                 
         $objInscricao = new Inscricao();
         $inscrito = $objInscricao->selectObjCPF($_SESSION['cpf_servidor']);
+               
+        
+        $msg_cargos = '<section> <div class="alert alert-success" role="alert">
+                        Inscrições para a possibilidade de remanejamento interno dos servidores estatutários que assim desejem/necessitem mudança de local de exercício e possuam mesmo cargo, em conformidade com o Edital Nº 001/2018 – SEMAD – SMS, tais como: Assistente Social; Biomédico; Enfermeiro; Farmacêutico; Farmacêutico Bioquímico ; Fisioterapeuta; Fonoaudiólogo; Médico; Nutricionista;Odontólogo; Psicólogo;Sanitarista; Terapeuta Ocupacional, Auxiliar em Saúde Bucal – ASB; Técnico em Enfermagem; Técnico em Radiologia; Técnico em Saneamento; Técnico em Patologia Clínica; Educador Social; Profissional de Educação Física; Auxiliar de Farmácia; Técnico de Nutrição; Técnico em Segurança do Trabalho.
+                    </div></section>';
         
         $serv = new Servidor();
+        $objCargoSelecao = new CargosSelecao();
+        $objCargoFuncaoSelecao = new CargoFuncaoSelecao();        
                 
         if($serv->ehEfetivo($_SESSION['id_servidor'])){
            if(!empty($inscrito->getIdInscricao())){
@@ -584,26 +593,35 @@ class InscricaoView extends View {
                             Solicitação de Remanejamento já Cadastrada!
                           </div></section>';
             }else{
-                $objPeriodoInscricao = new PeriodoInscricao();
-                $objPeriodoInscricao = $objPeriodoInscricao->getObjPorID(1);               
-                                            
-                if($objPeriodoInscricao->is_periodo_inscricao($objPeriodoInscricao->getId_periodo_inscricao())){
-                     return '<!-- Dashboard Counts Section-->
-                        <section> '.$this->getFormServidor().'</section>';
-                }else{                    
-                    return '<section>'
-                            . $this->beginCard("col-md-12", "Solicitação Remanejamento Servidor")
-                                . '<p>Período de Inscrição: <strong> '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getInicio()).' </strong> até '
-                                . '<strong>  '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getFim()).' </strong> </p>' 
-                            . $this->endCard()
-                        . '</section>';                                        
+                 $dadosServidorVinculo = $serv->getDadosServidorUltimoVinculo($_SESSION['id_servidor']);
+                               
+                if($objCargoSelecao->possui_cargo_selecao($dadosServidorVinculo['id_cargo'])){
+                    if($objCargoFuncaoSelecao->possui_cargo_funcao_selecao($dadosServidorVinculo['id_cargo'], $dadosServidorVinculo['id_funcao'])){
+                
+                        $objPeriodoInscricao = new PeriodoInscricao();
+                        $objPeriodoInscricao = $objPeriodoInscricao->getObjPorID(1);               
+
+                        if($objPeriodoInscricao->is_periodo_inscricao($objPeriodoInscricao->getId_periodo_inscricao())){
+                             return '<!-- Dashboard Counts Section-->
+                                <section> '.$this->getFormServidor().'</section>';
+                        }else{                    
+                            return '<section>'
+                                    . $this->beginCard("col-md-12", "Solicitação Remanejamento Servidor")
+                                        . '<p>Período de Inscrição: <strong> '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getInicio()).' </strong> até '
+                                        . '<strong>  '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getFim()).' </strong> </p>' 
+                                    . $this->endCard()
+                                . '</section>';                                        
+                        }
+                    }else{
+                        return $msg_cargos ;
+                    }
+                }else{
+                    return $msg_cargos ;
                 }
             } 
         }
         else{
-            return '<section> <div class="alert alert-success" role="alert">
-                        Inscrições para a possibilidade de remanejamento interno dos servidores estatutários que assim desejem/necessitem mudança de local de exercício e possuam mesmo cargo, em conformidade com o Edital Nº 001/2018 – SEMAD – SMS, tais como: Assistente Social; Biomédico; Enfermeiro; Farmacêutico; Farmacêutico Bioquímico ; Fisioterapeuta; Fonoaudiólogo; Médico; Nutricionista;Odontólogo; Psicólogo;Sanitarista; Terapeuta Ocupacional, Auxiliar em Saúde Bucal – ASB; Técnico em Enfermagem; Técnico em Radiologia; Técnico em Saneamento; Técnico em Patologia Clínica; Educador Social; Profissional de Educação Física; Auxiliar de Farmácia; Técnico de Nutrição; Técnico em Segurança do Trabalho.
-                    </div></section>';
+            return $msg_cargos ;
         }          
         
     }
