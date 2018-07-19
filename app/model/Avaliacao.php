@@ -63,10 +63,75 @@ class Avaliacao extends ModelBasico{
         
         foreach ($dados as $row){                        
             $nota = $row->nota1 + $row->nota2 + $row->nota3 + $row->nota4 + $row->nota5;            
-        }       
+        }      
+        
+        $objInscricao1 = new Inscricao();
+        $servidor1 = $objInscricao1->selectObj($idInscricao);
+                
+        $tempoAdmissao = $this->tempoDeServico($servidor1->getDataChegadaSms());
+        $tempoUnidade = $this->tempoDeServico($servidor1->getDataChegadaAtual());
+        $tempoSetor = $this->tempoDeServico($servidor1->getDataChegadaSetor());
+                
+        $nota += $this->pontuacaoTempo($tempoAdmissao, 1);
+        $nota += $this->pontuacaoTempo($tempoUnidade, 2);
+        $nota += $this->pontuacaoTempo($tempoSetor, 3);
         
         if($nota > 0) return $nota;
         else return 0;        
+    }
+    
+    public function tempoDeServico($data) {
+                
+        $tempo = "";
+                
+        list($ano, $mes, $dia) = explode('-', $data);
+                
+        $tempo = mktime( 0, 0, 0, $mes, $dia, $ano);
+                
+        $hoje = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+
+        $tempo = floor((((($hoje - $tempo) / 60) / 60) / 24) / 365.25);
+//        print "data: $data, tempo : $tempo <br>";
+        
+        return $tempo;
+    }
+    
+    public function pontuacaoTempo($tempo, $chave) {
+        $potuacao = 0;
+        
+        if($chave == 1){
+            if($tempo >= 4 && $tempo <= 10){
+                $potuacao = 4;
+            }
+            elseif($tempo >= 11 && $tempo <= 15){
+                $potuacao = 6;
+            }
+            elseif($tempo >= 16 && $tempo <= 20){
+                $potuacao = 8;
+            }
+            elseif($tempo >= 21){
+                $potuacao = 10;
+            }
+        }
+        else{
+            if($tempo >= 1 && $tempo <= 2){
+                $potuacao = 2;
+            }
+            elseif($tempo >= 3 && $tempo <= 4){
+                $potuacao = 4;
+            }
+            elseif($tempo >= 5 && $tempo <= 6){
+                $potuacao = 6;
+            }
+            elseif($tempo >= 7 && $tempo <= 8){
+                $potuacao = 8;
+            }
+            elseif($tempo >= 9){
+                $potuacao = 10;
+            }
+        }
+        
+        return $potuacao;
     }
 
     public function insertObj($tabela, array $params){       
@@ -120,7 +185,7 @@ class Avaliacao extends ModelBasico{
             }
         }
         
-        $sql = " SELECT id_avaliacao, ava.id_inscricao as id_inscricao, (nota1 + nota2 + nota3 + nota4 + nota5) as pontuacao "
+        $sql = " SELECT id_avaliacao, ava.id_inscricao as id_inscricao, (nota1 + nota2 + nota3 + nota4 + nota5) as pontuacao, ava.pergunta8 "
                 . " FROM `tb_avaliacao` as ava "
                 . " INNER JOIN inscricao as ins ON ins.id_inscricao = ava.id_inscricao  "
                 . $string_filtro

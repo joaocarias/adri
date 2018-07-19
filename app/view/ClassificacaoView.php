@@ -132,6 +132,26 @@ class ClassificacaoView extends View{
             $objAvaliacao = new Avaliacao();
             $dados = $objAvaliacao->getDadosClassificacao($arrayFiltro);
             
+            foreach ($dados as $row2){
+                $objInscricao1 = new Inscricao();
+                $servidor1 = $objInscricao1->selectObj($row2->id_inscricao);
+                
+                $tempoAdmissao = $objAvaliacao->tempoDeServico($servidor1->getDataChegadaSms());
+                $tempoUnidade = $objAvaliacao->tempoDeServico($servidor1->getDataChegadaAtual());
+                $tempoSetor = $objAvaliacao->tempoDeServico($servidor1->getDataChegadaSetor());
+                
+                $row2->pontuacao += $objAvaliacao->pontuacaoTempo($tempoAdmissao, 1);
+                $row2->pontuacao += $objAvaliacao->pontuacaoTempo($tempoUnidade, 2);
+                $row2->pontuacao += $objAvaliacao->pontuacaoTempo($tempoSetor, 3);
+            }
+            
+            usort($dados,
+                 function( $a, $b ) {
+                     if( $a->pontuacao == $b->pontuacao ) return 0;
+                     return ( ( $a->pontuacao > $b->pontuacao ) ? -1 : 1 );
+                 }
+            );
+            
             $linhas = "";
             $posicao = 1;
             
@@ -143,7 +163,12 @@ class ClassificacaoView extends View{
 
             $button_mais_informacoes = "<a id='btn_mais_informacoes' name='btn-mais-informacoes' href='servidor.php?idinscricao={$row->id_inscricao}' class='btn btn-info btn-sm'>Mais Informações</a>";
 
-                $linhas .= '<tr>
+            $negativo = "";
+            if($row->pergunta8 == 3){
+                $negativo = "color: red;";
+            }
+            
+                $linhas .= '<tr style="'.$negativo.'">
                                   <th scope="row">'.$posicao.'</th>
                                   <td>'.$servidor->getNomeServidor().'</td>
                                   <td>'.$servidor->getCpfServidor().'</td>
@@ -197,6 +222,7 @@ class ClassificacaoView extends View{
                                   
         return $content_;       
     }
+    
     
     private function getListaNaoAvaliados($opcao, $classificacao){
         $content_ = '';    
