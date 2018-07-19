@@ -350,6 +350,4 @@ class Servidor extends ModelDimenisionamento{
    function setAtivo($ativo) {
        $this->ativo = $ativo;
    }
-
-
 }

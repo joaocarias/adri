@@ -3,6 +3,7 @@
 include_once '../app/model/Inscricao.php';
 include_once '../app/model/Cargo.php';
 include_once '../app/model/CargosSelecao.php';
+include_once '../app/model/CargoFuncaoSelecao.php';
 include_once '../app/model/Funcao.php';
 include_once '../app/model/Unidade.php';
 include_once '../app/model/Servidor.php';
@@ -688,6 +689,7 @@ class DashboardView extends View {
         else{
             $serv = new Servidor();
             $objCargoSelecao = new CargosSelecao();
+            $objCargoFuncaoSelecao = new CargoFuncaoSelecao();
             
             $res = $this->beginCard("col-md-12", "Introdução")
                 . '<p>Bem vindo ao cadastro de solicitação <b>Remanejamento Interno</b>.</p>';
@@ -704,21 +706,23 @@ class DashboardView extends View {
             else{
                 
                 $dadosServidorVinculo = $serv->getDadosServidorUltimoVinculo($_SESSION['id_servidor']);
-                
-                var_dump($dadosServidorVinculo);     
-                
+                               
                 if($objCargoSelecao->possui_cargo_selecao($dadosServidorVinculo['id_cargo'])){
-                    $objPeriodoInscricao = new PeriodoInscricao();
-                    $objPeriodoInscricao = $objPeriodoInscricao->getObjPorID(1);
+                    if($objCargoFuncaoSelecao->possui_cargo_funcao_selecao($dadosServidorVinculo['id_cargo'], $dadosServidorVinculo['id_funcao'])){
+                        $objPeriodoInscricao = new PeriodoInscricao();
+                        $objPeriodoInscricao = $objPeriodoInscricao->getObjPorID(1);
 
-                    $button_inscricao = $objPeriodoInscricao->is_periodo_inscricao($objPeriodoInscricao->getId_periodo_inscricao()) 
-                            ? '<p>Clique no botão abaixo para realizar seu cadastro.</p>'
-                                . '<br>'.$this->getButton("Inscrição", "inscricao.php", "btn-primary") 
-                            : "" ;
+                        $button_inscricao = $objPeriodoInscricao->is_periodo_inscricao($objPeriodoInscricao->getId_periodo_inscricao()) 
+                                ? '<p>Clique no botão abaixo para realizar seu cadastro.</p>'
+                                    . '<br>'.$this->getButton("Inscrição", "inscricao.php", "btn-primary") 
+                                : "" ;
 
-                    $res .= '<p>Período de Inscrição: <strong> '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getInicio()).' </strong> até <strong>  '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getFim()).' </strong> </p>'
-                         . $button_inscricao
-                    . $this->endCard();
+                        $res .= '<p>Período de Inscrição: <strong> '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getInicio()).' </strong> até <strong>  '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getFim()).' </strong> </p>'
+                             . $button_inscricao
+                        . $this->endCard();
+                    }else{
+                        $res .= $msg_cargos_portaria;
+                    }
                 }else{
                     $res .= $msg_cargos_portaria;
                 }              

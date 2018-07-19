@@ -44,6 +44,20 @@ class CargoFuncaoSelecao extends ModelBasico {
         
         return $array;
     }
+    
+    public function possui_cargo_funcao_selecao($id_cargo, $id_funcao){
+      $sql = "SELECT * FROM `tb_cargo_funcao_selecao`                            
+                        WHERE id_status = '1' and id_cargo = '{$id_cargo}' and id_funcao = '{$id_funcao}' "
+                . "ORDER BY `id_cargo` DESC";
+        
+        $dados = $this->select($sql); 
+        
+        $res = false;
+        foreach($dados as $valor){        
+                $res = true;               
+        }
+        return $res;
+    }
        
     function getId_cargo_funcao_selecao() {
         return $this->id_cargo_funcao_selecao;
