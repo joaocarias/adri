@@ -20,6 +20,39 @@ class Servidor extends ModelDimenisionamento{
    private $pis;   
    private $ativo;
    
+    public function possuiAfastamentoDeBloqueio($idVinculo){
+        
+        $sql = " SELECT * FROM afastamento "
+                . " WHERE id_vinculo = '{$idVinculo}'"
+                . "     AND status_afastamento = '0' "
+                . "     AND ativo = '1'; ";
+                
+        $dados = $this->select($sql); 
+                
+        $idTipo = '0';
+        foreach ($dados as $row){
+            $idTipo = $row->id_tipo_afastamento;
+        }       
+                
+        $res = false;       
+        switch ($idTipo){
+            case '7':
+                $res = true;
+                break;
+            case '13':
+                $res = true;
+                break;
+            case '15':
+                $res = true;
+                break;
+            default :
+                $res = false;
+                break;
+        }
+        
+        return $res;
+   }
+       
    public function getObjPorLogin($login){
         $sql = " SELECT * FROM servidor WHERE cpf_servidor = '{$login}' AND ativo = '1' ";
         
@@ -258,6 +291,8 @@ class Servidor extends ModelDimenisionamento{
             $result['id_cargo'] = $valor->id_cargo;  
             $result['id_funcao'] = $valor->id_funcao; 
             $result['id_unidade_destino'] = $valor->id_unidade_destino; 
+            $result['id_status_vinculo'] = $valor->id_status_vinculo; 
+            $result['id_vinculo'] = $valor->id_vinculo;
         }
         
         return $result;

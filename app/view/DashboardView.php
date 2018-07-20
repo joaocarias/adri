@@ -698,16 +698,23 @@ class DashboardView extends View {
                         . ' e possuam mesmo cargo, em conformidade com o Edital Nº 001/2018 – SEMAD – SMS, tais como: Assistente Social; Biomédico; Enfermeiro; '
                         . ' Farmacêutico; Farmacêutico Bioquímico ; Fisioterapeuta; Fonoaudiólogo; Médico; Nutricionista;Odontólogo; Psicólogo;Sanitarista; Terapeuta '
                         . ' Ocupacional, Auxiliar em Saúde Bucal – ASB; Técnico em Enfermagem; Técnico em Radiologia; Técnico em Saneamento ; Técnico em Patologia Clínica; '
-                        . ' Educador Social ; Profissional de Educação Física; Auxiliar de Farmácia; Técnico de Nutrição; Técnico em Segurança do Trabalho.</p>';
+                        . ' Educador Social ; Profissional de Educação Física; Auxiliar de Farmácia; Técnico de Nutrição; Técnico em Segurança do Trabalho, bem como '
+                        . ' os cargos de Atendente de Consultório Dentário; Auxiliar de Consultório Dentário; Auxiliar de Enfermagem e Auxiliar de Patologia Clínica que estejam '
+                        . ' em conformidade com '
+                        . ' a Lei Complementar Nº 134.</p>';
             
             if(!$serv->ehEfetivo($_SESSION['id_servidor'])){
                 $res .= $msg_cargos_portaria;
-            }
-            else{
+            }else{
                 
                 $dadosServidorVinculo = $serv->getDadosServidorUltimoVinculo($_SESSION['id_servidor']);
+                
+                $afatamentoBloqueio = false;
+                if($dadosServidorVinculo['id_status_vinculo'] == '2'){                    
+                    $afatamentoBloqueio  = $serv->possuiAfastamentoBloqueado($dadosServidorVinculo->id_vinculo);                     
+                }
                                
-                if($objCargoSelecao->possui_cargo_selecao($dadosServidorVinculo['id_cargo'])){
+                if($objCargoSelecao->possui_cargo_selecao($dadosServidorVinculo['id_cargo']) AND ($afatamentoBloqueio == false)){
                     if($objCargoFuncaoSelecao->possui_cargo_funcao_selecao($dadosServidorVinculo['id_cargo'], $dadosServidorVinculo['id_funcao'])){
                         $objPeriodoInscricao = new PeriodoInscricao();
                         $objPeriodoInscricao = $objPeriodoInscricao->getObjPorID(1);
