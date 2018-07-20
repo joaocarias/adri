@@ -64,15 +64,22 @@ class InscritosView extends View {
             $linhas = "";
             foreach ($listaInscritos as $item){
                 $classe_nao_avaliado = "";
+                $status = "";
+                
                 if($objAvaliacao->is_avaliado($item->getIdInscricao())){
                     $pontuacao = '<strong>'.$objAvaliacao->getPontuacao($item->getIdInscricao()).'</strong>';
                 }else{                    
                     $pontuacao = '<font color="red">Ainda não Avaliado</font>';
                 }
                 
+                $servidor = $objInscricao->selectObj($item->getIdInscricao());
+                if ($servidor->getUnidadeAtual() == 89 || $servidor->getUnidadeAtual() == 157){
+                    $status = "color: #EEAD0E;";
+                }
+                
                 $button_mais_informacoes = "<a id='btn_mais_informacoes' name='btn-mais-informacoes' href='servidor.php?idinscricao={$item->getIdInscricao()}' class='btn btn-info btn-sm'>Mais Informações</a>";
 
-                $linhas .= '<tr '.$classe_nao_avaliado.'>
+                $linhas .= '<tr style="'.$status.'" '.$classe_nao_avaliado.'>
                                   <th scope="row">'.$item->getIdInscricao().'</th>
                                   <td>'.$item->getNomeServidor().'</td>
                                   <td>'.$item->getCpfServidor().'</td>

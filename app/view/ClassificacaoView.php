@@ -163,12 +163,16 @@ class ClassificacaoView extends View{
 
             $button_mais_informacoes = "<a id='btn_mais_informacoes' name='btn-mais-informacoes' href='servidor.php?idinscricao={$row->id_inscricao}' class='btn btn-info btn-sm'>Mais Informações</a>";
 
-            $negativo = "";
-            if($row->pergunta8 == 3){
-                $negativo = "color: red;";
+            $status = "";
+            if ($servidor->getUnidadeAtual() == 89 || $servidor->getUnidadeAtual() == 157){
+                $status = "color: #EEAD0E;";
+            }
+            elseif($row->pergunta8 == 3){
+                $status = "color: red;";
             }
             
-                $linhas .= '<tr style="'.$negativo.'">
+            
+                $linhas .= '<tr style="'.$status.'">
                                   <th scope="row">'.$posicao.'</th>
                                   <td>'.$servidor->getNomeServidor().'</td>
                                   <td>'.$servidor->getCpfServidor().'</td>
