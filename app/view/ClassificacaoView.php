@@ -170,7 +170,9 @@ class ClassificacaoView extends View{
             elseif($row->pergunta8 == 3){
                 $status = "color: red;";
             }
-            
+            if ($servidor->getCargo() == 110){
+                    $status = "color: blue;";
+            }
             
                 $linhas .= '<tr style="'.$status.'">
                                   <th scope="row">'.$posicao.'</th>

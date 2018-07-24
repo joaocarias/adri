@@ -53,7 +53,8 @@ class ServidorView extends View {
                           <td>'.$objUnidade->selectObj($item->getUnidadeAtual())->getNome_unidade().'</td>                              
                           <td>'.$objCargo->selectObj($item->getCargo())->getNome_cargo().'</td>                              
                           <td>'.$objFuncao->selectObj($item->getFuncao())->getNome_funcao().'</td>        
-                          <td>'. Auxiliar::converterDataParaBR($item->getDataChegadaAtual()).'</td>                                                                                       
+                          <td>'. Auxiliar::converterDataParaBR($item->getDataChegadaAtual()).'</td>   
+                          <td>'. Auxiliar::converterDataParaBR($item->getDataChegadaSms()).'</td>
                     </tr>
                 ';
 
@@ -75,6 +76,7 @@ class ServidorView extends View {
                               <th>CARGO</th>                              
                               <th>FUNÇÃO</th>          
                               <th>DATA LOTAÇÃO</th>
+                              <th>DATA ADMISSÃO</th>
                             </tr>
                           </thead>
                           <tbody>
