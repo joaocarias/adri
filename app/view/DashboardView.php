@@ -611,6 +611,7 @@ class DashboardView extends View {
         
         $objInscricao = new Inscricao();
         $inscrito = $objInscricao->selectObjCPF($_SESSION['cpf_servidor']);
+        $res = "";
 //        echo "Id: ".$inscrito->getIdInscricao();
         if(!empty($inscrito->getIdInscricao())){
             $objCargo = new Cargo();
@@ -683,7 +684,7 @@ class DashboardView extends View {
                             . $this->endForm()                                                 
                    . $this->endCard();
                 
-            return $table;
+            $res .= $table;
         }
         
         else{
@@ -726,7 +727,7 @@ class DashboardView extends View {
 
                         $res .= '<p>Período de Inscrição: <strong> '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getInicio()).' </strong> até <strong>  '. Auxiliar::converterDataTimeBR($objPeriodoInscricao->getFim()).' </strong> </p>'
                              . $button_inscricao
-                        . $this->endCard();
+                        ;
                     }else{
                         $res .= $msg_cargos_portaria;
                     }
@@ -734,10 +735,27 @@ class DashboardView extends View {
                     $res .= $msg_cargos_portaria;
                 }              
                 
-            }     
+            }   
             
-            return $res;
+            $res .= $this->endCard(); 
+            
+            
+            
         }
+        
+        $res .= $this->beginCard("col-md-12", "Links e Arquivos")
+                    ."<ul>"
+                    . " <li><a href='http://portal.natal.rn.gov.br/_anexos/publicacao/dom/dom_20180723_cb53829af2d8ac3b6974a247a45736fb.pdf' target='blank_'>"
+                                    . "PORTARIA Nº 167/2018-GS/SMS de 20 de julho de 2018</a> "
+                                    . " -  Remanejamento  interno  dos  servidores  
+                                            estatutários que assim desejem/necessitem mudança de local de exercício e possuam mesmo 
+                                            cargo, em conformidade com o Edital Nº 001/2018 – SEMAD – SMS - DOM Num. 3855 - 23/07/2018; "
+                    . "</li>"
+                    . "</ul>"
+                . $this->endCard();
+                ;
+        
+        return $res;
         
     }
 

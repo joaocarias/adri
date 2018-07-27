@@ -19,10 +19,11 @@ if($btnLogin){
             $_SESSION['cpf_servidor'] = $dados->getCpf_servidor();
             $_SESSION['logado'] = '1';
 
+            //var_dump($_SESSION);
+            
             $logAcesso = new LogAcesso();
             $retorno = $logAcesso->insertObj($dados->getId_servidor(), $loginUsername,  'PERMITIDO');
-            header('Location: ../page/dashboard.php?r='.$retorno['id']);
-    
+            header('Location: ../page/dashboard.php?r='.$retorno['id']);    
         }else{
             $_SESSION['logado'] = '0';
             $logAcesso = new LogAcesso();

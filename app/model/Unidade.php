@@ -1,6 +1,7 @@
 <?php
 
 include_once '../lib/ModelDimenisionamento.php';
+include_once 'UnidadesBloqueadas.php';
 
 /**
  * Description of Unidade
@@ -28,8 +29,8 @@ class Unidade extends ModelDimenisionamento{
         return $obj;
     }
     
-     public function getArrayBasic(){
-        $list = $this->getListObjActive();
+     public function getArrayBasic($bloqueioDeUnidade = false){
+        $list = $this->getListObjActive($bloqueioDeUnidade);
         
         $array = array();
         
@@ -43,8 +44,14 @@ class Unidade extends ModelDimenisionamento{
         return $array;
     }
     
-    public function getListObjActive(){
-        $sql = " SELECT * FROM unidade WHERE status_unidade = '1' ORDER BY nome_unidade ASC ";
+    public function getListObjActive($bloqueioDeUnidade = false){
+        $queryBloqueio = "";
+        
+        if($bloqueioDeUnidade){
+            $queryBloqueio .= UnidadesBloqueadas::getStringWhereListaBloqueio();
+        }
+        
+        $sql = " SELECT * FROM unidade WHERE status_unidade = '1' {$queryBloqueio} ORDER BY nome_unidade ASC ";
         
         $dados = array();
         $dados = $this->select($sql);
