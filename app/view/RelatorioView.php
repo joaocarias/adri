@@ -9,18 +9,16 @@ include_once '../app/model/Funcao.php';
 include_once '../app/model/Inscricao.php';
 include_once '../app/model/Avaliacao.php';
 
-class InscritosView extends View {
+class RelatorioView extends View {
     function __construct($title_page = null, $sistema = null) {
         parent::__construct($title_page, $sistema);        
     }
     
     private function getContent($action = null, $params = null){
-        if($action == "lista"){
-            return '<section>' .  $this->getFormFiltro() . $this->getLista(). '</section>';
-        }else if($action == "parecer"){
-            return '<section>' . $this->getDadosServidorInscrito($params) 
-                               . $this->getFormParecer($params)
-                    . '</section>';
+        if($action == "inscritos"){
+            return '<section>' .  $this->getFormFiltro() . '</section>';
+        }else if($action == "classifica"){
+            return '<section>' .  $this->getFormClassFiltro() . '</section>';
         }else{
             return '<section>'  . $this->getFormFiltro() . $this->getLista(). '</section>';
         }
@@ -60,20 +58,14 @@ class InscritosView extends View {
             $objCargo = new Cargo();
             $objFuncao = new Funcao();
             $objAvaliacao = new Avaliacao();
-            
 
             $linhas = "";
-            $contRegistros = 0;            
             foreach ($listaInscritos as $item){
                 $classe_nao_avaliado = "";
                 $status = "";
                 
                 if($objAvaliacao->is_avaliado($item->getIdInscricao())){
                     $pontuacao = '<strong>'.$objAvaliacao->getPontuacao($item->getIdInscricao()).'</strong>';
-//                    echo $item->getIdInscricao();
-                    if($objAvaliacao->getObjPorInscricao($item->getIdInscricao())->getPergunta8() == 3){
-                        $status = "color: red;";
-                    }
                 }else{                    
                     $pontuacao = '<font color="red">Ainda não Avaliado</font>';
                 }
@@ -102,9 +94,6 @@ class InscritosView extends View {
                                    <td>'.$button_mais_informacoes.'</td>
                             </tr>
                             ';
-
-                $contRegistros++;
-
             }
 
             $content_ .= '
@@ -131,9 +120,8 @@ class InscritosView extends View {
                               <tbody>
                                    '.$linhas.'            
                               </tbody>
-                            </table>                            
+                            </table>
                           </div>
-                          <p style="text-align:center"><strong>Nº de Registro: '.$contRegistros.'</strong></p>
                         </div>
                       </div>
                    </div>
@@ -184,16 +172,52 @@ class InscritosView extends View {
         $arrayFuncao = $objFuncao->getArrayBasic();
         
         $tituloForm = "Filtro";
-        $actionForm = "inscritos.php";
+        $actionForm = "../print/relatorioincritosprint.php";
         return ' '.$this->beginCard("col-lg-12", $tituloForm).'
                     '.$this->beginForm("col-lg-12" , "POST", $actionForm).'                          
                             '.$this->getSelect($arrayUnidade , "tx_unidade", "Unidade Atual", "col-sm-6", false).'
                             '.$this->getSelect($arrayCargo , "tx_cargo", "Cargo", "col-sm-6", false).'
                             '.$this->getSelect($arrayFuncao , "tx_funcao", "Função", "col-sm-6", false).'                      '
                             .'<div class="line"></div>'
-                            .$this->getInputButtonSubmit("btn_buscar", "Realziar Filtro", "btn-primary")
+                            .$this->getInputButtonSubmit("btn_imprimir", "Gerar Relatório", "btn-primary")
                     .$this->endForm()
                 .$this->endCard()
                 ;        
-    }      
+    } 
+    
+    private function getFormClassFiltro(){
+          
+        $objUnidade = new Unidade();
+        $arrayUnidade = $objUnidade->getArrayBasic();
+        
+        $objCargo = new Cargo();
+        $arrayCargo = $objCargo->getArrayBasic();
+        
+        $objFuncao = new Funcao();
+        $arrayFuncao = $objFuncao->getArrayBasic();
+        
+        $arrayOpcao = array();
+        
+        $arrayOpcao[0]['id'] = 1;
+        $arrayOpcao[0]['value'] = "Primeira Opção";
+        $arrayOpcao[1]['id'] = 2;
+        $arrayOpcao[1]['value'] = "Segunda Opção";
+        $arrayOpcao[2]['id'] = 3;
+        $arrayOpcao[2]['value'] = "Terceira Opção";
+        
+        $tituloForm = "Classificação";
+        $actionForm = "../print/relatorioclassificaprint.php";
+        return ' '.$this->beginCard("col-lg-12", $tituloForm).'
+                    '.$this->beginForm("col-lg-12" , "POST", $actionForm).'   
+                            '.$this->getSelect($arrayOpcao , "tx_opcao", "Opção de Classificação", "col-sm-6", true).'
+                            '.$this->getSelect($arrayUnidade , "tx_unidade", "Unidade", "col-sm-6", true).'
+                            '.$this->getSelect($arrayCargo , "tx_cargo", "Cargo", "col-sm-6", false).'
+                            '.$this->getSelect($arrayFuncao , "tx_funcao", "Função", "col-sm-6", false).'   
+                             
+                             <div class="line"></div>'
+                            .$this->getInputButtonSubmit("btn_imprimir", "Gerar Relatório", "btn-primary")
+                    .$this->endForm()
+                .$this->endCard()
+                ;       
+    }
 }

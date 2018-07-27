@@ -274,6 +274,15 @@ class ClassificacaoView extends View{
             $arrayInscricoes = $objInscricao->getListNaoAvaliados($arrayFiltro);
             
             foreach ($arrayInscricoes as $row){
+                
+            
+                $status = "";
+            if ($row->getUnidadeAtual() == 89 || $row->getUnidadeAtual() == 157){
+                $status = "color: #EEAD0E;";
+            }
+            elseif ($row->getCargo() == 110){
+                    $status = "color: blue;";
+            }
 
             $button_mais_informacoes = "<a id='btn_mais_informacoes' name='btn-mais-informacoes' href='servidor.php?idinscricao={$row->getIdInscricao()}' class='btn btn-info btn-sm'>Mais Informações</a>";
 
