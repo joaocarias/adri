@@ -636,6 +636,7 @@ class InscricaoView extends View {
     private function getFormServidor(){
         
         $myObjUni = new Unidade();
+        $arrayUnidadeDesejo = $myObjUni->getArrayBasic(true);
         $arrayUnidade = $myObjUni->getArrayBasic();
         
         $myObjCar = new Cargo();
@@ -675,9 +676,9 @@ class InscricaoView extends View {
                     '.$this->getInput("text", "data_chegada_setor", "14 - Data Chegada no Setor", "Data Início no Setor de Saúde", "col-sm-4", true, "", false, "99/99/9999").'
                     
                     <br><h5>Escolha de 1 a 3 unidades para onde deseja ser remanejado(a).</h5><br>
-                    '.$this->getSelect($arrayUnidade, "unidade_vai1", "13 - Unidade 1", "col-sm-8", true).'
-                    '.$this->getSelect($arrayUnidade, "unidade_vai2", "14 - Unidade 2", "col-sm-8", false).'
-                    '.$this->getSelect($arrayUnidade, "unidade_vai3", "15 - Unidade 3", "col-sm-8", false).'
+                    '.$this->getSelect($arrayUnidadeDesejo, "unidade_vai1", "13 - Unidade 1", "col-sm-8", true).'
+                    '.$this->getSelect($arrayUnidadeDesejo, "unidade_vai2", "14 - Unidade 2", "col-sm-8", false).'
+                    '.$this->getSelect($arrayUnidadeDesejo, "unidade_vai3", "15 - Unidade 3", "col-sm-8", false).'
                     
                     <br><h5>Se trabalhou em outra unidade além da atual, informe até 3 unidades anteriores.</h5><br>
                     '.$this->getSelect($arrayUnidade, "unidade_foi1", "16 - Unidade 1", "col-sm-8", false).'
