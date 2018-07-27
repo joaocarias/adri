@@ -281,6 +281,7 @@ class Servidor extends ModelDimenisionamento{
                     INNER JOIN vinculo v ON s.id_servidor = v.id_servidor
                     INNER JOIN movimentacao m ON s.id_servidor = m.id_servidor
                     WHERE s.ativo = 1 AND s.id_servidor = '{$id}'
+                        AND (v.id_status_vinculo = '1' or v.id_status_vinculo = '2' )
                     ORDER BY v.id_vinculo DESC";
         
         $dados = $this->select($sql);  
