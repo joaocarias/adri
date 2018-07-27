@@ -62,6 +62,7 @@ class InscritosView extends View {
             $objAvaliacao = new Avaliacao();
 
             $linhas = "";
+            $contRegistros = 0;            
             foreach ($listaInscritos as $item){
                 $classe_nao_avaliado = "";
                 $status = "";
@@ -96,6 +97,7 @@ class InscritosView extends View {
                                    <td>'.$button_mais_informacoes.'</td>
                             </tr>
                             ';
+                $contRegistros++;
             }
 
             $content_ .= '
@@ -122,8 +124,9 @@ class InscritosView extends View {
                               <tbody>
                                    '.$linhas.'            
                               </tbody>
-                            </table>
+                            </table>                            
                           </div>
+                          <p style="text-align:center"><strong>Nº de Registro: '.$contRegistros.'</strong></p>
                         </div>
                       </div>
                    </div>

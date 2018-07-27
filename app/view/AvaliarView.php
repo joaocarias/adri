@@ -243,7 +243,7 @@ class AvaliarView extends View{
       private function getFormFiltro(){
           
         $objUnidade = new Unidade();
-        $arrayUnidade = $objUnidade->getArrayBasic();
+        $arrayUnidade = $objUnidade->getArrayBasic(true);
         
         $objCargo = new Cargo();
         $arrayCargo = $objCargo->getArrayBasic();

@@ -101,7 +101,7 @@ class AvaliadoresView extends View{
         $hi_id_servidor = $this->getHidden("hi_id_servidor", $item->getId_servidor());
                  
         $objUnidade = new Unidade();
-        $arrayUnidades = $objUnidade->getArrayBasic();
+        $arrayUnidades = $objUnidade->getArrayBasic(true);
         
         return ' 
                 '.$this->beginCard("col-lg-12", $tituloForm).'             
