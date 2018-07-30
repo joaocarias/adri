@@ -155,39 +155,39 @@ class Servidor extends ModelDimenisionamento{
         $res = false;
         foreach($dados as $valor){
             switch ($valor->id_orgao){
-                case 14:
+                case 14:                        //SMS
                     $res = true;
                     break;
-                case 16:
+                case 16:                        //SMS - PLANO DA SAUDE
                     $res = true;
                     break;
-                case 17:
-                    $res = true;
-                    break;
-                case 22:
+//                case 17:                        //SMS - PLANO DE CARGOS
+//                    $res = true;                  //Bloqueado por caracterizar desvio de cargos
+//                    break;
+                case 22:                        //SME
                     $res = true;
                     break;  
-                case 35:
+                case 35:                        //SETHAS
                     $res = true;
                     break;  
                 
-                case 37:
+                case 37:                        //PREFEITURA DO TOCANTINS             
                     $res = true;
                     break;
-                case 29:
+                case 29:                        //DATANORTE
                     $res = true;
                     break;
-                case 3:
+                case 3:                         //FUNASA
                     $res = true;
                     break;
-                case 32:
+                case 32:                        //ITEP
                     $res = true;
                     break;                
-                case 6:
+                case 6:                         //MINISTÉRIO DA SAÚDE
                     $res = true;
                     break;                
                 
-                case 7:
+                case 7:                         //PM DE PEDRO AVELINO
                     $res = true;
                     break;
                 case 8:
