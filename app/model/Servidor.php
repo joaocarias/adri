@@ -161,9 +161,9 @@ class Servidor extends ModelDimenisionamento{
                 case 16:                        //SMS - PLANO DA SAUDE
                     $res = true;
                     break;
-//                case 17:                        //SMS - PLANO DE CARGOS
-//                    $res = true;                  //Bloqueado por caracterizar desvio de cargos
-//                    break;
+                case 17:                        //SMS - PLANO DE CARGOS
+                    $res = true;                  //Bloqueado por caracterizar desvio de cargos
+                    break;
                 case 22:                        //SME
                     $res = true;
                     break;  
