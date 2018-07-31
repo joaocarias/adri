@@ -75,12 +75,12 @@ class InscritosView extends View {
                         $status = "color: red;";
                     }
                 }else{                    
-                    $pontuacao = '<font color="red">Ainda não Avaliado</font>';
+                    $pontuacao = '<font color="#FF8C00">Ainda não Avaliado</font>';
                 }
                 
                 $servidor = $objInscricao->selectObj($item->getIdInscricao());
                 if ($servidor->getUnidadeAtual() == 89 || $servidor->getUnidadeAtual() == 157){
-                    $status = "color: #EEAD0E;";
+                    $status = "color: #32CD32;";
                 }
                 
                 if ($servidor->getCargo() == 110){
@@ -114,6 +114,7 @@ class InscritosView extends View {
                           <h3 class="h4">Lista</h3>
                         </div>
                         <div class="card-body">
+                        <p><strong>Legenda:</strong> <font color="#FF8C00">Ainda não Avaliado</font>/ <font color="red">Avaliador não Autoriza Saída do Servidor</font>/ <font color="blue">Cargo de Nível Superior</font>/ <font color="#32CD32">Disponível ao Nível Central</font></p>
                           <div class="table-responsive">                       
                             <table class="table table-striped table-hover">
                               <thead>

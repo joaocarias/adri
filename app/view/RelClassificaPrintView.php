@@ -194,7 +194,7 @@ class RelClassificaPrintView extends View {
         $arrayFiltro = array();
         if($unidade || $cargo || $funcao ){
             if($unidade){
-                $arrayFiltro[$opcao] = $tunidade;
+                $arrayFiltro[$opcao] = $unidade;
             }
 
             if($cargo){
