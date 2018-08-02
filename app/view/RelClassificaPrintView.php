@@ -111,7 +111,7 @@ class RelClassificaPrintView extends View {
             $status = "";
             $class = "";
             if ($servidor->getUnidadeAtual() == 89 || $servidor->getUnidadeAtual() == 157){
-                $status = " #EEAD0E";
+                $status = "#32CD32";
                 $class = "gold";
             }
             elseif($row->pergunta8 == 3){
@@ -145,9 +145,9 @@ class RelClassificaPrintView extends View {
             $this->getHeader()
                      . '<body style=" font-size: 10pt;">
                          <style>
-                            .red {color: red;}
-                            .blue {color: blue;}
-                            .gold {color: #EEAD0E;}
+                            table.bordasimples {border-collapse: collapse;}
+                            table.bordasimples tr td {border:1px solid; text-align: center;}
+                            table.bordasimples tr th {border:1px solid;}
                           </style>
                       <p><address><strong>PREFEITURA MUNICIPAL DO NATAL</strong><br/>                            
                                 <strong>Secretaria Municipal de Saúde - SMS</strong><br />
@@ -158,8 +158,9 @@ class RelClassificaPrintView extends View {
                      <hr />
                         <div class="col-lg-12">                  
                           <h3 class="h4">Relatório Classificação '.$subtitle.'</h3>
+                              <p><strong>Legenda:</strong> <font color="red">Avaliador não Autoriza Saída do Servidor</font>/ <font color="blue">Cargo de Nível Superior</font>/ <font color="#32CD32">Disponível ao Nível Central</font></p>
                           <div class="table-responsive">                       
-                            <table class="table table-striped table-hover table-bordered">
+                            <table class="table bordasimples">
                               <thead>
                                 <tr>
                                   <th>#</th>
@@ -225,7 +226,7 @@ class RelClassificaPrintView extends View {
             
                 $status = "";
             if ($row->getUnidadeAtual() == 89 || $row->getUnidadeAtual() == 157){
-                $status = "#EEAD0E";
+                $status = "#32CD32";
             }
             elseif ($row->getCargo() == 110){
                     $status = "blue";
@@ -253,7 +254,7 @@ class RelClassificaPrintView extends View {
                           <h3 class="h4">Não Avaliados</h3>
                    </div>
                    <div class="table-responsive">                       
-                            <table class="table table-striped table-hover table-bordered">
+                            <table class="table bordasimples">
                               <thead>
                                 <tr>
                                   <th>#</th>

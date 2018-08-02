@@ -75,12 +75,12 @@ class RelInscricaoPrintView extends View {
                         $status = "red";
                     }
                 }else{                    
-                    $pontuacao = '<font color="red">Ainda não Avaliado</font>';
+                    $pontuacao = '<font color="#FF8C00">Ainda não Avaliado</font>';
                 }
                 
                 $servidor = $objInscricao->selectObj($item->getIdInscricao());
                 if ($servidor->getUnidadeAtual() == 89 || $servidor->getUnidadeAtual() == 157){
-                    $status = "#EEAD0E";
+                    $status = "#32CD32";
                 }
                 
                 if ($servidor->getCargo() == 110){
@@ -107,7 +107,12 @@ class RelInscricaoPrintView extends View {
             $meu_html .= '<!DOCTYPE html>
                     <html>'.
             $this->getHeader()
-                     . '<body style=" font-size: 10pt;">
+                     . '<style>
+                            table.bordasimples {border-collapse: collapse;}
+                            table.bordasimples tr td {border:1px solid; text-align: center;}
+                            table.bordasimples tr th {border:1px solid;}
+                        </style>
+                         <body style=" font-size: 10pt;">
                       <p><address><strong>PREFEITURA MUNICIPAL DO NATAL</strong><br/>                            
                                 <strong>Secretaria Municipal de Saúde - SMS</strong><br />
                                 R. Fabrício Pedroza, 915 <br />
@@ -117,8 +122,9 @@ class RelInscricaoPrintView extends View {
                      <hr />
                         <div class="col-lg-12">                  
                           <h3 class="h4">Relatório Inscritos '.$subtitle.'<br>Quantidade de Inscritos: '.$qtdInscritos.'</h3>
+                              <p><strong>Legenda:</strong> <font color="#FF8C00">Ainda não Avaliado</font>/ <font color="red">Avaliador não Autoriza Saída do Servidor</font>/ <font color="blue">Cargo de Nível Superior</font>/ <font color="#32CD32">Disponível ao Nível Central</font></p>
                           <div class="table-responsive">                       
-                            <table class="table table-striped table-hover table-bordered">
+                            <table class="table bordasimples">
                               <thead>
                                 <tr>
                                   <th>#</th>
